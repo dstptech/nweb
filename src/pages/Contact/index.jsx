@@ -122,33 +122,33 @@ export default function Contact() {
       </section>
 
       {/* Info Cards Section */}
-      <section className="py-10 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto mb-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-[18px] border border-[#E5E7EB] shadow-sm group relative">
-            <div className="bg-[#EFF6FF] w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-colors">
+      <section className="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="bg-white px-10 py-5 rounded-[18px] border border-[#E5E7EB] shadow-sm group relative flex flex-col justify-center">
+            <div className="bg-[#EFF6FF] w-11 h-11 rounded-xl flex items-center justify-center mb-3 transition-colors">
               <svg className="w-5 h-5 text-[#2563EB]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 className="text-[17px] font-bold text-[#111827] mb-2 tracking-tight">Email Us Directly</h3>
-            <p className="text-[#6B7280] mb-5 text-[13px] font-medium leading-relaxed max-w-[280px]">Prefer email? Shoot us a message and we'll get back to you within 24 hours.</p>
-            <a href="mailto:info@padmastechnologies.com" className="text-[#2563EB] font-bold text-[13px] hover:underline decoration-1 underline-offset-4">info@padmastechnologies.com</a>
+            <h3 className="text-[17px] font-bold text-[#111827] mb-1.5 tracking-tight">Email Us Directly</h3>
+            <p className="text-[#6B7280] mb-4 text-[13px] font-medium leading-relaxed max-w-[400px]">Prefer email? Shoot us a message and we'll get back to you within 24 hours.</p>
+            <a href="mailto:info@padmastechnologies.com" className="text-[#2563EB] font-bold text-[13px] hover:underline decoration-1 underline-offset-4">info@dstptechnologies.com</a>
             <div className="absolute top-5 right-5 text-gray-300 opacity-60 group-hover:opacity-100 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-              <svg className="w-3.5 h-3.4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7V17" />
               </svg>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-[18px] border border-[#E5E7EB] shadow-sm group relative">
-            <div className="bg-[#EFF6FF] w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-colors">
+          <div className="bg-white px-10 py-5 rounded-[18px] border border-[#E5E7EB] shadow-sm group relative flex flex-col justify-center">
+            <div className="bg-[#EFF6FF] w-11 h-11 rounded-xl flex items-center justify-center mb-3 transition-colors">
               <svg className="w-5 h-5 text-[#2563EB]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
               </svg>
             </div>
-            <h3 className="text-[17px] font-bold text-[#111827] mb-2 tracking-tight">Connect on LinkedIn</h3>
-            <p className="text-[#6B7280] mb-5 text-[13px] font-medium leading-relaxed max-w-[280px]">Follow our journey, see job updates, and connect with our team professionally.</p>
-            <a href="https://linkedin.com" className="text-[#2563EB] font-bold text-[13px] hover:underline decoration-1 underline-offset-4">Padmas™ Technologies</a>
+            <h3 className="text-[17px] font-bold text-[#111827] mb-1.5 tracking-tight">Connect on LinkedIn</h3>
+            <p className="text-[#6B7280] mb-4 text-[13px] font-medium leading-relaxed max-w-[400px]">Follow our journey, see job updates, and connect with our team professionally.</p>
+            <a href="https://linkedin.com" className="text-[#2563EB] font-bold text-[13px] hover:underline decoration-1 underline-offset-4">DSTP™ Technologies</a>
             <div className="absolute top-5 right-5 text-gray-300 opacity-60 group-hover:opacity-100 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7V17" />
