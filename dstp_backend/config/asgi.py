@@ -23,7 +23,7 @@ import os
 from django.core.asgi import get_asgi_application
 
 # Default to dev settings — production overrides via system environment
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dstp_backend.settings")
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
 # Standard Django ASGI app — handles HTTP requests
 # If you add Django Channels later for WebSockets, wrap this:
