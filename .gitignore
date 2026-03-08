@@ -4,6 +4,8 @@ build/
 .env
 .env.*
 .log
+logs/
+*.log
 npm-debug.log
 .vscode/
 .idea/
