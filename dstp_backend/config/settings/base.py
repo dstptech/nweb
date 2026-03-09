@@ -168,9 +168,9 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
 
-    # Pagination: all list endpoints return pages of 20
-    "DEFAULT_PAGINATION_CLASS": "apps.core.pagination.StandardResultsPagination",
-    "PAGE_SIZE": 20,
+    # Pagination: all list endpoints return pages of 10
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
 
     # Filtering & ordering
     "DEFAULT_FILTER_BACKENDS": [
@@ -323,7 +323,7 @@ LOGGING = {
             "maxBytes": 10 * 1024 * 1024,
             "backupCount": 5,
             "formatter": "verbose",
-            "level": "ERROR",
+            "level": "INFO",
         },
     },
 
