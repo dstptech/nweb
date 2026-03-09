@@ -1,8 +1,7 @@
-"""DSTP Backend — Testimonials URLs"""
-from django.urls import path
+from rest_framework.routers import DefaultRouter
+from .views import TestimonialViewSet
 
-app_name = 'testimonials'
+router = DefaultRouter()
+router.register(r'testimonials', TestimonialViewSet, basename='testimonials')
 
-urlpatterns = [
-    # TODO: Add testimonials endpoints
-]
+urlpatterns = router.urls

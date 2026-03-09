@@ -1,8 +1,7 @@
-"""DSTP Backend — Industries URLs"""
-from django.urls import path
+from rest_framework.routers import DefaultRouter
+from .views import IndustryViewSet
 
-app_name = 'industries'
+router = DefaultRouter()
+router.register(r'industries', IndustryViewSet, basename='industries')
 
-urlpatterns = [
-    # TODO: Add industries endpoints
-]
+urlpatterns = router.urls
