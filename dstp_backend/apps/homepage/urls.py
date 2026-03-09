@@ -1,8 +1,7 @@
-"""DSTP Backend — Homepage URLs"""
-from django.urls import path
+from rest_framework.routers import DefaultRouter
+from .views import HomepageViewSet
 
-app_name = 'homepage'
+router = DefaultRouter()
+router.register(r'homepage', HomepageViewSet, basename='homepage')
 
-urlpatterns = [
-    # TODO: Add homepage endpoints
-]
+urlpatterns = router.urls

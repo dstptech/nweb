@@ -27,6 +27,14 @@ api_v1_patterns = [
 
 urlpatterns = [
     path("api/v1/", include((api_v1_patterns, "v1"), namespace="v1")),
+    path("api/v1/projects/", include("apps.projects.urls")),
+    path("api/v1/blog/", include("apps.blog.urls")),
+    path("api/v1/careers/", include("apps.careers.urls")),
+    path("api/v1/testimonials/", include("apps.testimonials.urls")),
+    path("api/v1/contact/", include("apps.contact.urls")),
+    path("api/v1/industries/", include("apps.industries.urls")),
+    path("api/v1/homepage/", include("apps.homepage.urls")),
+
 
     # API schema + docs
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
