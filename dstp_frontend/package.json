@@ -1,1 +1,0 @@
-{"name": "dstp-frontend", "private": true, "version": "0.0.0", "type": "module", "description": "DSTP Frontend - Monorepo with client and admin apps", "workspaces": ["client", "admin"]}
