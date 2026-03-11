@@ -7,3 +7,9 @@ class TestimonialViewSet(viewsets.ModelViewSet):
     queryset = Testimonial.objects.all()
     serializer_class = TestimonialSerializer
     permission_classes = [AllowAny]  # public for now
+    
+    filterset_fields = ["rating"]
+    search_fields = ["client_name", "feedback"]
+    ordering_fields = ["rating", "client_name"]
+    ordering = ["-rating"]
+   

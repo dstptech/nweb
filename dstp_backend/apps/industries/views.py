@@ -7,3 +7,9 @@ class IndustryViewSet(viewsets.ModelViewSet):
     queryset = Industry.objects.all()
     serializer_class = IndustrySerializer
     permission_classes = [AllowAny]  # public for frontend
+    
+    filterset_fields = ["name"]
+    search_fields = ["name", "description"]
+    ordering_fields = ["name"]
+    ordering = ["name"]
+

@@ -17,8 +17,9 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=200)),
                 ('description', models.TextField()),
-                ('client', models.CharField(blank=True, max_length=200, null=True)),
-                ('completed_on', models.DateField(blank=True, null=True)),
+                ('client', models.CharField(max_length=100)),
+                ('completed_on', models.DateField()),
+                ('project_image', models.ImageField(blank=True, null=True, upload_to='projects/screenshots/')),
             ],
         ),
     ]
