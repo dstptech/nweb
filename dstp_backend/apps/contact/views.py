@@ -7,3 +7,9 @@ class ContactViewSet(viewsets.ModelViewSet):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
     permission_classes = [AllowAny]  # public for now
+    
+    filterset_fields = ["email", "submitted_on"]
+    search_fields = ["name", "email", "message"]
+    ordering_fields = ["submitted_on", "name"]
+    ordering = ["-submitted_on"]
+

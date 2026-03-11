@@ -7,3 +7,5 @@ class HomepageViewSet(viewsets.ModelViewSet):
     queryset = Homepage.objects.all()
     serializer_class = HomepageSerializer
     permission_classes = [AllowAny]  # public for frontend
+    
+    
