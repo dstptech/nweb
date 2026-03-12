@@ -42,4 +42,8 @@ dist-ssr
 *.sln
 *.sw?
 
+<<<<<<< HEAD
 .idea/
+=======
+.idea
+>>>>>>> 1164f2c71bcf31e304d177dc8701bf6acdd3bb88
