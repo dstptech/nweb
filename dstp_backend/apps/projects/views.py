@@ -11,3 +11,9 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["client", "completed_on"]  # filter by client or date
+    
+    filterset_fields = ["client", "completed_on"]
+    search_fields = ["title", "description", "client"]
+    ordering_fields = ["completed_on", "title"]
+    ordering = ["-completed_on"]
+
