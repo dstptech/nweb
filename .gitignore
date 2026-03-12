@@ -7,6 +7,25 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+*.egg-info/
+.eggs/
+*.egg
+
+# Django
+*.sqlite3
+db.sqlite3
+staticfiles/
+media/
+
 node_modules
 dist
 dist-ssr
