@@ -115,3 +115,7 @@
 [2026-03-12 13:02:39] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
 [2026-03-12 13:02:39] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
 [2026-03-12 13:02:39] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 13:02:41] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 13:02:41] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 13:02:41] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 13:02:41] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
