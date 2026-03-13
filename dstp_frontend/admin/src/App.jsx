@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import { AdminLayout } from "./components"
 import { DashboardPage, ServicesList, HomepageEditor } from "./pages"
+import TeamsList from "./pages/Team/Teamslist"
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <Route index                element={<DashboardPage />}   />
         <Route path="services"      element={<ServicesList />}    />
         <Route path="homepage"      element={<HomepageEditor />}  />
+        <Route path="teams" element={<TeamsList />} /> 
       </Route>
     </Routes>
   )

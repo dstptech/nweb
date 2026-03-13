@@ -24,7 +24,7 @@ const navSections = [
       { name: "HomePage Editor", path: "/Homepage", icon: Edit, badge: null },
       { name: "Projects", path: "/projects", icon: FolderOpen, badge: null },
       { name: "Clients", path: "/clients", icon: Users, badge: null },
-      { name: "Team", path: "/team", icon: UserCheck, badge: null },
+      { name: "Team", path: "/teams", icon: UserCheck, badge: null },
       { name: "Services", path: "/services", icon:HandHelping, badge: null },
     ],
   },

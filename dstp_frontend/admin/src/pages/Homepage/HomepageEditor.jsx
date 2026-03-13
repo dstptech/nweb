@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Save, RotateCcw, Eye, Loader } from "lucide-react"
+import { Save, RotateCcw, Eye, Loader2 } from "lucide-react"
 import toast from "react-hot-toast"
 import { getHomepageData, updateHomepageData, createHomepageData } from "../../api/homepageApi"
 
@@ -10,6 +10,12 @@ import TestimonialsEditor from "./sections/TestimonialsEditor"
 import AboutEditor        from "./sections/AboutEditor"
 import ContactEditor      from "./sections/ContactEditor"
 
+// ── TAARANSH'S API ONLY HAS THESE 7 FIELDS ────────────
+// hero_title, hero_subtitle, hero_image,
+// banner_text, banner_image,
+// stats_title, stats_value
+// ──────────────────────────────────────────────────────
+
 const tabs = [
   { id: "hero",         label: "Hero",         emoji: "🦸" },
   { id: "services",     label: "Services",     emoji: "🛠️" },
@@ -18,21 +24,30 @@ const tabs = [
   { id: "about",        label: "About/Team",   emoji: "👥" },
   { id: "contact",      label: "Contact/CTA",  emoji: "📞" },
 ]
-// This is used as fallback if API returns empty/null
+
 const defaultData = {
   hero: {
-    badge: "", title: "", titleHighlight: "",
-    subtitle: "", primaryBtn: "", secondaryBtn: "",
-    primaryBtnLink: "", secondaryBtnLink: "",
-    bgColor: "#0a0f1e", textColor: "#ffffff"
+    hero_title:      "",
+    hero_subtitle:   "",
+    hero_image:      "",
+    banner_text:      "",
+    banner_image:     "",
+    stats_title:     "",
+    stats_value:     "",
+    updated_on:      null,
+    bgColor:          "#0a0f1e",
+    textColor:        "#ffffff",
+  },
+  about: {
+    title:       "",
+    stats: [{ id: 1, value: "", label: "Stat 1" }],
+    subtitle:    "",
+    description: "",
+    vision:      "",
   },
   services:     [],
   projects:     [],
   testimonials: [],
-  about: {
-    title: "", subtitle: "", description: "",
-    vision: "", stats: []
-  },
   contact: {
     title: "", subtitle: "", btnText: "",
     btnLink: "", email: "", phone: "",
@@ -41,157 +56,115 @@ const defaultData = {
 }
 
 function HomepageEditor() {
-  const [activeTab, setActiveTab] = useState("hero")
-  const [data, setData]           = useState(null)
+  const [activeTab,  setActiveTab]  = useState("hero")
+  const [data,       setData]       = useState(null)
   const [homepageId, setHomepageId] = useState(null)
-  const [loading, setLoading]     = useState(true)
-  const [saving, setSaving]       = useState(false)
-  const [error, setError]         = useState(null)
+  const [loading,    setLoading]    = useState(true)
+  const [saving,     setSaving]     = useState(false)
+  const [error,      setError]      = useState(null)
 
-  // For Page Load
-  useEffect(() => {
-    fetchData()
-  }, [])
+  useEffect(() => { fetchData() }, [])
 
   const fetchData = async () => {
     try {
       setLoading(true)
       setError(null)
-
-      console.log("Fetching homepage data...")  // debug log
+      console.log("📡 Fetching homepage data...")
       const response = await getHomepageData()
-      console.log("API Response:", response)    // debug log — check this!
+      console.log("✅ API Response:", response)
 
       if (response) {
         setHomepageId(response.id)
-
-        // Map API response to our data structure
-        // Change field names below to match what your API actually returns!
         setData({
           hero: {
-            badge:            response.hero_badge        || "",
-            title:            response.hero_title        || "",
-            titleHighlight:   response.hero_highlight    || "",
-            subtitle:         response.hero_subtitle     || "",
-            primaryBtn:       response.primary_btn_text  || "",
-            secondaryBtn:     response.secondary_btn_text|| "",
-            primaryBtnLink:   response.primary_btn_link  || "",
-            secondaryBtnLink: response.secondary_btn_link|| "",
-            bgColor:          response.hero_bg_color     || "#0a0f1e",
-            textColor:        response.hero_text_color   || "#ffffff",
+            hero_title:      response.hero_title    || "",
+            hero_subtitle:   response.hero_subtitle || "",
+            hero_image:      response.hero_image    || "",
+            banner_text:     response.banner_text   || "",
+            banner_image:    response.banner_image  || "",
+            stats_title:     response.stats_title   || "",
+            stats_value:     response.stats_value   || "",
+            updated_on:      response.updated_on    || null,
+            bgColor:          "#0a0f1e",
+            textColor:        "#ffffff",
           },
-          services:     response.services     || [],
-          projects:     response.projects     || [],
-          testimonials: response.testimonials || [],
           about: {
-            title:       response.about_title       || "",
-            subtitle:    response.about_subtitle    || "",
-            description: response.about_description || "",
-            vision:      response.about_vision      || "",
-            stats:       response.about_stats       || [],
+            title:       response.stats_title || "",
+            stats: [{ id: 1, value: response.stats_value || "", label: "Stat 1" }],
+            subtitle:    "",
+            description: "",
+            vision:      "",
           },
+          services:     [],
+          projects:     [],
+          testimonials: [],
           contact: {
-            title:     response.contact_title    || "",
-            subtitle:  response.contact_subtitle || "",
-            btnText:   response.contact_btn_text || "",
-            btnLink:   response.contact_btn_link || "",
-            email:     response.contact_email    || "",
-            phone:     response.contact_phone    || "",
-            address:   response.contact_address  || "",
-            bgColor:   response.contact_bg_color || "#1e293b",
-            textColor: response.contact_text_color|| "#ffffff",
+            title: "", subtitle: "", btnText: "",
+            btnLink: "", email: "", phone: "",
+            address: "", bgColor: "#1e293b", textColor: "#ffffff",
           }
         })
       } else {
-        // No data in DB yet — use defaults
-        console.log("No data found, using defaults")
+        console.log("⚠️ No data, using defaults")
         setData(defaultData)
       }
 
     } catch (err) {
-      console.error("Fetch error:", err)
-
-      // Check what kind of error
+      console.error("❌ Fetch error:", err)
       if (err.code === "ERR_NETWORK") {
         setError("Cannot connect to backend. Is Django running on port 8000?")
       } else if (err.response?.status === 401) {
         setError("Not authorized. Please login first.")
       } else if (err.response?.status === 404) {
-        setError("API endpoint not found. Check the URL with Taaransh.")
+        setError("API endpoint not found.")
       } else {
-        setError("Something went wrong. Check console for details.")
+        setError("Something went wrong. Check console.")
       }
-
-      // Use defaults so page doesn't break completely
       setData(defaultData)
-
     } finally {
       setLoading(false)
     }
   }
 
-  // ── UPDATE ONE SECTION FIELD ─────────────────────
   const updateSection = (section, field, value) => {
     setData(prev => ({
       ...prev,
-      [section]: {
-        ...prev[section],
-        [field]: value
-      }
+      [section]: { ...prev[section], [field]: value }
     }))
   }
 
-  // ── SAVE TO API ──────────────────────────────────
+  // ── SAVE — only sends the 7 fields the API accepts ──
   const handleSave = async () => {
     try {
       setSaving(true)
 
-      // Map our data back to API field names
       const payload = {
-        hero_badge:           data.hero.badge,
-        hero_title:           data.hero.title,
-        hero_highlight:       data.hero.titleHighlight,
-        hero_subtitle:        data.hero.subtitle,
-        primary_btn_text:     data.hero.primaryBtn,
-        secondary_btn_text:   data.hero.secondaryBtn,
-        primary_btn_link:     data.hero.primaryBtnLink,
-        secondary_btn_link:   data.hero.secondaryBtnLink,
-        hero_bg_color:        data.hero.bgColor,
-        hero_text_color:      data.hero.textColor,
-        services:             data.services,
-        projects:             data.projects,
-        testimonials:         data.testimonials,
-        about_title:          data.about.title,
-        about_subtitle:       data.about.subtitle,
-        about_description:    data.about.description,
-        about_vision:         data.about.vision,
-        about_stats:          data.about.stats,
-        contact_title:        data.contact.title,
-        contact_subtitle:     data.contact.subtitle,
-        contact_btn_text:     data.contact.btnText,
-        contact_btn_link:     data.contact.btnLink,
-        contact_email:        data.contact.email,
-        contact_phone:        data.contact.phone,
-        contact_address:      data.contact.address,
-        contact_bg_color:     data.contact.bgColor,
-        contact_text_color:   data.contact.textColor,
+        hero_title:    data.hero.hero_title       || "Default Hero Title",
+        hero_subtitle: data.hero.hero_subtitle    || "Subtitle",
+        hero_image:    data.hero.hero_image   || null,
+        banner_text:   data.hero.banner_text       || "Default Banner Text",
+        banner_image:  data.hero.banner_image || null,
+        stats_title:   data.hero.stats_title      || "Default Stats Title",
+        stats_value:   data.hero.stats_value || "Default Stats Value",
       }
 
-      console.log("Saving payload:", payload) // debug log
+      console.log("📤 Sending payload:", payload)
 
       if (homepageId) {
         await updateHomepageData(homepageId, payload)
+        console.log("✅ Updated! ID:", homepageId)
       } else {
         const created = await createHomepageData(payload)
         setHomepageId(created.id)
+        console.log("✅ Created! ID:", created.id)
       }
 
-      toast.success("Homepage saved successfully!")
+      toast.success("Homepage saved successfully! ✅")
 
     } catch (err) {
       console.error("Save error:", err)
-      toast.error("Failed to save. Check console!")
-    } finally {
+      console.error("Django error:", err.response?.data)
+}finally {
       setSaving(false)
     }
   }
@@ -201,12 +174,11 @@ function HomepageEditor() {
     toast("Reset to saved version!", { icon: "🔄" })
   }
 
-  // ── LOADING ──────────────────────────────────────
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96">
         <div className="text-center">
-          <Loader size={32} className="animate-spin text-blue-500 mx-auto mb-4" />
+          <Loader2 size={32} className="animate-spin text-blue-500 mx-auto mb-4" />
           <p className="text-gray-500 text-sm">Loading homepage data...</p>
           <p className="text-gray-400 text-xs mt-1">Connecting to backend...</p>
         </div>
@@ -214,7 +186,6 @@ function HomepageEditor() {
     )
   }
 
-  // ── NO DATA ──────────────────────────────────────
   if (!data) return null
 
   return (
@@ -224,31 +195,28 @@ function HomepageEditor() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Homepage Editor</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Edit website content without touching any code
-          </p>
+          <p className="text-sm text-gray-500 mt-1">Edit website content without touching any code</p>
         </div>
 
         <div className="flex items-center gap-3">
-
-          {/* Show error banner if any */}
           {error && (
-            <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 px-3 py-2 rounded-xl text-xs">
+            <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 px-3 py-2 rounded-xl text-xs max-w-xs">
               ⚠️ {error}
             </div>
           )}
+
           <a
-            href="http://localhost:8000"
+            href="http://localhost:3000"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
           >
             <Eye size={16} /> Preview Site
           </a>
 
           <button
             onClick={handleReset}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
           >
             <RotateCcw size={16} /> Reset
           </button>
@@ -256,18 +224,32 @@ function HomepageEditor() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold disabled:opacity-60"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-sm font-semibold disabled:opacity-60 disabled:cursor-not-allowed transition-all"
           >
             {saving
-              ? <><Loader size={15} className="animate-spin" /> Saving...</>
+              ? <><Loader2 size={15} className="animate-spin" /> Saving...</>
               : <><Save size={15} /> Save Changes</>
             }
           </button>
         </div>
       </div>
 
+      {/* INFO BANNER */}
+      {/* <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-3 flex items-start gap-3">
+        <span>ℹ️</span>
+        <div>
+          <p className="text-sm font-semibold text-amber-800">Fields currently saving to database:</p>
+          <p className="text-xs text-amber-700 mt-0.5">
+            Hero Title · Hero Subtitle · Hero Image · Badge Text · Banner Image · Stats Title · Stats Value
+          </p>
+          <p className="text-xs text-amber-600 mt-0.5">
+            Services, Projects, Testimonials & Contact → ask Taaransh to add these to the API model.
+          </p>
+        </div>
+      </div> */}
+
       {/* TABS */}
-      <div className="flex gap-2 bg-gray-100 p-1.5 rounded-2xl w-fit">
+      <div className="flex gap-2 bg-gray-100 p-1.5 rounded-2xl w-fit flex-wrap">
         {tabs.map(tab => (
           <button
             key={tab.id}
@@ -326,6 +308,7 @@ function HomepageEditor() {
           />
         }
       </div>
+
     </div>
   )
 }
