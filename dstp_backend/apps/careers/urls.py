@@ -1,8 +1,7 @@
-"""DSTP Backend — Careers URLs"""
-from django.urls import path
+from rest_framework.routers import DefaultRouter
+from .views import CareerViewSet
 
-app_name = 'careers'
+router = DefaultRouter()
+router.register(r'careers', CareerViewSet, basename='careers')
 
-urlpatterns = [
-    # TODO: Add careers endpoints
-]
+urlpatterns = router.urls

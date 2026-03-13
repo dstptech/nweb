@@ -1,8 +1,7 @@
-"""DSTP Backend — Blog URLs"""
-from django.urls import path
+from rest_framework.routers import DefaultRouter
+from .views import BlogViewSet
 
-app_name = 'blog'
+router = DefaultRouter()
+router.register(r'blogs', BlogViewSet, basename='blogs')
 
-urlpatterns = [
-    # TODO: Add blog endpoints
-]
+urlpatterns = router.urls

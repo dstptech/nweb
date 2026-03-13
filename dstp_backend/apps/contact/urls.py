@@ -1,8 +1,7 @@
-"""DSTP Backend — Contact URLs"""
-from django.urls import path
+from rest_framework.routers import DefaultRouter
+from .views import ContactViewSet
 
-app_name = 'contact'
+router = DefaultRouter()
+router.register(r'contacts', ContactViewSet, basename='contacts')
 
-urlpatterns = [
-    # TODO: Add contact endpoints
-]
+urlpatterns = router.urls

@@ -1,8 +1,7 @@
-"""DSTP Backend — Projects URLs"""
-from django.urls import path
+from rest_framework.routers import DefaultRouter
+from .views import ProjectViewSet
 
-app_name = 'projects'
+router = DefaultRouter()
+router.register(r'projects', ProjectViewSet, basename='projects')
 
-urlpatterns = [
-    # TODO: Add projects endpoints
-]
+urlpatterns = router.urls
