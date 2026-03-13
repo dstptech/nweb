@@ -11,7 +11,6 @@ from django.utils import timezone
 ROLE_CHOICES = [ ('admin' , 'Administrator') , ('editor' , 'Editor') , ('viewer' , 'Viewer') ]
 
 
-# Django Needs a Manager Class  BaseUserManager That Creates User
 
 class CustomUserManager(BaseUserManager):
     # Creating a user
