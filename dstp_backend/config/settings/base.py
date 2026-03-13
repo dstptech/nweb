@@ -210,6 +210,20 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
+SPECTACULAR_SETTINGS = {
+    "TITLE": "My API",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SECURITY_SCHEMES": {
+        "Bearer": {          # <-- This is what Swagger looks for
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT",
+        }
+    },
+    "COMPONENT_SPLIT_REQUEST": True,  # splits request/response serializers
+}
+
 
 # SIMPLE JWT — Token configuration
 
