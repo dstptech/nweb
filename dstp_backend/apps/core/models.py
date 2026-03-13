@@ -22,7 +22,7 @@ class VisitorSession(models.Model):
     ip_address = models.GenericIPAddressField(null=True,blank=True)
     user_agent = models.TextField(blank=True)
     device_type = models.CharField(max_length=20 , blank=True) # Mobile , Table ,desktop
-    browser = models.charField(max_length=50 , blank=True) #chrome , FireFox 
+    browser = models.CharField(max_length=50 , blank=True) #chrome , FireFox 
     os = models.CharField(max_length=50 , blank=True)
 
     #where they came from
