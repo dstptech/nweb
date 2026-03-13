@@ -571,3 +571,477 @@
 [2026-03-13 17:47:44] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4694
 [2026-03-13 17:47:44] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.04s)
 [2026-03-13 17:47:44] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 141658
+[2026-03-13 20:35:18] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 20:35:33] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs - 404 (0.05s)
+[2026-03-13 20:35:33] INFO django.server log:249 — "GET /api/docs HTTP/1.1" 301 0
+[2026-03-13 20:35:33] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.14s)
+[2026-03-13 20:35:33] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4694
+[2026-03-13 20:35:35] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.20s)
+[2026-03-13 20:35:35] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 141658
+[2026-03-13 20:45:22] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 20:45:24] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 20:46:17] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\blog\views.py changed, reloading.
+[2026-03-13 20:46:18] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 20:48:22] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 20:48:23] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 20:48:26] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 20:48:28] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 20:51:11] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\dev.py changed, reloading.
+[2026-03-13 20:51:13] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 20:51:53] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\dev.py changed, reloading.
+[2026-03-13 20:51:54] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 20:51:58] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\dev.py changed, reloading.
+[2026-03-13 20:52:00] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 20:56:19] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.05s)
+[2026-03-13 20:56:19] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4712
+[2026-03-13 20:56:21] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.23s)
+[2026-03-13 20:56:21] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 150019
+[2026-03-13 20:58:15] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 20:58:37] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.00s)
+[2026-03-13 20:58:37] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4712
+[2026-03-13 20:58:38] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.18s)
+[2026-03-13 20:58:38] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 150019
+[2026-03-13 21:00:10] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema - 404 (0.01s)
+[2026-03-13 21:00:10] INFO django.server log:249 — "GET /api/schema HTTP/1.1" 301 0
+[2026-03-13 21:00:10] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.20s)
+[2026-03-13 21:00:10] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 68457
+[2026-03-13 21:19:28] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\careers\views.py changed, reloading.
+[2026-03-13 21:19:29] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\careers\views.py changed, reloading.
+[2026-03-13 21:19:30] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:19:31] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:19:43] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\careers\views.py changed, reloading.
+[2026-03-13 21:19:43] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\careers\views.py changed, reloading.
+[2026-03-13 21:19:45] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:19:45] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:19:47] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.05s)
+[2026-03-13 21:19:47] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4712
+[2026-03-13 21:19:49] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.22s)
+[2026-03-13 21:19:49] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 150557
+[2026-03-13 21:22:43] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\contact\views.py changed, reloading.
+[2026-03-13 21:22:43] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\contact\views.py changed, reloading.
+[2026-03-13 21:22:45] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:22:45] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:23:01] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\homepage\views.py changed, reloading.
+[2026-03-13 21:23:01] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\homepage\views.py changed, reloading.
+[2026-03-13 21:23:03] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:23:03] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:23:37] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\industries\views.py changed, reloading.
+[2026-03-13 21:23:37] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\industries\views.py changed, reloading.
+[2026-03-13 21:23:39] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:23:39] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:24:24] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\projects\views.py changed, reloading.
+[2026-03-13 21:24:24] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\projects\views.py changed, reloading.
+[2026-03-13 21:24:25] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:24:26] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:26:35] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\services\views.py changed, reloading.
+[2026-03-13 21:26:35] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\services\views.py changed, reloading.
+[2026-03-13 21:26:37] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:26:37] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:26:49] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\testimonials\views.py changed, reloading.
+[2026-03-13 21:26:49] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\testimonials\views.py changed, reloading.
+[2026-03-13 21:26:50] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:26:51] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:27:19] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.05s)
+[2026-03-13 21:27:19] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4712
+[2026-03-13 21:27:21] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.29s)
+[2026-03-13 21:27:21] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 152594
+[2026-03-13 21:33:21] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:33:22] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:33:23] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:33:24] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:34:14] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.05s)
+[2026-03-13 21:34:14] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4712
+[2026-03-13 21:34:16] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.30s)
+[2026-03-13 21:34:16] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 152447
+[2026-03-13 21:39:07] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:39:08] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:39:09] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:39:10] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:40:59] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:40:59] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:41:01] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:41:01] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:42:13] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\urls.py changed, reloading.
+[2026-03-13 21:42:13] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\urls.py changed, reloading.
+[2026-03-13 21:42:15] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:42:15] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:42:18] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\urls.py changed, reloading.
+[2026-03-13 21:42:19] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\urls.py changed, reloading.
+[2026-03-13 21:42:20] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:42:21] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:42:24] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\urls.py changed, reloading.
+[2026-03-13 21:42:25] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\urls.py changed, reloading.
+[2026-03-13 21:42:26] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:42:27] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:45:07] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:45:07] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:45:09] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:45:09] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:48:07] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:48:08] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:48:10] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:48:10] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:48:19] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:48:19] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:48:21] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:48:21] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:48:29] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.04s)
+[2026-03-13 21:48:29] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4817
+[2026-03-13 21:48:31] ERROR django.request log:249 — Internal Server Error: /api/schema/
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\utils\module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\utils\module_loading.py", line 16, in cached_import
+    return getattr(module, class_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'drf_spectacular.hooks' has no attribute 'postprocess_flatten_parameters'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 179, in import_from_string
+    return import_string(val)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\utils\module_loading.py", line 32, in import_string
+    raise ImportError(
+ImportError: Module "drf_spectacular.hooks" does not define a "postprocess_flatten_parameters" attribute/class
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\drf_spectacular\generators.py", line 292, in get_schema
+    for hook in spectacular_settings.POSTPROCESSING_HOOKS:
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 227, in __getattr__
+    val = perform_import(val, attr)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 170, in perform_import
+    return [import_from_string(item, setting_name) for item in val]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 182, in import_from_string
+    raise ImportError(msg)
+ImportError: Could not import 'drf_spectacular.hooks.postprocess_flatten_parameters' for API setting 'POSTPROCESSING_HOOKS'. ImportError: Module "drf_spectacular.hooks" does not define a "postprocess_flatten_parameters" attribute/class.
+[2026-03-13 21:48:31] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 500 (0.80s)
+[2026-03-13 21:48:31] ERROR django.server log:249 — "GET /api/schema/ HTTP/1.1" 500 156152
+[2026-03-13 21:48:32] ERROR django.request log:249 — Internal Server Error: /api/schema/
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\utils\module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\utils\module_loading.py", line 16, in cached_import
+    return getattr(module, class_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'drf_spectacular.hooks' has no attribute 'postprocess_flatten_parameters'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 179, in import_from_string
+    return import_string(val)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\utils\module_loading.py", line 32, in import_string
+    raise ImportError(
+ImportError: Module "drf_spectacular.hooks" does not define a "postprocess_flatten_parameters" attribute/class
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\drf_spectacular\generators.py", line 292, in get_schema
+    for hook in spectacular_settings.POSTPROCESSING_HOOKS:
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 227, in __getattr__
+    val = perform_import(val, attr)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 170, in perform_import
+    return [import_from_string(item, setting_name) for item in val]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 182, in import_from_string
+    raise ImportError(msg)
+ImportError: Could not import 'drf_spectacular.hooks.postprocess_flatten_parameters' for API setting 'POSTPROCESSING_HOOKS'. ImportError: Module "drf_spectacular.hooks" does not define a "postprocess_flatten_parameters" attribute/class.
+[2026-03-13 21:48:32] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 500 (0.39s)
+[2026-03-13 21:48:32] ERROR django.server log:249 — "GET /api/schema/ HTTP/1.1" 500 155887
+[2026-03-13 21:48:32] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 21:48:34] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 21:48:35] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:48:36] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:48:51] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 21:48:51] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 21:48:53] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:48:53] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:49:57] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 21:49:59] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:50:11] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 21:50:12] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:51:08] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 21:51:10] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:51:19] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 21:51:21] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:51:27] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.02s)
+[2026-03-13 21:51:27] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4817
+[2026-03-13 21:51:29] ERROR django.request log:249 — Internal Server Error: /api/schema/
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\utils\module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\utils\module_loading.py", line 16, in cached_import
+    return getattr(module, class_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'drf_spectacular.hooks' has no attribute 'postprocess_flatten_parameters'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 179, in import_from_string
+    return import_string(val)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\utils\module_loading.py", line 32, in import_string
+    raise ImportError(
+ImportError: Module "drf_spectacular.hooks" does not define a "postprocess_flatten_parameters" attribute/class
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\drf_spectacular\generators.py", line 292, in get_schema
+    for hook in spectacular_settings.POSTPROCESSING_HOOKS:
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 227, in __getattr__
+    val = perform_import(val, attr)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 170, in perform_import
+    return [import_from_string(item, setting_name) for item in val]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 182, in import_from_string
+    raise ImportError(msg)
+ImportError: Could not import 'drf_spectacular.hooks.postprocess_flatten_parameters' for API setting 'POSTPROCESSING_HOOKS'. ImportError: Module "drf_spectacular.hooks" does not define a "postprocess_flatten_parameters" attribute/class.
+[2026-03-13 21:51:29] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 500 (0.57s)
+[2026-03-13 21:51:29] ERROR django.server log:249 — "GET /api/schema/ HTTP/1.1" 500 156152
+[2026-03-13 21:51:30] ERROR django.request log:249 — Internal Server Error: /api/schema/
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\utils\module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\utils\module_loading.py", line 16, in cached_import
+    return getattr(module, class_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'drf_spectacular.hooks' has no attribute 'postprocess_flatten_parameters'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 179, in import_from_string
+    return import_string(val)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\utils\module_loading.py", line 32, in import_string
+    raise ImportError(
+ImportError: Module "drf_spectacular.hooks" does not define a "postprocess_flatten_parameters" attribute/class
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\drf_spectacular\generators.py", line 292, in get_schema
+    for hook in spectacular_settings.POSTPROCESSING_HOOKS:
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 227, in __getattr__
+    val = perform_import(val, attr)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 170, in perform_import
+    return [import_from_string(item, setting_name) for item in val]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\.venv\Lib\site-packages\rest_framework\settings.py", line 182, in import_from_string
+    raise ImportError(msg)
+ImportError: Could not import 'drf_spectacular.hooks.postprocess_flatten_parameters' for API setting 'POSTPROCESSING_HOOKS'. ImportError: Module "drf_spectacular.hooks" does not define a "postprocess_flatten_parameters" attribute/class.
+[2026-03-13 21:51:30] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 500 (0.37s)
+[2026-03-13 21:51:30] ERROR django.server log:249 — "GET /api/schema/ HTTP/1.1" 500 155887
+[2026-03-13 21:53:17] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:53:19] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:54:16] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.05s)
+[2026-03-13 21:54:16] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4817
+[2026-03-13 21:54:18] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.29s)
+[2026-03-13 21:54:18] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 153354
+[2026-03-13 21:54:28] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:54:30] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:54:38] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 21:54:40] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:54:53] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 21:54:55] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:55:31] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 21:55:33] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:55:36] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 21:55:38] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:57:01] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:57:02] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:58:21] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:58:23] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:58:32] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:58:34] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 21:59:07] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 21:59:09] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:02:26] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 22:02:28] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:02:46] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\views.py changed, reloading.
+[2026-03-13 22:02:48] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:02:52] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.04s)
+[2026-03-13 22:02:52] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4817
+[2026-03-13 22:02:53] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.23s)
+[2026-03-13 22:02:53] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 149211
+[2026-03-13 22:04:55] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 22:04:57] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:05:21] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 22:05:23] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:05:35] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\urls.py changed, reloading.
+[2026-03-13 22:05:37] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:13:09] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\urls.py changed, reloading.
+[2026-03-13 22:13:11] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:13:17] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.04s)
+[2026-03-13 22:13:17] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4712
+[2026-03-13 22:13:18] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.34s)
+[2026-03-13 22:13:18] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 152641
+[2026-03-13 22:18:28] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.00s)
+[2026-03-13 22:18:28] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4712
+[2026-03-13 22:18:29] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.12s)
+[2026-03-13 22:18:29] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 152641
+[2026-03-13 22:20:36] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:20:43] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.04s)
+[2026-03-13 22:20:43] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4712
+[2026-03-13 22:20:44] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.43s)
+[2026-03-13 22:20:44] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 152641
+[2026-03-13 22:31:36] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:31:41] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.05s)
+[2026-03-13 22:31:41] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4712
+[2026-03-13 22:31:43] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.26s)
+[2026-03-13 22:31:43] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 148645
+[2026-03-13 22:31:50] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.00s)
+[2026-03-13 22:31:50] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4712
+[2026-03-13 22:31:50] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.17s)
+[2026-03-13 22:31:50] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 148645
+[2026-03-13 22:32:15] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.00s)
+[2026-03-13 22:32:15] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4712
+[2026-03-13 22:32:16] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.17s)
+[2026-03-13 22:32:16] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 148645
+[2026-03-13 22:32:37] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 22:32:39] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:32:42] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.04s)
+[2026-03-13 22:32:42] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4712
+[2026-03-13 22:32:43] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.41s)
+[2026-03-13 22:32:43] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 152641
+[2026-03-13 22:38:11] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\apps\authentication\urls.py changed, reloading.
+[2026-03-13 22:38:14] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:44:14] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\urls.py changed, reloading.
+[2026-03-13 22:44:16] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:44:26] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\dev.py changed, reloading.
+[2026-03-13 22:44:28] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 22:44:30] INFO django.utils.autoreload autoreload:265 — C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
+[2026-03-13 22:44:32] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
