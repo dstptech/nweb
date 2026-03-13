@@ -40,7 +40,7 @@ class CustomUser(AbstractBaseUser , PermissionsMixin):
 
       email = models.EmailField(unique=True)
       first_name = models.CharField(max_length=70)
-      last_name = models.CharField(max_length=15 , blank=True)
+      last_name = models.CharField(max_length=100 , blank=True)  # Increased from 15 to support longer names
       
       role = models.CharField(max_length=10 , choices=ROLE_CHOICES , default='viewer')
 

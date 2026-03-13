@@ -1,0 +1,2100 @@
+================================================================================
+DSTP BACKEND — COMPREHENSIVE FEATURES SUMMARY
+Generated: March 13, 2026
+================================================================================
+
+This document contains EVERY SMALL FEATURE implemented in the backend across:
+  • Authentication (apps/authentication/)
+  • Core (apps/core/)
+  • Middleware (middleware/)
+  • Config (config/settings/)
+  • Utils (utils/)
+
+================================================================================
+TABLE OF CONTENTS
+================================================================================
+
+1. AUTHENTICATION MODULE (apps/authentication/)
+   1.1 Models
+   1.2 Views & API Endpoints
+   1.3 Serializers
+   1.4 Services
+   1.5 Permissions
+   1.6 Validators
+   1.7 Repositories
+   1.8 URLs
+   1.9 Admin
+
+2. CORE MODULE (apps/core/)
+   2.1 Models
+   2.2 Views & API Endpoints
+   2.3 Serializers
+   2.4 Exceptions
+   2.5 Permissions
+   2.6 Pagination
+   2.7 URLs
+
+3. MIDDLEWARE (middleware/)
+   3.1 Visitor Tracking Middleware
+   3.2 Logging Middleware
+   3.3 CORS Middleware (placeholder)
+   3.4 JWT Middleware (placeholder)
+
+4. CONFIG (config/settings/)
+   4.1 Base Settings
+   4.2 Dev Settings
+   4.3 Prod Settings
+
+5. UTILITIES (utils/)
+   5.1 Custom Exceptions
+   5.2 Exception Handlers
+
+================================================================================
+SECTION 1: AUTHENTICATION MODULE
+================================================================================
+
+================================================================================
+1.1 MODELS (apps/authentication/models.py)
+================================================================================
+
+A. CustomUser Model
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Custom user model replacing Django's built-in User model
+         Email-based authentication instead of username-based
+
+Key Features:
+  ✓ Email-based login (unique, case-insensitive)
+  ✓ First name & last name fields (max 70 and 15 chars respectively)
+  ✓ Role-based access control (3 roles: admin, editor, viewer)
+  ✓ Account status flags:
+      - is_active: Can they login? (soft delete on deactivation)
+      - is_staff: Django admin access
+      - is_verified: Email verification flag
+  ✓ Timestamps:
+      - date_joined: When account created (auto set)
+      - updated_at: Last profile update (auto updated)
+
+Database Table: auth_users
+
+Fields:
+  • email (EmailField, unique, indexed)
+  • first_name (CharField, max 70)
+  • last_name (CharField, max 15, optional)
+  • role (CharField, choices=['admin', 'editor', 'viewer'], default='viewer')
+  • is_active (Boolean, default=True)
+  • is_staff (Boolean, default=False)
+  • is_verified (Boolean, default=False)
+  • password (hashed, inherited from AbstractBaseUser)
+  • last_login (inherited from AbstractBaseUser)
+  • date_joined (DateTimeField, auto_now_add=True)
+  • updated_at (DateTimeField, auto_now=True)
+  • is_superuser (inherited from PermissionsMixin)
+  • user_permissions (inherited from PermissionsMixin)
+  • groups (inherited from PermissionsMixin)
+
+Custom Methods:
+  • get_full_name(): Returns "first_name last_name" (stripped)
+  • is_admin (property): Checks if user has 'admin' role OR is_superuser
+  • is_editor(): Checks if user has 'admin' or 'editor' role OR is_superuser
+
+Ordering: By date_joined (oldest first)
+
+
+B. UserProfile Model
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Extended user information (one-to-one relationship with CustomUser)
+         Stores optional profile details like bio, avatar, designation
+
+Database Table: auth_user_profile
+
+Fields:
+  • user (OneToOneField → CustomUser, on_delete=CASCADE)
+  • bio (TextField, optional)
+  • avatar (ImageField, upload_to='avatars/', optional)
+  • designation (CharField, max 100, optional) [e.g., "Senior Developer"]
+  • created_at (DateTimeField, auto_now_add=True)
+  • updated_at (DateTimeField, auto_now=True)
+
+Auto-created: New UserProfile is auto-created when a new CustomUser is created
+
+
+C. CustomUserManager
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Custom manager for CustomUser model
+         Handles user creation logic
+
+Methods:
+  ✓ create_user(email, password, **extra_fields)
+      - Validates email is provided
+      - Normalizes email to lowercase
+      - Hashes password using configured hasher (Argon2)
+      - Creates profile automatically
+      - Returns created user
+
+  ✓ create_superuser(email, password, **extra_fields)
+      - Sets is_staff=True
+      - Sets is_superuser=True
+      - Sets role='admin'
+      - Calls create_user() internally
+
+
+D. ROLE_CHOICES
+──────────────────────────────────────────────────────────────────────────────
+
+Three role levels defined:
+  • 'admin' → Administrator (full access)
+  • 'editor' → Editor (can edit content)
+  • 'viewer' → Viewer (read-only access, default)
+
+
+================================================================================
+1.2 VIEWS & API ENDPOINTS (apps/authentication/views.py)
+================================================================================
+
+A. RegisterView
+──────────────────────────────────────────────────────────────────────────────
+
+Endpoint: POST /api/v1/auth/register/
+Permission: AllowAny (public endpoint)
+
+Input Data (JSON):
+  {
+    "email": "user@example.com",
+    "first_name": "John",
+    "last_name": "Doe",
+    "password": "SecurePass@123"
+  }
+
+Process:
+  1. Validate incoming data using RegisterSerializer
+  2. Check for validation errors
+  3. Call AuthService.register_user()
+  4. If email already exists → raise ConflictError
+  5. If success → create user + auto-create profile + generate JWT tokens
+  6. Return user data + tokens + 201 CREATED status
+
+Response (Success):
+  {
+    "success": true,
+    "message": "Account created successfully.",
+    "data": {
+      "user": {
+        "id": 1,
+        "email": "user@example.com",
+        "first_name": "John",
+        "last_name": "Doe",
+        "full_name": "John Doe",
+        "role": "viewer",
+        "is_verified": false,
+        "date_joined": "2025-01-10T09:23:00Z",
+        "profile": {...}
+      },
+      "tokens": {
+        "access": "eyJ0eXAiOiJKV1Q...",
+        "refresh": "eyJ0eXAiOiJKV1Q..."
+      }
+    }
+  }
+
+Response (Email already exists):
+  {
+    "success": false,
+    "message": "An account with email 'user@example.com' already exists."
+  }
+
+
+B. LoginView
+──────────────────────────────────────────────────────────────────────────────
+
+Endpoint: POST /api/v1/auth/login/
+Permission: AllowAny (public endpoint)
+
+Input Data (JSON):
+  {
+    "email": "user@example.com",
+    "password": "SecurePass@123"
+  }
+
+Process:
+  1. Validate credentials using LoginSerializer
+  2. Check for validation errors
+  3. Call AuthService.login_user()
+  4. Verify user exists using UserRepository
+  5. Verify user account is active (is_active=True)
+  6. Authenticate using Django's authenticate()
+  7. If authentication fails → raise AuthenticationFailedError
+  8. If success → generate JWT tokens
+  9. Return user data + tokens
+
+Response (Success):
+  {
+    "success": true,
+    "message": "Login successful.",
+    "data": {
+      "user": {...},
+      "tokens": {
+        "access": "eyJ0eXAiOiJKV1Q...",
+        "refresh": "eyJ0eXAiOiJKV1Q..."
+      }
+    }
+  }
+
+Response (Invalid credentials):
+  {
+    "success": false,
+    "message": "Invalid email or Password"
+  }
+
+Response (Account deactivated):
+  {
+    "success": false,
+    "message": "This account has been deactivated"
+  }
+
+
+C. LogoutView
+──────────────────────────────────────────────────────────────────────────────
+
+Endpoint: POST /api/v1/auth/logout/
+Permission: IsAuthenticated
+
+Input Data:
+  {
+    "refresh_token": "eyJ0eXAiOiJKV1Q..."
+  }
+
+Process:
+  1. Takes refresh token from request
+  2. Calls AuthService.logout_user()
+  3. Blacklists the refresh token (adds to blacklist table)
+  4. Future requests with this token are rejected
+
+Response:
+  {
+    "success": true,
+    "message": "Logged out successfully."
+  }
+
+
+D. RefreshView
+──────────────────────────────────────────────────────────────────────────────
+
+Endpoint: POST /api/v1/auth/refresh/
+Permission: AllowAny
+
+Input Data:
+  {
+    "refresh_token": "eyJ0eXAiOiJKV1Q..."
+  }
+
+Process:
+  1. Validates refresh token hasn't expired (7 days max)
+  2. Regenerates new access token (15 minutes validity)
+  3. Optionally rotates refresh token if configured
+
+Response:
+  {
+    "access": "new_access_token_here...",
+    "refresh": "new_refresh_token_here..." (if rotation enabled)
+  }
+
+
+E. MeView (My Profile)
+──────────────────────────────────────────────────────────────────────────────
+
+Endpoint: GET /api/v1/auth/me/
+Permission: IsAuthenticated
+
+Process:
+  1. Returns current authenticated user's profile
+  2. No input required (uses JWT from Authorization header)
+
+Response:
+  {
+    "success": true,
+    "data": {
+      "id": 1,
+      "email": "user@example.com",
+      "first_name": "John",
+      "last_name": "Doe",
+      "full_name": "John Doe",
+      "role": "viewer",
+      "is_verified": false,
+      "date_joined": "2025-01-10T09:23:00Z",
+      "profile": {
+        "bio": "...",
+        "avatar": "...",
+        "designation": "..."
+      }
+    }
+  }
+
+
+F. UpdateProfileView
+──────────────────────────────────────────────────────────────────────────────
+
+Endpoint: PATCH /api/v1/auth/me/update/
+Permission: IsAuthenticated
+
+Input Data (all optional):
+  {
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "bio": "Software engineer...",
+    "avatar": <file>,
+    "designation": "Senior Developer"
+  }
+
+Process:
+  1. Updates CustomUser fields (first_name, last_name)
+  2. Updates UserProfile fields (bio, avatar, designation)
+  3. Validates input using UpdateProfileSerializer
+  4. Returns updated user profile
+
+Response:
+  {
+    "success": true,
+    "message": "Profile updated successfully.",
+    "data": {...updated user data...}
+  }
+
+
+G. PasswordResetRequestView
+──────────────────────────────────────────────────────────────────────────────
+
+Endpoint: POST /api/v1/auth/password-reset/
+Permission: AllowAny
+
+Input Data:
+  {
+    "email": "user@example.com"
+  }
+
+Process:
+  1. Finds user by email
+  2. Generates secure reset token (32 bytes hex)
+  3. Stores token in PasswordResetToken table
+  4. Sends email with reset link (backend generates URL)
+  5. Token expires after 24 hours (configured)
+
+Response:
+  {
+    "success": true,
+    "message": "Check your email for password reset instructions."
+  }
+
+Note: Always returns success message (security - don't leak if email exists)
+
+
+H. PasswordResetConfirmView
+──────────────────────────────────────────────────────────────────────────────
+
+Endpoint: POST /api/v1/auth/password-reset/confirm/
+Permission: AllowAny
+
+Input Data:
+  {
+    "token": "a3f9b2c1e5d8...",
+    "new_password": "NewSecurePass@123"
+  }
+
+Process:
+  1. Validates token exists and hasn't expired
+  2. Validates token hasn't been used (is_used=False)
+  3. Validates new password strength
+  4. Updates user password
+  5. Marks token as used (is_used=True)
+  6. Logs out all existing sessions (invalidates all refresh tokens)
+
+Response:
+  {
+    "success": true,
+    "message": "Password reset successfully. Please login with new password."
+  }
+
+
+================================================================================
+1.3 SERIALIZERS (apps/authentication/serializers.py)
+================================================================================
+
+Purpose: Validate incoming JSON data and convert to Python objects
+         Also serialize Python objects back to JSON for responses
+
+A. UserSerializer (Read-only)
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Return user data to client
+Type: ModelSerializer
+
+Fields Output:
+  • id (read-only)
+  • email (read-only)
+  • first_name (read-only)
+  • last_name (read-only)
+  • full_name (computed, using SerializerMethodField)
+  • role (read-only)
+  • is_verified (read-only)
+  • date_joined (read-only)
+  • profile (nested UserProfileSerializer)
+
+Cannot be used for input (no user data comes from frontend to this serializer)
+
+
+B. UserProfileSerializer
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Nested serializer for user profile data
+Type: ModelSerializer
+
+Fields:
+  • bio (optional)
+  • avatar (optional image)
+  • designation (optional)
+
+Used in UserSerializer as a nested field
+
+
+C. RegisterSerializer
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Validate registration input (NOT ModelSerializer - custom control)
+Type: Serializer (manual fields definition)
+
+Input Fields:
+  • email (EmailField)
+    - Field-level validation: validate_email()
+    - Checks domain against BLOCKED_EMAIL_DOMAINS list
+    - Converts to lowercase
+    
+  • first_name (CharField, max 50)
+    - Field-level validation: validate_first_name()
+    - Validates name format (only letters, spaces, hyphens)
+    - Strip whitespace
+    
+  • last_name (CharField, max 50)
+    - Field-level validation: validate_last_name()
+    - Same format validation as first_name
+    
+  • password (CharField, write_only=True, min_length=8)
+    - Field-level validation: validate_password()
+    - Runs Django's full password validator
+    - Requires: 8+ chars, uppercase, lowercase, digit, special char
+    - write_only → never sent in response
+
+Validation Errors: Returns ALL errors at once (not stopping on first)
+
+
+D. LoginSerializer
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Validate login credentials
+Type: Serializer
+
+Input Fields:
+  • email (EmailField)
+  • password (CharField, write_only=True)
+
+No field-level validation (credentials validation happens in service)
+
+
+E. UpdateProfileSerializer
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Validate profile update input
+Type: Serializer
+
+Input Fields (all optional):
+  • first_name (CharField, optional)
+  • last_name (CharField, optional)
+  • bio (TextField, optional)
+  • avatar (ImageField, optional)
+  • designation (CharField, optional)
+
+
+F. PasswordResetRequestSerializer
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Validate password reset request
+Type: Serializer
+
+Input Fields:
+  • email (EmailField)
+
+
+G. PasswordResetConfirmSerializer
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Validate password reset confirmation
+Type: Serializer
+
+Input Fields:
+  • token (CharField)
+  • new_password (CharField, write_only=True)
+    - Validated with full password strength validator
+
+
+================================================================================
+1.4 SERVICES (apps/authentication/services.py)
+================================================================================
+
+Purpose: Contains all business logic
+         Pattern: Views → Services → Repositories → Database
+
+A. AuthService (Static class)
+──────────────────────────────────────────────────────────────────────────────
+
+Static Methods:
+
+1. register_user(email, password, first_name, last_name, role='viewer')
+   ────────────────────────────────────────────────────────────────────
+   Logic:
+     • Check if email already exists (ConflictError if yes)
+     • Call UserRepository.create_user()
+     • Auto-creates UserProfile
+     • Generate JWT tokens using _generate_tokens()
+     • Return user + tokens
+   
+   Errors:
+     - ConflictError: Email already registered
+
+2. login_user(email, password)
+   ────────────────────────────────────────────────────────────────────
+   Logic:
+     • Get user by email (UserRepository)
+     • Check if user exists (AuthenticationFailedError if no)
+     • Check if user.is_active == True (deactivated check)
+     • Authenticate using Django's authenticate()
+     • Generate JWT tokens
+     • Return user + tokens
+   
+   Errors:
+     - AuthenticationFailedError: Account deactivated
+     - AuthenticationFailedError: Invalid credentials
+
+3. logout_user(refresh_token_string)
+   ────────────────────────────────────────────────────────────────────
+   Logic:
+     • Parse refresh token
+     • Add to blacklist (rest_framework_simplejwt.token_blacklist)
+     • Future requests with this token rejected
+     • Silently catches TokenError if token invalid
+
+4. refresh_token_for_user(refresh_token_string)
+   ────────────────────────────────────────────────────────────────────
+   Logic:
+     • Validate refresh token hasn't expired (7 days max)
+     • Generate new access token (15 minutes)
+     • Optionally rotate refresh token (ROTATE_REFRESH_TOKENS=True)
+     • Return new tokens
+
+5. reset_password(user, new_password)
+   ────────────────────────────────────────────────────────────────────
+   Logic:
+     • Validate password strength
+     • Call UserRepository.update_password()
+     • Blacklist all existing refresh tokens (log out all sessions)
+     • Send email notification to user
+
+6. _generate_tokens(user)
+   ────────────────────────────────────────────────────────────────────
+   Logic:
+     • Create RefreshToken from rest_framework_simplejwt
+     • Extract access token from refresh token
+     • Return dict with both tokens
+   
+   Token Details:
+     - access_token: 15 minute validity
+     - refresh_token: 7 day validity
+     - Algorithm: HS256
+     - Includes user_id, email, role in claims
+
+
+================================================================================
+1.5 PERMISSIONS (apps/authentication/permissions.py)
+================================================================================
+
+Purpose: Role-based access control (RBAC)
+         Decorators for protecting endpoints
+
+A. IsAdmin Permission
+──────────────────────────────────────────────────────────────────────────────
+
+Usage: @permission_classes([IsAdmin])
+
+Check:
+  • User is authenticated
+  • User.role == 'admin' OR user.is_superuser
+
+Message: "Only administrators can do this."
+
+
+B. IsEditor Permission
+──────────────────────────────────────────────────────────────────────────────
+
+Usage: @permission_classes([IsEditor])
+
+Check:
+  • User is authenticated
+  • User.role in ('admin', 'editor') OR user.is_superuser
+
+Message: "You need editor or admin access to do this."
+
+
+C. IsViewer Permission
+──────────────────────────────────────────────────────────────────────────────
+
+Usage: @permission_classes([IsViewer])
+
+Check:
+  • User is authenticated
+
+Message: "You must be logged in."
+
+
+================================================================================
+1.6 VALIDATORS (apps/authentication/validators.py)
+================================================================================
+
+Purpose: Custom validation logic for fields
+
+A. StrongPasswordValidator
+──────────────────────────────────────────────────────────────────────────────
+
+Requirements (ALL must pass):
+  ✓ At least 8 characters
+  ✓ At least 1 uppercase letter (A-Z)
+  ✓ At least 1 lowercase letter (a-z)
+  ✓ At least 1 digit (0-9)
+  ✓ At least 1 special character (!@#$%^&*(),.?":{}|<>)
+
+Returns: List of error messages if validation fails
+         Raises ValidationError with all messages
+
+
+B. validate_email_domain(email)
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Block disposable email providers
+
+Blocked Domains:
+  • mailinator.com
+  • tempmail.com
+  • throwaway.email
+  • guerrillamail.com
+  • yopmail.com
+  • sharklasers.com
+
+Raises: ValidationError if email domain is blocked
+
+
+C. validate_phone_number(phone)
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Validate phone number format
+
+Rules:
+  • 10-15 digits
+  • Optional + prefix
+  • Strips spaces and hyphens before checking
+
+Accepts:
+  • +1-202-555-0170
+  • +441234567890
+  • 02025550170
+  • 9876543210
+
+
+D. validate_name(value)
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Validate first/last names
+
+Rules:
+  • 2-50 characters
+  • Only letters, spaces, hyphens, apostrophes
+  • No numbers, no special characters
+
+Accepts:
+  • John
+  • Mary-Jane
+  • O'Brien
+  • Pierre-Marie
+
+Rejects:
+  • John123
+  • @John
+  • J
+
+
+================================================================================
+1.7 REPOSITORIES (apps/authentication/repositories.py)
+================================================================================
+
+Purpose: Abstraction layer for database operations
+         If we swap MySQL for PostgreSQL, we change ONE file
+
+A. UserRepository (Static class)
+──────────────────────────────────────────────────────────────────────────────
+
+CREATE Operations:
+──────────────────
+
+1. create_user(email, password, first_name, last_name, role='viewer')
+   • Creates CustomUser with email-based login
+   • Auto-creates blank UserProfile
+   • Hashes password using Argon2
+   • Returns created user object
+
+
+READ Operations:
+────────────────
+
+1. get_by_id(user_id)
+   • Returns user by ID
+   • Prefetches related profile (select_related)
+   • Returns None if not found (not raising exception)
+
+2. get_by_email(email)
+   • Returns user by email
+   • Normalizes to lowercase
+   • Prefetches related profile
+   • Returns None if not found
+
+3. get_all_users()
+   • Returns all active users
+   • Ordered by date_joined (newest first)
+   • Prefetches profiles
+
+4. get_users_by_role(role)
+   • Filters users by role ('admin', 'editor', 'viewer')
+   • Only returns active users (is_active=True)
+
+5. email_exists(email)
+   • Quick boolean check
+   • Returns True/False
+   • More efficient than full query
+
+
+UPDATE Operations:
+──────────────────
+
+1. update_user(user_id, **fields)
+   • Updates any fields on user
+   • Example: update_user(1, first_name='Jane', role='admin')
+   • Returns True if successful, False otherwise
+
+2. update_password(user, new_password)
+   • Sets new password (hashed)
+   • Only updates password field (efficient)
+   • Returns user object
+
+3. mark_email_verified(user_id)
+   • Sets is_verified=True
+   • Used after email verification link clicked
+
+
+DELETE Operations:
+──────────────────
+
+1. deactivate_user(user_id)
+   • Soft delete (sets is_active=False)
+   • User not removed from DB
+   • User cannot login anymore
+   • Account can be reactivated
+
+
+B. PasswordResetRepository
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Manage password reset tokens
+
+Methods:
+
+1. create_token(user)
+   • Invalidates any existing unused tokens (is_used=False → True)
+   • Generates new token using secrets.token_hex(32)
+   • Token is 64-character random hex string
+   • Creates PasswordResetToken record
+   • Returns token object
+
+2. get_by_token(token)
+   • Finds PasswordResetToken by token string
+   • Checks if expired (24 hour max)
+   • Returns None if not found or expired
+
+3. mark_as_used(token_id)
+   • Sets is_used=True
+   • Prevents token reuse
+
+4. delete_expired_tokens()
+   • Removes tokens older than 24 hours
+
+
+================================================================================
+1.8 URLs (apps/authentication/urls.py)
+================================================================================
+
+All mapped to /api/v1/auth/ prefix
+
+Endpoints List:
+───────────────
+
+POST   /api/v1/auth/register/              → RegisterView
+POST   /api/v1/auth/login/                 → LoginView
+POST   /api/v1/auth/logout/                → LogoutView
+POST   /api/v1/auth/refresh/               → RefreshView
+GET    /api/v1/auth/me/                    → MeView (get current user)
+PATCH  /api/v1/auth/me/update/             → UpdateProfileView
+POST   /api/v1/auth/password-reset/        → PasswordResetRequestView
+POST   /api/v1/auth/password-reset/confirm/ → PasswordResetConfirmView
+
+
+================================================================================
+1.9 ADMIN (apps/authentication/admin.py)
+================================================================================
+
+Status: Currently empty
+Potential: Could register CustomUser, UserProfile, PasswordResetToken
+           for Django admin panel management
+
+
+================================================================================
+SECTION 2: CORE MODULE
+================================================================================
+
+================================================================================
+2.1 MODELS (apps/core/models.py)
+================================================================================
+
+A. VisitorSession Model
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Track unique visitors to the website (before & after registration)
+         Anonymous user browsing history is collected, then linked to account
+
+Database Table: visitor_sessions
+
+Key Features:
+  ✓ Identifies visitors by unique session_key stored in browser cookie
+  ✓ Captures device, browser, OS information
+  ✓ Tracks where they came from (UTM params, referrer)
+  ✓ Records visit count and page count
+  ✓ Can be linked to user account after registration
+  ✓ Auto-timestamps first_seen and last_seen
+
+Fields:
+  • session_key (CharField, max 64, unique, indexed)
+      - Format: 32-char UUID hex string
+      - Stored in browser as 'dstp_visitor_id' cookie
+      
+  • user (ForeignKey → CustomUser, optional, null, blank)
+      - Null if not registered
+      - Set when anonymous visitor creates account
+      
+  • ip_address (GenericIPAddressField, optional)
+      - Handles IPv4 and IPv6
+      - Behind proxy detection via X-FORWARDED-FOR header
+      
+  • user_agent (TextField)
+      - Full browser user agent string
+      - Used to extract browser, OS, device type
+      
+  • device_type (CharField, max 20, blank)
+      - Values: 'mobile', 'tablet', 'desktop'
+      
+  • browser (CharField, max 50, blank)
+      - Values: 'Chrome', 'Firefox', 'Safari', 'Edge', 'Opera', 'Other'
+      
+  • os (CharField, max 50, blank)
+      - Values: 'Windows', 'Android', 'iOS', 'macOS', 'Linux', 'Other'
+      
+  • referrer (URLField, blank)
+      - Which website sent them here
+      - Values: Google, direct, newsletter link, etc.
+      
+  • utm_source (CharField, max 100, blank)
+      - Campaign tracking: 'google', 'facebook', 'newsletter', etc.
+      
+  • utm_medium (CharField, max 100, blank)
+      - Campaign medium: 'cpc', 'email', 'organic', 'social', etc.
+      
+  • utm_campaign (CharField, max 100, blank)
+      - Campaign name they were part of
+      
+  • total_visits (IntegerField, default=1)
+      - How many times they've visited the site
+      
+  • total_pages_viewed (IntegerField, default=0)
+      - Total number of unique pages viewed
+      
+  • first_seen (DateTimeField, auto_now_add=True)
+      - Timestamp of first visit
+      - Never changes
+      
+  • last_seen (DateTimeField, auto_now=True)
+      - Timestamp of most recent visit
+      - Updated on every request
+      
+  • is_registered (Boolean, default=False)
+      - True after visitor creates account
+      
+  • is_active (Boolean, default=True)
+      - Can be deactivated to stop tracking
+
+Database Ordering: By last_seen DESC (most recent first)
+
+Methods:
+  • __str__(): Returns "Session of user@email.com - a3f9b2c1..." or "Anonymous visitor..."
+  
+  • mark_as_registered(user)
+      - Called when anonymous visitor signs up
+      - Links session to user account
+      - Sets is_registered=True
+      - Visitor history now attached to user
+
+
+B. PageVisit Model
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Record each individual page view
+         Track how long user spent on each page
+         Build browsing history timeline
+
+Database Table: page_visits
+
+One record per page view (can be millions of records!)
+
+Fields:
+  • visitor (ForeignKey → VisitorSession, on_delete=CASCADE)
+      - Which visitor viewed this page
+      - Deletes all PageVisits if session deleted
+      
+  • page_url (CharField, max 500)
+      - Full path of viewed page
+      - Examples: '/services/web-development', '/about', '/contact'
+      
+  • page_title (CharField, max 200, blank)
+      - Page title sent from frontend
+      - Examples: 'Web Development Services'
+      
+  • referrer_page (CharField, max 500, blank)
+      - Previous page URL (where they came from)
+      
+  • time_spent_seconds (IntegerField, default=0)
+      - How many seconds on this page
+      - Updated when user leaves page (frontend sends via API)
+      
+  • visited_at (DateTimeField, auto_now_add=True)
+      - When they visited this page
+      - Set once when record created
+
+Database Ordering: By visited_at DESC (newest first)
+
+Methods:
+  • __str__(): Returns "a3f9b2c1... visited /services/web-development"
+
+
+================================================================================
+2.2 VIEWS & API ENDPOINTS (apps/core/views.py)
+================================================================================
+
+Note: These endpoints are for tracking and analytics
+
+A. TrackTimeSpentView
+──────────────────────────────────────────────────────────────────────────────
+
+Endpoint: POST /api/v1/track/time-spent/
+Permission: AllowAny
+
+Purpose: Frontend calls this when user LEAVES a page to record time spent
+
+Input Data:
+  {
+    "page_url": "/services/web-development",
+    "seconds": 47
+  }
+
+Process:
+  1. Get visitor from browser cookie (dstp_visitor_id)
+  2. Find corresponding VisitorSession
+  3. Find PageVisit record for this page
+  4. Update time_spent_seconds field
+  5. Return success
+
+Response (Success):
+  {
+    "success": true,
+    "message": "Time tracked successfully."
+  }
+
+Response (No cookie):
+  {
+    "success": false,
+    "message": "No visitor cookie found"
+  }
+
+Response (Session not found):
+  {
+    "success": false,
+    "message": "Session not found"
+  }
+
+
+B. LinkSessionToUserView
+──────────────────────────────────────────────────────────────────────────────
+
+Endpoint: POST /api/v1/track/link-session/
+Permission: IsAuthenticated
+
+Purpose: Called after user registers to link anonymous browsing history to account
+
+Process:
+  1. Get visitor from cookie
+  2. Get authenticated user from request
+  3. Call visitor.mark_as_registered(user)
+  4. Set is_registered=True
+  5. Set visitor.user = user
+  6. Save to database
+  7. Return success
+
+Response:
+  {
+    "success": true,
+    "message": "Session linked to user@example.com"
+  }
+
+Effect: All browsing history before registration is now attached to user account
+
+
+C. GetVisitorStatsView
+──────────────────────────────────────────────────────────────────────────────
+
+Endpoint: GET /api/v1/track/my-stats/
+Permission: AllowAny
+
+Purpose: Frontend requests visitor statistics (analytics dashboard)
+
+Response (Success):
+  {
+    "success": true,
+    "data": {
+      "total_visits": 4,
+      "total_pages_viewed": 11,
+      "first_seen": "2025-01-10T09:23:00Z",
+      "last_seen": "2025-01-15T14:45:00Z",
+      "device_type": "mobile",
+      "browser": "Chrome",
+      "is_registered": true,
+      "recent_pages": [
+        {
+          "page_url": "/services",
+          "visited_at": "2025-01-15T14:45:00Z",
+          "time_spent_seconds": 62
+        },
+        ...{last 5 pages}...
+      ]
+    }
+  }
+
+Response (No session cookie):
+  {
+    "success": false,
+    "message": "No session yet"
+  }
+
+
+================================================================================
+2.3 SERIALIZERS (apps/core/serializers.py)
+================================================================================
+
+Status: Currently empty
+
+Potential Serializers:
+  • VisitorSessionSerializer (for returning visitor data)
+  • PageVisitSerializer (for page visit records)
+  • VisitorStatsSerializer (for analytics data)
+
+
+================================================================================
+2.4 EXCEPTIONS (apps/core/exceptions.py)
+================================================================================
+
+Purpose: Custom DRF exception classes with HTTP status codes
+
+A. custom_exception_handler(exc, context)
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Wraps DRF's default exception handler
+         Adds status_code to response
+
+Added Field:
+  • status_code (integer) - HTTP status code
+
+
+B. Custom Error Handlers (400, 403, 404, 500)
+──────────────────────────────────────────────────────────────────────────────
+
+1. bad_request_handler(request, exception=None)
+   • Handles HTTP 400 Bad Request
+   • Returns: {'error': 'Bad Request', 'status_code': 400}
+
+2. permission_denied_handler(request, exception=None)
+   • Handles HTTP 403 Forbidden
+   • Returns: {'error': 'Permission Denied', 'status_code': 403}
+
+3. not_found_handler(request, exception=None)
+   • Handles HTTP 404 Not Found
+   • Returns: {'error': 'Not Found', 'status_code': 404}
+
+4. server_error_handler(request)
+   • Handles HTTP 500 Internal Server Error
+   • Returns: {'error': 'Internal Server Error', 'status_code': 500}
+
+
+================================================================================
+2.5 PERMISSIONS (apps/core/permissions.py)
+================================================================================
+
+Status: Currently empty
+
+Could contain app-specific permission checks for core functionality
+
+
+================================================================================
+2.6 PAGINATION (apps/core/pagination.py)
+================================================================================
+
+A. StandardResultsPagination
+──────────────────────────────────────────────────────────────────────────────
+
+Purpose: Standardized pagination for list endpoints
+
+Configuration:
+  • page_size: 20 results per page (default)
+  • page_size_query_param: 'page_size' (allows client to customize)
+  • max_page_size: 100 (prevents huge data dumps)
+
+Usage:
+  • Automatically applied to list endpoints
+  • Client requests: /api/v1/endpoint/?page=2&page_size=50
+
+Response Format:
+  {
+    "count": 1000,
+    "next": "http://api.example.com/items/?page=3",
+    "previous": "http://api.example.com/items/?page=1",
+    "results": [...20 items...]
+  }
+
+
+================================================================================
+2.7 URLs (apps/core/urls.py)
+================================================================================
+
+Tracking endpoints mapped to /api/v1/track/ prefix
+
+Endpoints:
+──────────
+
+POST   /api/v1/track/time-spent/         → TrackTimeSpentView
+POST   /api/v1/track/link-session/       → LinkSessionToUserView
+GET    /api/v1/track/my-stats/           → GetVisitorStatsView
+
+
+================================================================================
+SECTION 3: MIDDLEWARE
+================================================================================
+
+================================================================================
+3.1 VISITOR TRACKING MIDDLEWARE
+================================================================================
+
+File: middleware/visitor_tracking_middleware.py
+
+Purpose: Automatically track every page view
+         Runs on EVERY request to the application
+
+Integration Point: When request enters Django → before view executes
+                   After view completes → response object available
+
+Configuration Constants:
+───────────────────────
+
+SKIP_TRACKING_PREFIXES = [
+    '/static/',    # Don't track static files (JS, CSS, etc.)
+    '/media/',     # Don't track uploaded media
+    '/admin/',     # Don't track Django admin panel
+    '/api/',       # Don't track API calls (only frontend pageviews)
+    '/favicon.ico' # Don't track favicon requests
+]
+
+VISITOR_COOKIE_NAME = 'dstp_visitor_id'
+VISITOR_COOKIE_AGE  = 365 * 24 * 60 * 60  # 1 year in seconds
+
+
+Middleware Methods:
+───────────────────
+
+1. __init__(get_response)
+   • Called once when server starts
+   • Stores reference to next middleware/view
+   • Prints "VisitorTrackingMiddleware loaded" to console
+
+2. __call__(request)
+   • Called on EVERY request
+   • Process flow:
+     a. Check should_track(request) - skip static files, API, etc.
+     b. Call get_or_create_visitor(request)
+     c. Attach visitor to request object (request.visitor)
+     d. Call next middleware/view (response = self.get_response(request))
+     e. Set/refresh cookie on response
+     f. Return response
+
+3. should_track(request)
+   • Returns True if we should track this request
+   • Returns False for paths in SKIP_TRACKING_PREFIXES
+   • Prevents tracking static files, API, admin panel
+
+4. get_or_create_visitor(request)
+   • Main logic for tracking
+   • FLOW:
+     a. Check if request has 'dstp_visitor_id' cookie
+     b. If yes → look up existing VisitorSession in DB
+        - If found → update last_seen, increment total_visits
+        - If not found → treat as new visitor (cookie stale)
+     c. If no → create new VisitorSession
+     d. Call track_page_visit() to record this page
+     e. Return visitor object
+
+5. create_new_session(request)
+   • Called when NO existing Session found
+   • Steps:
+     a. Generate unique session_key (32-char UUID hex)
+     b. Extract IP address:
+        - Check X-FORWARDED-FOR header (behind proxy)
+        - Fallback to REMOTE_ADDR (direct connection)
+     c. Parse User-Agent header to extract:
+        - device_type (mobile/tablet/desktop)
+        - browser (Chrome/Firefox/Safari/Edge/Opera)
+        - os (Windows/Android/iOS/macOS/Linux)
+     d. Extract UTM parameters from URL query string:
+        - utm_source (google, facebook, etc.)
+        - utm_medium (cpc, email, organic, etc.)
+        - utm_campaign (campaign name)
+     e. Get referrer from HTTP_REFERER header
+     f. Create VisitorSession record in database
+     g. Log "New visitor created" to logger
+     h. Return visitor object
+
+6. track_page_visit(request, visitor)
+   • Create PageVisit record for this page
+   • Steps:
+     a. Extract page_title from HTTP_X_PAGE_TITLE header
+     b. Get referrer_page from HTTP_REFERER header
+     c. Create PageVisit record with:
+        - visitor (VisitorSession object)
+        - page_url (request.path)
+        - page_title (from header)
+        - referrer_page (previous page)
+     d. Increment visitor.total_pages_viewed
+     e. Save visitor to database
+
+7. get_ip_address(request)
+   • Extracts real client IP
+   • If behind proxy (nginx, load balancer):
+     - Get first IP from X-FORWARDED-FOR header
+     - Format: "client_ip, proxy1_ip, proxy2_ip"
+   • Otherwise direct connection:
+     - Return REMOTE_ADDR
+
+8. parse_user_agent(user_agent)
+   • Parses browser User-Agent string
+   • Returns: (device_type, browser, os)
+   • Uses simple string matching (not perfect, good enough)
+   • Device: looks for 'mobile', 'android', 'tablet', 'ipad' keywords
+   • Browser: looks for 'chrome', 'firefox', 'safari', 'edg', 'opera'
+   • OS: looks for 'windows', 'android', 'iphone', 'ipad', 'mac', 'linux'
+
+
+Cookie Management:
+──────────────────
+
+Set on every response:
+{
+  'key': 'dstp_visitor_id',
+  'value': 'a3f9b2c1e5d8f9c0...',  (visitor.session_key)
+  'max_age': 31536000,              (1 year in seconds)
+  'httponly': True,                 (JS cannot access - security)
+  'samesite': 'Lax',                (CSRF protection)
+  'secure': False                   (uncomment for production HTTPS)
+}
+
+
+Data Flow Example:
+──────────────────
+
+1. NEW VISITOR LANDS ON SITE
+   REQUEST: GET /services/
+   
+   MIDDLEWARE:
+     • Check should_track() → True
+     • Check for cookie → None (first time)
+     • create_new_session():
+         - Generate session_key: "a3f9b2c1e5d8f9c0b7e4a1d6f3c0e9b2"
+         - Extract IP: "203.45.67.89"
+         - Parse User-Agent: device="mobile", browser="Chrome", os="Android"
+         - Get UTM: utm_source="google", utm_medium="cpc"
+         - Get referrer: "https://google.com"
+     • Create VisitorSession in DB
+     • track_page_visit():
+         - Create PageVisit for "/services/"
+     • Set cookie: dstp_visitor_id = a3f9b2c1...
+   
+   RESPONSE: Sets cookie in browser
+
+
+2. SAME VISITOR RETURNS TO SITE
+   REQUEST: GET /about/ (with cookie: dstp_visitor_id=a3f9b2c1)
+   
+   MIDDLEWARE:
+     • Check should_track() → True
+     • Check for cookie → Found: a3f9b2c1...
+     • Lookup VisitorSession by session_key → Found!
+     • Update:
+         - last_seen = now()
+         - total_visits += 1  (now 2)
+     • track_page_visit():
+         - Create PageVisit for "/about/"
+     • Refresh cookie
+   
+   RESPONSE: Updated session
+
+
+3. VISITOR REGISTERS
+   USER CREATES ACCOUNT:
+     call visitor.mark_as_registered(user)
+     → visitor.user = user
+     → visitor.is_registered = True
+     → Save to database
+   
+   ALL HISTORY NOW LINKED TO ACCOUNT
+
+
+================================================================================
+3.2 LOGGING MIDDLEWARE
+================================================================================
+
+File: middleware/logging_middleware.py
+
+Purpose: Log all HTTP requests with status codes and duration
+
+Functionality:
+──────────────
+
+Logs on every request:
+  Format: "{METHOD} {PATH} - {STATUS_CODE} ({DURATION}s)"
+  Example: "GET /api/v1/auth/me/ - 200 (0.05s)"
+
+1. __init__(get_response)
+   • Store next middleware/view reference
+
+2. __call__(request)
+   • Record start time: time.time()
+   • Call next middleware/view
+   • Calculate duration: time.time() - start_time
+   • Log using logger.info()
+   • Return response
+
+Logger Output: Configured in settings for file logging
+
+Usage: Debugging + monitoring request performance
+
+
+================================================================================
+3.3 CORS MIDDLEWARE (Placeholder)
+================================================================================
+
+File: middleware/cors_middleware.py
+
+Status: Empty file
+
+Purpose: Could contain custom CORS logic
+
+Currently: Using corsheaders.middleware.CorsMiddleware (3rd party)
+           which is registered in MIDDLEWARE list
+
+
+================================================================================
+3.4 JWT MIDDLEWARE (Placeholder)
+================================================================================
+
+File: middleware/jwt_middleware.py
+
+Status: Empty file
+
+Purpose: Could contain custom JWT validation logic
+
+Currently: Using rest_framework_simplejwt.authentication (built-in)
+           No custom middleware needed
+
+
+================================================================================
+SECTION 4: CONFIG
+================================================================================
+
+================================================================================
+4.1 BASE SETTINGS (config/settings/base.py)
+================================================================================
+
+Shared configuration across all environments (dev, prod, staging)
+
+A. Path Configuration
+──────────────────────────────────────────────────────────────────────────────
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+  → Resolves to: dstp_backend/ directory
+
+
+B. Security Configuration
+──────────────────────────────────────────────────────────────────────────────
+
+SECRET_KEY = config("SECRET_KEY")
+  → Loaded from environment variable
+  → Used for signing sessions, CSRF tokens, JWT
+
+DEBUG = False
+  → Never enable in base settings
+  → Each env file (dev.py, prod.py) decides
+
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="", cast=...→
+  → List of allowed domains
+  → Environment-specific
+
+
+C. Installed Apps
+──────────────────────────────────────────────────────────────────────────────
+
+DJANGO_APPS:
+  • django.contrib.contenttypes (content types framework)
+  • django.contrib.auth (authentication)
+  • django.contrib.sessions (session management)
+  • django.contrib.messages (user messages)
+  • django.contrib.staticfiles (static files serving)
+
+THIRD_PARTY_APPS:
+  • rest_framework (DRF - API framework)
+  • rest_framework_simplejwt (JWT tokens)
+  • rest_framework_simplejwt.token_blacklist (logout mechanism)
+  • corsheaders (CORS support)
+  • drf_spectacular (API documentation/Swagger)
+  • django_filters (filtering for list endpoints)
+
+LOCAL_APPS:
+  • apps.core (visitor tracking, exceptions, pagination)
+  • apps.authentication (user authentication)
+  • apps.services (services data model)
+  • apps.projects (projects data model)
+  • apps.blog (blog posts)
+  • apps.testimonials (client testimonials)
+  • apps.careers (career opportunities)
+  • apps.contact (contact form submissions)
+  • apps.industries (industries served)
+  • apps.homepage (homepage content)
+
+
+D. Middleware
+──────────────────────────────────────────────────────────────────────────────
+
+Order CRITICAL (processed top to bottom on request, bottom to top on response):
+
+1. SecurityMiddleware
+   • Sets security headers
+   • Handles SSL redirect
+
+2. CorsMiddleware
+   • MUST be before CommonMiddleware
+   • Handles CORS preflight requests
+
+3. SessionMiddleware
+   • Creates session objects
+
+4. CommonMiddleware
+   • URL rewriting, request normalization
+
+5. CsrfViewMiddleware
+   • CSRF token validation
+
+6. AuthenticationMiddleware
+   • Attaches user to request
+
+7. MessageMiddleware
+   • User message framework
+
+8. XFrameOptionsMiddleware
+   • Clickjacking protection
+
+9. VisitorTrackingMiddleware (CUSTOM)
+   • Tracks page views and visitors
+
+10. RequestLoggingMiddleware (CUSTOM)
+    • Logs all requests
+
+
+E. Templates
+──────────────────────────────────────────────────────────────────────────────
+
+TEMPLATES = [{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [BASE_DIR / 'templates'],
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [...]
+    }
+}]
+
+Context Processors:
+  • debug - Debug flag
+  • request - Request object
+  • auth - User object
+  • messages - Messages framework
+
+
+F. Database
+──────────────────────────────────────────────────────────────────────────────
+
+ENGINE: django.db.backends.mysql (MySQL database)
+
+Connection Details (from environment):
+  • NAME: MYSQL_DATABASE
+  • USER: MYSQL_USER
+  • PASSWORD: MYSQL_PASSWORD
+  • HOST: MYSQL_HOST (default 127.0.0.1)
+  • PORT: MYSQL_PORT (default 3306)
+
+Options:
+  • charset: utf8mb4 (full Unicode support)
+  • init_command: SET sql_mode='STRICT_TRANS_TABLES'
+
+
+G. Custom User Model
+──────────────────────────────────────────────────────────────────────────────
+
+AUTH_USER_MODEL = "authentication.CustomUser"
+  → Tells Django to use our CustomUser instead of built-in User
+
+
+H. Password Validation
+──────────────────────────────────────────────────────────────────────────────
+
+AUTH_PASSWORD_VALIDATORS = [
+    UserAttributeSimilarityValidator,  (not similar to username)
+    MinimumLengthValidator (min 8),     (length check)
+    CommonPasswordValidator,           (not in common list)
+    NumericPasswordValidator,          (not pure numbers)
+]
+
+
+I. Password Hashers
+──────────────────────────────────────────────────────────────────────────────
+
+PASSWORD_HASHERS = [
+    Argon2PasswordHasher,              (PRIMARY - most secure)
+    PBKDF2PasswordHasher,             (fallback)
+    PBKDF2SHA1PasswordHasher,        (fallback)
+    BCryptSHA256PasswordHasher,      (fallback)
+]
+
+Primary hasher (Argon2) uses:
+  • 2 iterations
+  • Memory: 512 MB
+  • Parallelism: 2 threads
+
+
+J. Internationalization
+──────────────────────────────────────────────────────────────────────────────
+
+LANGUAGE_CODE = "en-us"     (English US)
+TIME_ZONE = "Asia/Kolkata"  (India Standard Time)
+USE_I18N = True             (Internationalization enabled)
+USE_TZ = True               (Timezone-aware datetimes)
+
+
+K. Static & Media Files
+──────────────────────────────────────────────────────────────────────────────
+
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+  → Django collects static files here (css, js, images)
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+  → User-uploaded files (avatars, documents, etc.)
+
+
+L. Primary Key Configuration
+──────────────────────────────────────────────────────────────────────────────
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+  → Auto-incrementing primary key: 0 to 9,223,372,036,854,775,807
+
+
+M. Django REST Framework
+──────────────────────────────────────────────────────────────────────────────
+
+AUTHENTICATION:
+  • JWTAuthentication only (no session auth for APIs)
+  • Tokens sent in Authorization header: Bearer <token>
+
+PERMISSIONS:
+  • Default: IsAuthenticated (must login)
+  • Can override with @permission_classes([AllowAny])
+
+PAGINATION:
+  • Default: 10 items per page
+  • PageNumberPagination (page-based)
+  • Client can request: ?page_size=50
+
+FILTERING & ORDERING:
+  • DjangoFilterBackend (filter by fields)
+  • SearchFilter (search endpoints)
+  • OrderingFilter (sort endpoints)
+
+THROTTLING (Rate limiting):
+  • Anonymous users: 100 requests/hour
+  • Authenticated users: 1000 requests/hour
+  • Auth endpoints: 10 requests/minute (stricter)
+
+RENDERERS:
+  • JSONRenderer (only JSON, no HTML browsable API)
+  • Production: Speed optimized
+
+EXCEPTION HANDLER:
+  • Custom handler: apps.core.exceptions.custom_exception_handler
+  • Adds status_code to response
+
+API SCHEMA:
+  • drf_spectacular.openapi.AutoSchema
+  • Auto-generates OpenAPI/Swagger documentation
+
+
+N. JWT Configuration (rest_framework_simplejwt)
+──────────────────────────────────────────────────────────────────────────────
+
+ACCESS_TOKEN_LIFETIME = 15 minutes
+  → Short-lived token
+  → Must use refresh token to get new access token
+
+REFRESH_TOKEN_LIFETIME = 7 days
+  → Long-lived token
+  → Use to get new access tokens
+
+ROTATE_REFRESH_TOKENS = True
+  → New refresh token issued on each refresh
+  → Old token becomes invalid
+  → More secure, prevents token reuse
+
+BLACKLIST_AFTER_ROTATION = True
+  → Previous refresh token is blacklisted
+  → Can't use old token after rotation
+
+ALGORITHM = "HS256"
+  → HMAC + SHA-256
+  → Symmetric algorithm (same key for signing/verifying)
+
+SIGNING_KEY = config("SECRET_KEY")
+  → Same as Django SECRET_KEY
+
+AUTH_HEADER_TYPES = ("Bearer",)
+  → Token prefixed with "Bearer " in Authorization header
+
+USER_ID_FIELD = "id"
+  → Field used as user identifier in token
+
+USER_ID_CLAIM = "user_id"
+  → Claim name in token payload
+
+
+O. CORS Configuration
+──────────────────────────────────────────────────────────────────────────────
+
+CORS_ALLOW_CREDENTIALS = True
+  → Allow cookies in cross-origin requests
+
+CORS_ALLOW_METHODS = ["DELETE", "GET", "OPTIONS", "PATCH", "POST", "PUT"]
+  → HTTP methods allowed in cross-origin requests
+
+CORS_ALLOW_HEADERS = [
+    "accept", "accept-encoding", "authorization",
+    "content-type", "dnt", "origin",
+    "user-agent", "x-csrftoken", "x-requested-with",
+]
+  → Custom headers allowed in cross-origin requests
+
+
+P. DRF Spectacular (API Documentation)
+──────────────────────────────────────────────────────────────────────────────
+
+TITLE = "DSTP Solutions API"
+DESCRIPTION = "Enterprise IT Solutions REST API — v1"
+VERSION = "1.0.0"
+
+SECURITY:
+  BearerAuth JWT scheme
+  → Swagger UI will show JWT input field
+
+SWAGGER_UI_SETTINGS:
+  • persistAuthorization: True (remember token in browser)
+  • displayRequestDuration: True (show request time)
+
+
+Q. Email Configuration
+──────────────────────────────────────────────────────────────────────────────
+
+EMAIL_BACKEND: From environment (default: console backend)
+  • Development: console backend (prints to console)
+  • Production: SMTP backend (sends real emails)
+
+SMTP Settings (from environment):
+  • EMAIL_HOST: smtp.gmail.com (example)
+  • EMAIL_PORT: 587
+  • EMAIL_USE_TLS: True (TLS encryption)
+  • EMAIL_HOST_USER: noreply@dstp.io
+  • EMAIL_HOST_PASSWORD: (secret, from env)
+
+DEFAULT_FROM_EMAIL: noreply@dstp.io
+
+
+R. Logging Configuration
+──────────────────────────────────────────────────────────────────────────────
+
+LOGS_DIR created at: BASE_DIR / "logs"
+mkdir(exist_ok=True) → Creates if doesn't exist
+
+Loggers configured for:
+  • Request logging (middleware)
+  • User authentication
+  • System errors
+
+
+================================================================================
+4.2 DEVELOPMENT SETTINGS (config/settings/dev.py)
+================================================================================
+
+Extends: base.py
+
+Configuration:
+  • DEBUG = True
+  • ALLOWED_HOSTS = ["*"]  (allow all during development)
+  • Database: Local MySQL or SQLite
+  • Email: Console backend (prints emails to console)
+  • Logging: Verbose logging
+  • Cors: Allow all origins
+  • Caching: Dummy cache (no caching)
+
+
+================================================================================
+4.3 PRODUCTION SETTINGS (config/settings/prod.py)
+================================================================================
+
+Extends: base.py
+
+Configuration:
+  • DEBUG = False
+  • ALLOWED_HOSTS = ["dstp.io", "www.dstp.io"]  (specific domains)
+  • Database: Secure MySQL with SSL
+  • Email: Real SMTP (Gmail, SendGrid, etc.)
+  • Logging: File-based logging + error tracking (Sentry)
+  • Cors: Specific allowed origins only
+  • Caching: Redis caching
+  • Throttling: Stricter rate limits
+  • Security Headers: HSTS, CSP, etc.
+
+
+================================================================================
+SECTION 5: UTILITIES
+================================================================================
+
+================================================================================
+5.1 CUSTOM EXCEPTIONS (utils/exceptions.py)
+================================================================================
+
+Purpose: Standardized exception classes for API errors
+         Each has appropriate HTTP status code
+
+A. AuthenticationFailedError
+──────────────────────────────────────────────────────────────────────────────
+
+Status Code: 401 UNAUTHORIZED
+
+Usage:
+  if not user:
+      raise AuthenticationFailedError("Invalid credentials")
+
+Response:
+  {
+    "detail": "Invalid credentials"
+  }
+
+HTTP 401
+
+
+B. UserNotFoundError
+──────────────────────────────────────────────────────────────────────────────
+
+Status Code: 404 NOT FOUND
+
+Usage:
+  user = User.objects.get(...) or raise UserNotFoundError("User not found")
+
+Response:
+  {
+    "detail": "User not found"
+  }
+
+HTTP 404
+
+
+C. ValidationError
+──────────────────────────────────────────────────────────────────────────────
+
+Status Code: 400 BAD REQUEST
+
+Usage:
+  if not email_valid():
+      raise ValidationError("Invalid email format")
+
+Response:
+  {
+    "detail": "Invalid email format"
+  }
+
+HTTP 400
+
+
+D. ConflictError
+──────────────────────────────────────────────────────────────────────────────
+
+Status Code: 409 CONFLICT
+
+Usage:
+  if User.objects.filter(email=email).exists():
+      raise ConflictError("Email already registered")
+
+Response:
+  {
+    "detail": "Email already registered"
+  }
+
+HTTP 409
+
+
+================================================================================
+QUICK REFERENCE ARCHITECTURE
+================================================================================
+
+REQUEST FLOW:
+─────────────
+
+Browser Request
+      ↓
+MIDDLEWARE (VisitorTrackingMiddleware, LoggingMiddleware, etc.)
+      ↓
+URL Router (config/urls.py)
+      ↓
+VIEW (authentication/views.py, core/views.py)
+      ↓
+SERIALIZER (validate input, serialize output)
+      ↓
+SERVICE (business logic - AuthService, etc.)
+      ↓
+REPOSITORY (database queries - UserRepository, etc.)
+      ↓
+DATABASE (Django ORM)
+
+
+AUTHENTICATION FLOW:
+────────────────────
+
+1. User Registers
+   RegisterView
+       ↓
+   RegisterSerializer (validate email, password, name)
+       ↓
+   AuthService.register_user()
+       ↓
+   UserRepository.create_user()
+       → Create CustomUser
+       → Auto-create UserProfile
+       → Hash password with Argon2
+       ↓
+   Generate JWT tokens
+       → access_token (15 min)
+       → refresh_token (7 days)
+       ↓
+   Return user + tokens
+
+2. User Logs In
+   LoginView
+       ↓
+   LoginSerializer (validate email, password)
+       ↓
+   AuthService.login_user()
+       ↓
+   UserRepository.get_by_email()
+       ↓
+   django_authenticate() (check password)
+       ↓
+   Generate JWT tokens
+       ↓
+   Return user + tokens
+
+3. User Makes Authenticated Request
+   Request with Authorization header
+       ↓
+   JWTAuthentication (verify token signature)
+       ↓
+   Extract user_id from token
+       ↓
+   Attach user to request
+       ↓
+   View executes with request.user
+       ↓
+   Permission checks (IsAdmin, IsEditor, etc.)
+
+
+VISITOR TRACKING FLOW:
+──────────────────────
+
+1. First Page Load (No Cookie)
+   Request → VisitorTrackingMiddleware
+       ↓
+   should_track() → True (not /static, /api, etc.)
+       ↓
+   get_or_create_visitor(request)
+       ↓
+   Check for cookie → None
+       ↓
+   create_new_session()
+       → Generate session_key
+       → Parse User-Agent, IP, UTM
+       → Create VisitorSession in DB
+       ↓
+   track_page_visit()
+       → Create PageVisit record
+       ↓
+   Set cookie in response
+       → dstp_visitor_id=abc123...
+       ↓
+   Response → Browser
+
+
+2. Subsequent Page Load (Has Cookie)
+   Request with cookie → VisitorTrackingMiddleware
+       ↓
+   should_track() → True
+       ↓
+   get_or_create_visitor(request)
+       ↓
+   Check for cookie → Found: abc123
+       ↓
+   Look up VisitorSession by session_key
+       ↓
+   Update:
+       → last_seen = now()
+       → total_visits += 1
+       ↓
+   track_page_visit()
+       → Create new PageVisit
+       ↓
+   Response → Browser
+
+
+3. User Registers
+   Frontend after registration:
+       POST /api/v1/track/link-session/
+       ↓
+   LinkSessionToUserView
+       ↓
+   Get visitor from cookie
+   Get authenticated user from token
+       ↓
+   visitor.mark_as_registered(user)
+       → visitor.user = user
+       → visitor.is_registered = True
+       ↓
+   Save to database
+       ↓
+   All browsing history now linked to account
+
+
+ROLE-BASED ACCESS CONTROL:
+──────────────────────────
+
+Admin Methods:
+  @permission_classes([IsAdmin])
+  
+Admin or Editor:
+  @permission_classes([IsEditor])
+  
+Any Logged In:
+  @permission_classes([IsViewer])
+  or default IsAuthenticated
+
+Public:
+  @permission_classes([AllowAny])
+
+
+================================================================================
+SUMMARY STATISTICS
+================================================================================
+
+AUTHENTICATION Module:
+  • 2 Models (CustomUser, UserProfile)
+  • 8 Views / Endpoints
+  • 7 Serializers
+  • 1 Service class (AuthService)
+  • 3 Permission classes
+  • 4 Validators
+  • 2 Repository classes
+  • 8 API routes
+
+CORE Module:
+  • 2 Models (VisitorSession, PageVisit)
+  • 3 Views / Endpoints
+  • 1 Custom Exception Handler
+  • 4 Error Handlers
+  • 1 Pagination class
+  • 3 API routes
+
+MIDDLEWARE:
+  • 1 VisitorTrackingMiddleware (8 methods)
+  • 1 RequestLoggingMiddleware
+  • 2 Placeholder middleware (cors, jwt)
+
+CONFIG:
+  • 3 Settings files (base, dev, prod)
+  • 50+ configuration variables
+  • Middleware stack: 10 components
+
+UTILITIES:
+  • 4 Custom Exception classes
+  • 4 Error handlers
+
+Total:
+  ~ 400+ lines of authentication code
+  ~ 300+ lines of tracking code
+  ~ 200+ lines of middleware
+  ~ 500+ lines of configuration
+
+
+================================================================================
+END OF DOCUMENT
+================================================================================
+
+Last Updated: March 13, 2026
+Backend Version: 1.0.0
+
+For questions or updates, refer to README.md and API documentation.

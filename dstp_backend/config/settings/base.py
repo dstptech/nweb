@@ -71,6 +71,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "middleware.visitor_tracking_middleware.VisitorTrackingMiddleware",  # Visitor tracking
     "middleware.logging_middleware.RequestLoggingMiddleware",  # Custom request logger
 ]
 
