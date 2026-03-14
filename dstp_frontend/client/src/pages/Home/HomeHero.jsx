@@ -159,7 +159,7 @@ export default function HomeHero({ scrollTo }) {
                   ))}
                 </div>
                 <p className="text-xs text-enterprise-grey font-medium">
-                  Trusted by 40+ enterprise clients
+                  India's fast-growing tech startup
                 </p>
               </div>
             </div>

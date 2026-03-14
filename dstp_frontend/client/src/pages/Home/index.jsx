@@ -55,7 +55,7 @@ export default function HomepageInteractive() {
             <button onClick={() => scrollTo("#contact")} className="text-sm font-semibold px-5 py-2.5 rounded-full border border-enterprise-mid/20 text-enterprise-mid hover:border-coral-400 hover:text-coral-500 transition-all duration-200">
               Contact
             </button>
-            <button onClick={() => scrollTo("#contact")} className="text-sm font-bold px-5 py-2.5 rounded-full text-white transition-all duration-300 hover:shadow-coral-md hover:-translate-y-0.5" style={{ background: "linear-gradient(135deg, #E76F6F, #C95555)" }}>
+            <button onClick={() => window.open('https://cal.com/ankitrewar11/30min', '_blank')} className="text-sm font-bold px-5 py-2.5 rounded-full text-white transition-all duration-300 hover:shadow-coral-md hover:-translate-y-0.5" style={{ background: "linear-gradient(135deg, #E76F6F, #C95555)" }}>
               Start a Project
             </button>
           </div>
