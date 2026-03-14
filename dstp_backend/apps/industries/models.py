@@ -5,5 +5,8 @@ class Industry(models.Model):
     description = models.TextField()
     icon = models.ImageField(upload_to="industries/", blank=True, null=True)
 
+    class Meta:
+        db_table = 'industries'
+
     def __str__(self):
         return self.name

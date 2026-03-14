@@ -7,5 +7,8 @@ class Blog(models.Model):
     published_on = models.DateField(auto_now_add=True)
     thumbnail = models.ImageField(upload_to="blog/", blank=True, null=True)
 
+    class Meta:
+        db_table = 'blog_posts'
+
     def __str__(self):
         return self.title

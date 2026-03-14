@@ -60,7 +60,7 @@ class CustomUser(AbstractBaseUser , PermissionsMixin):
       objects = CustomUserManager()
 
       class Meta:
-            db_table = 'auth_users'
+            db_table = 'users'
             ordering =  ['date_joined']
 
       def  __str__(self):
@@ -91,7 +91,7 @@ class UserProfile(models.Model):
 
 
       class Meta:
-            db_table = 'auth_user_profile'
+            db_table = 'user_profiles'
 
       def __str__(self):
             return f"Profile of {self.user.get_full_name()}"
@@ -107,7 +107,7 @@ class PasswordResetToken(models.Model):
       is_used = models.BooleanField(default=False)
 
       class Meta:
-            db_table = 'auth_password_reset_token'
+            db_table = 'password_reset_tokens'
 
       def __str__(self):
             return f"Reset token for {self.user.email}"

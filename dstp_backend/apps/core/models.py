@@ -51,7 +51,7 @@ class VisitorSession(models.Model):
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        db_table = 'visitor_sessions'
+        db_table = 'visitor_tracking'
         ordering = ['-last_seen']
 
     def __str__(self):
@@ -88,7 +88,7 @@ class PageVisit(models.Model):
     visited_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
-        db_table = 'page_visits'
+        db_table = 'page_tracking'
         ordering = ['-visited_at']
     
     def __str__(self):

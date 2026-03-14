@@ -13,5 +13,8 @@ class Homepage(models.Model):
 
     updated_on = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        db_table = 'homepage_content'
+
     def __str__(self):
         return f"Homepage Content ({self.updated_on.date()})"

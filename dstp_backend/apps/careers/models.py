@@ -7,5 +7,8 @@ class Career(models.Model):
     apply_link = models.URLField(blank=True, null=True)
     posted_on = models.DateField(auto_now_add=True)
 
+    class Meta:
+        db_table = 'job_listings'
+
     def __str__(self):
         return self.title

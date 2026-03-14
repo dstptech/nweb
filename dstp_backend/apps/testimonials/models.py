@@ -6,5 +6,8 @@ class Testimonial(models.Model):
     rating = models.PositiveIntegerField(default=5)
     client_image = models.ImageField(upload_to="testimonials/", blank=True, null=True)
 
+    class Meta:
+        db_table = 'testimonials'
+
     def __str__(self):
         return f"{self.client_name} ({self.rating}/5)"

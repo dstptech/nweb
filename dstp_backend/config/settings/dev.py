@@ -28,14 +28,10 @@ INSTALLED_APPS += [  # noqa: F405
 ]
 
 
-# DATABASE — SQLite for local development
+# DATABASE — MySQL for all environments (no SQLite)
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# Uses MySQL configuration from base.py
+# Environment variables: MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_PORT
 
 
 # REST FRAMEWORK — Dev overrides
