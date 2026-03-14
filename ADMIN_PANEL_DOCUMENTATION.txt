@@ -1,0 +1,664 @@
+================================================================================
+                    DSTP ADMIN PANEL DOCUMENTATION
+                     Frontend Administration Dashboard
+================================================================================
+
+PROJECT OVERVIEW
+================================================================================
+The DSTP Admin Panel is a comprehensive administrative dashboard built with React
+and Vite, designed to manage the DSTP Website's content and operations. It provides
+an intuitive interface for administrators to edit website content, manage services,
+projects, blog posts, and view analytics dashboards.
+
+Tech Stack:
+  • React 19.2.0 - UI library
+  • Vite 5.1.0 - Build tool and dev server
+  • React Router DOM 7.13.1 - Client-side routing
+  • Tailwind CSS 4.2.1 - Utility-first CSS framework
+  • Axios 1.6.0 - HTTP client for API requests
+  • React Hot Toast 2.6.0 - Toast notifications
+  • Recharts 3.8.0 - Chart library for analytics
+  • Lucide React 0.577.0 - Icon library
+  • ESLint 9.39.1 - Code linting
+
+Base URL: http://localhost:5173 (Vite dev server)
+API Base URL: http://localhost:8000 (Django backend)
+
+================================================================================
+FEATURES IMPLEMENTED
+================================================================================
+
+1. DASHBOARD PAGE
+   ├─ Stats Cards displaying KPIs:
+   │  ├─ Total Projects
+   │  ├─ Total Clients
+   │  ├─ Revenue (INR)
+   │  └─ Team Members
+   ├─ Line Charts & Bar Charts (analytics visualization)
+   ├─ Using Recharts for data visualization
+   └─ Mock data currently (ready for API integration)
+
+2. HOMEPAGE EDITOR
+   A comprehensive content management interface with multiple tab-based sections:
+   
+   ├─ Hero Section Editor (🦸)
+   │  ├─ Hero Title (main heading)
+   │  ├─ Hero Subtitle (supporting text)
+   │  ├─ Hero Image URL
+   │  ├─ Banner Text
+   │  ├─ Banner Image URL
+   │  ├─ Stats Title & Value
+   │  └─ Live Preview of hero content
+   │
+   ├─ Services Section Editor (🛠️)
+   │  ├─ Add/Edit/Delete services
+   │  └─ Edit individual service details
+   │
+   ├─ Projects Section Editor (🗂️)
+   │  ├─ Add/Edit/Delete projects
+   │  └─ Project content management
+   │
+   ├─ Testimonials Section Editor (💬)
+   │  ├─ Add/Edit/Delete testimonials
+   │  └─ Manage client testimonials
+   │
+   ├─ About/Team Section Editor (👥)
+   │  ├─ Team title & description
+   │  ├─ Vision statement
+   │  ├─ Team statistics
+   │  └─ Team member information
+   │
+   └─ Contact/CTA Section Editor (📞)
+      ├─ Contact title & subtitle
+      ├─ CTA button text & link
+      ├─ Contact email & phone
+      ├─ Address information
+      ├─ Background color customization
+      └─ Text color customization
+
+   Features:
+   ├─ Tab-based navigation between sections
+   ├─ Save/Update all changes to backend API
+   ├─ Reset to default values
+   ├─ Preview/View homepage
+   ├─ Live preview for each section
+   ├─ Loading states during save
+   └─ Toast notifications for feedback
+
+3. SERVICES MANAGEMENT
+   ├─ List all services with table view
+   ├─ Search/Filter services by name or category
+   ├─ Add new service (modal form)
+   ├─ Edit existing service
+   ├─ Delete services with confirmation
+   ├─ Status management (Active/Draft/Inactive)
+   ├─ Service categories
+   └─ Sort by creation date
+
+4. PROJECTS MANAGEMENT
+   └─ [Page structure created, awaiting content implementation]
+      Features planned:
+      ├─ List projects
+      ├─ Add/Edit/Delete projects
+      ├─ Project details management
+      └─ Project status tracking
+
+5. BLOG MANAGEMENT
+   └─ [Page structure created, awaiting content implementation]
+      Features planned:
+      ├─ Blog post list
+      ├─ Create/Edit blog posts
+      ├─ Rich text editor integration
+      └─ Publishing controls
+
+6. USERS MANAGEMENT
+   └─ [Page structure created, awaiting content implementation]
+      Features planned:
+      ├─ User list with roles
+      ├─ User creation & permissions
+      ├─ Account management
+      └─ Role assignments
+
+7. AUTHENTICATION & AUTHORIZATION
+   ├─ Login page structure (ready for implementation)
+   ├─ JWT token-based authentication
+   ├─ Token stored in localStorage
+   ├─ Bearer token attachment to requests
+   ├─ Token expiration handling (401 response)
+   ├─ AuthContext setup (ready for user session management)
+   └─ useAuth hook (ready for authentication logic)
+
+8. RESPONSIVE LAYOUT
+   ├─ Collapsible sidebar navigation
+   ├─ Top navigation bar
+   ├─ Main content area with proper spacing
+   ├─ Mobile-responsive design with Tailwind CSS
+   ├─ Dark theme with professional color scheme
+   └─ Smooth transitions and animations
+
+================================================================================
+FILE STRUCTURE & DESCRIPTION
+================================================================================
+
+ROOT LEVEL FILES:
+├─ package.json
+│  └─ Project dependencies and npm scripts
+│     Scripts: dev, build, lint, preview
+│
+├─ vite.config.js
+│  └─ Vite configuration for React with Tailwind CSS plugin
+│
+├─ eslint.config.js
+│  └─ ESLint rules and configuration
+│
+├─ postcss.config.js
+│  └─ PostCSS configuration for Tailwind CSS
+│
+├─ tailwind.config.js
+│  └─ Tailwind CSS theme customization
+│
+├─ index.html
+│  └─ HTML entry point with React root element
+│
+└─ public/
+   └─ Static assets served publicly
+
+================================================================================
+
+SRC DIRECTORY STRUCTURE:
+
+src/
+├─ main.jsx
+│  └─ React application entry point, mounts App component
+│
+├─ App.jsx
+│  └─ Main application component with React Router configuration
+│     Routes:
+│     ├─ / (Dashboard)
+│     ├─ /services (Services List)
+│     ├─ /homepage (Homepage Editor)
+│     └─ Layout wrapper for all routes
+│
+├─ App.css
+│  └─ Global application styles
+│
+├─ index.css
+│  └─ Global CSS reset and Tailwind imports
+│
+├─ api/
+│  ├─ axiosInstance.js
+│  │  └─ Axios HTTP client configuration
+│  │     Features:
+│  │     ├─ Base URL: http://localhost:8000
+│  │     ├─ Request interceptor for JWT token injection
+│  │     ├─ Response interceptor for error handling
+│  │     └─ withCredentials enabled for CORS
+│  │
+│  └─ homepageApi.js
+│     └─ Homepage API functions
+│        Functions:
+│        ├─ getHomepageData() - Fetch homepage data
+│        ├─ getHomepageById(id) - Get homepage by ID
+│        ├─ createHomepageData(data) - Create new homepage
+│        ├─ updateHomepageData(id, data) - Full update
+│        ├─ patchHomepageData(id, data) - Partial PATCH update
+│        └─ deleteHomepageData(id) - Delete homepage
+│
+├─ components/
+│  ├─ index.js
+│  │  └─ Barrel export file for all components
+│  │
+│  ├─ layout/
+│  │  ├─ AdminLayout.jsx
+│  │  │  └─ Main layout component
+│  │  │     Contains:
+│  │  │     ├─ Sidebar (fixed left navigation)
+│  │  │     ├─ TopBar (header)
+│  │  │     ├─ Main content area with Outlet (React Router)
+│  │  │     └─ Responsive spacing with transitions
+│  │  │
+│  │  ├─ Sidebar.jsx
+│  │  │  └─ Navigation sidebar component
+│  │  │     Features:
+│  │  │     ├─ Collapsible state management
+│  │  │     ├─ Navbar sections (MAIN, SYSTEM)
+│  │  │     ├─ Navigation items with routes:
+│  │  │     │  ├─ Dashboard
+│  │  │     │  ├─ HomePage Editor
+│  │  │     │  ├─ Projects
+│  │  │     │  ├─ Clients
+│  │  │     │  ├─ Team
+│  │  │     │  ├─ Services
+│  │  │     │  ├─ Invoices
+│  │  │     │  └─ Settings
+│  │  │     ├─ Logout dropdown menu
+│  │  │     ├─ Brand logo display
+│  │  │     └─ Active route highlighting
+│  │  │
+│  │  ├─ TopBar.jsx
+│  │  │  └─ Header component (implementation details in code)
+│  │  │
+│  │  └─ Logo-admin.png
+│  │     └─ Application logo for sidebar
+│  │
+│  ├─ forms/
+│  │  └─ FormField.jsx
+│  │     └─ Reusable form field component (barrel export)
+│  │
+│  ├─ tables/
+│  │  └─ DataTable.jsx
+│  │     └─ Reusable data table component (placeholder)
+│  │
+│  ├─ modals/
+│  │  └─ ConfirmDeleteModal.jsx
+│  │     └─ Delete confirmation dialog (placeholder)
+│  │
+│  └─ ui/
+│     ├─ Badge.jsx
+│     │  └─ Badge/badge component for labels and tags
+│     │
+│     ├─ Spinner.jsx
+│     │  └─ Loading spinner component
+│     │
+│     └─ StatsCard.jsx
+│        └─ Statistics card component
+│           Props:
+│           ├─ title - Card title
+│           ├─ value - Main statistic value
+│           ├─ change - Percentage change
+│           ├─ trending - Direction (up/down)
+│           ├─ icon - Icon component from lucide-react
+│           └─ color - Gradient background color
+│           Features:
+│           ├─ Hover animations
+│           ├─ Trending indicator (up/down icon)
+│           ├─ Color-coded backgrounds
+│           └─ Shadow effects
+│
+├─ context/
+│  └─ role/
+│     └─ AuthContext.jsx
+│        └─ React Context for authentication state (ready for implementation)
+│           Planned:
+│           ├─ User session management
+│           ├─ Authentication status
+│           └─ Role/permission tracking
+│
+├─ hooks/
+│  └─ useAuth.js
+│     └─ Custom hook for authentication (ready for implementation)
+│        Planned:
+│        ├─ Access user from AuthContext
+│        ├─ Login/logout functions
+│        └─ Token management
+│
+├─ pages/
+│  ├─ index.js
+│  │  └─ Barrel export for all pages
+│  │
+│  ├─ Auth/
+│  │  └─ LoginPage.jsx
+│  │     └─ User login page (placeholder)
+│  │        Planned features:
+│  │        ├─ Email/Password login form
+│  │        ├─ Form validation
+│  │        ├─ JWT token request to backend
+│  │        └─ Redirect to dashboard on success
+│  │
+│  ├─ Dashboard/
+│  │  └─ DashboardPage.jsx
+│  │     └─ Main dashboard/home page
+│  │        Components:
+│  │        ├─ StatsCard components (4 cards)
+│  │        ├─ LineChart (mock data visualization)
+│  │        ├─ BarChart (mock data visualization)
+│  │        └─ Legend for charts
+│  │        Stats tracked (mock):
+│  │        ├─ Total Projects: 1
+│  │        ├─ Total Clients: 0
+│  │        ├─ Revenue: INR -
+│  │        └─ Team Members: 4
+│  │        Charts display trends over months (Jan-Dec)
+│  │
+│  ├─ Homepage/
+│  │  ├─ HomepageEditor.jsx
+│  │  │  └─ Main page editor component
+│  │  │     Features:
+│  │  │     ├─ Tab-based navigation (6 sections)
+│  │  │     ├─ Data state management
+│  │  │     ├─ API integration for CRUD operations
+│  │  │     ├─ Save, Reset, and Preview buttons
+│  │  │     ├─ Loading states during operations
+│  │  │     ├─ Toast notifications for feedback
+│  │  │     ├─ Error handling with try-catch
+│  │  │     └─ Fallback defaults for missing data
+│  │  │
+│  │  └─ sections/
+│  │     ├─ HeroEditor.jsx
+│  │     │  └─ Hero section editor component
+│  │     │     Fields:
+│  │     │     ├─ Hero Title
+│  │     │     ├─ Hero Subtitle
+│  │     │     ├─ Hero Image URL
+│  │     │     ├─ Banner Text
+│  │     │     ├─ Banner Image URL
+│  │     │     ├─ Stats Title
+│  │     │     └─ Stats Value
+│  │     │     Includes live preview with dark background
+│  │     │
+│  │     ├─ ServicesEditor.jsx
+│  │     │  └─ Services section editor (implementation details in code)
+│  │     │
+│  │     ├─ ProjectsEditor.jsx
+│  │     │  └─ Projects section editor (implementation details in code)
+│  │     │
+│  │     ├─ TestimonialsEditor.jsx
+│  │     │  └─ Testimonials section editor (implementation details in code)
+│  │     │
+│  │     ├─ AboutEditor.jsx
+│  │     │  └─ About/Team section editor (implementation details in code)
+│  │     │
+│  │     └─ ContactEditor.jsx
+│  │        └─ Contact/CTA section editor (implementation details in code)
+│  │
+│  ├─ Services/
+│  │  ├─ ServicesList.jsx
+│  │  │  └─ Services management page
+│  │  │     Features:
+│  │  │     ├─ Display services in list format
+│  │  │     ├─ Search/filter by name or category
+│  │  │     ├─ Add new service button
+│  │  │     ├─ Edit service modal
+│  │  │     ├─ Delete service with confirmation
+│  │  │     ├─ Status management (Active/Draft/Inactive)
+│  │  │     ├─ Mock initial data with 5 services
+│  │  │     ├─ Form validation
+│  │  │     └─ Toast notifications for all actions
+│  │  │
+│  │  └─ ServiceForm.jsx
+│  │     └─ Service creation/edit form (placeholder)
+│  │
+│  ├─ Projects/
+│  │  ├─ ProjectsList.jsx
+│  │  │  └─ Projects management page (placeholder)
+│  │  │
+│  │  └─ ProjectForm.jsx
+│  │     └─ Project form component (placeholder)
+│  │
+│  ├─ Blog/
+│  │  └─ BlogList.jsx
+│  │     └─ Blog posts management page (placeholder)
+│  │
+│  └─ Users/
+│     └─ UsersList.jsx
+│        └─ Users management page (placeholder)
+│
+├─ assets/
+│  └─ Logo-admin.png
+│     └─ Admin panel logo image
+│
+└─ utils/
+   └─ helpers.js
+      └─ Utility functions for common tasks (implementation details in code)
+
+================================================================================
+COMPONENT RELATIONSHIPS & DATA FLOW
+================================================================================
+
+App.jsx (Root)
+    ↓
+AdminLayout.jsx (Layout Wrapper)
+    ├─ Sidebar.jsx (Navigation)
+    ├─ TopBar.jsx (Header)
+    └─ Outlet → Page Components
+       ├─ DashboardPage.jsx
+       │  └─ StatsCard.jsx × 4
+       │  └─ Recharts (LineChart, BarChart)
+       │
+       ├─ ServicesList.jsx
+       │  └─ Search functionality
+       │  └─ Modal for Add/Edit
+       │
+       └─ HomepageEditor.jsx
+          └─ Tab Navigation
+             ├─ HeroEditor.jsx
+             ├─ ServicesEditor.jsx
+             ├─ ProjectsEditor.jsx
+             ├─ TestimonialsEditor.jsx
+             ├─ AboutEditor.jsx
+             └─ ContactEditor.jsx
+
+API Flow:
+┌─ axiosInstance
+│  ├─ Request Interceptor (JWT injection)
+│  └─ Response Interceptor (Error handling)
+└─ homepageApi.js
+   ├─ GET /api/v1/homepage/homepage/
+   ├─ POST /api/v1/homepage/homepage/
+   ├─ PUT /api/v1/homepage/homepage/{id}/
+   ├─ PATCH /api/v1/homepage/homepage/{id}/
+   └─ DELETE /api/v1/homepage/homepage/{id}/
+
+================================================================================
+STYLING & DESIGN
+================================================================================
+
+Color Scheme:
+  ├─ Primary Background: #0a0f1e (Dark Navy)
+  ├─ Secondary Background: #1a1f2e (Sidebar)
+  ├─ Accent Colors:
+  │  ├─ Yellow: from-yellow-300 to-yellow-600
+  │  ├─ Purple: from-purple-300 to-purple-600
+  │  ├─ Green: from-green-300 to-green-600
+  │  └─ Blue: Blue accents for links/focus
+  ├─ Text: White (#ffffff) on dark backgrounds
+  └─ Borders: Gray-100, Gray-200 (subtle dividers)
+
+Layout System:
+  ├─ Tailwind CSS utility classes
+  ├─ Flexbox for component layout
+  ├─ Grid for dashboard cards
+  ├─ Responsive breakpoints: md (768px)
+  ├─ Smooth transitions (300ms)
+  └─ Shadow effects for depth
+
+Responsive Design:
+  ├─ Mobile-first approach
+  ├─ Sidebar: Collapsible (16 units) vs Full (64 units)
+  ├─ Main content: Adjusts margin based on sidebar state
+  ├─ Grid cards: 1 column mobile, 2+ columns on desktop
+  └─ Forms: Single column, full width
+
+================================================================================
+API INTEGRATION DETAILS
+================================================================================
+
+Base Configuration:
+  URL: http://localhost:8000
+  Headers: Content-Type: application/json
+  Credentials: Include (withCredentials: true)
+
+Authentication:
+  ├─ Token Storage: localStorage.getItem('access_token')
+  ├─ Token Injection: Authorization header (Bearer token)
+  ├─ Error Handling: 401 Unauthorized (token expired)
+  └─ Ready for: Token refresh mechanism
+
+Endpoints Used:
+  1. Homepage Data Management
+     ├─ GET /api/v1/homepage/homepage/
+     │  └─ Fetch all homepage data (returns array, take first item)
+     ├─ POST /api/v1/homepage/homepage/
+     │  └─ Create new homepage data
+     ├─ PUT /api/v1/homepage/homepage/{id}/
+     │  └─ Full update (replace all fields)
+     ├─ PATCH /api/v1/homepage/homepage/{id}/
+     │  └─ Partial update (only changed fields)
+     └─ DELETE /api/v1/homepage/homepage/{id}/
+        └─ Delete homepage data
+
+Data Schema (Homepage):
+  {
+    id: number,
+    hero: {
+      hero_title: string,
+      hero_subtitle: string,
+      hero_image: string (URL),
+      banner_text: string,
+      banner_image: string (URL),
+      stats_title: string,
+      stats_value: string
+    },
+    services: array,
+    projects: array,
+    testimonials: array,
+    about: {
+      title: string,
+      subtitle: string,
+      description: string,
+      vision: string,
+      stats: array
+    },
+    contact: {
+      title: string,
+      subtitle: string,
+      btnText: string,
+      btnLink: string,
+      email: string,
+      phone: string,
+      address: string,
+      bgColor: string (hex),
+      textColor: string (hex)
+    }
+  }
+
+================================================================================
+DEVELOPMENT INSTRUCTIONS
+================================================================================
+
+Installation:
+  1. Navigate to admin folder: cd dstp_frontend/admin
+  2. Install dependencies: npm install
+  3. Start dev server: npm run dev
+  4. Open browser: http://localhost:5173
+
+Build for Production:
+  npm run build
+  (Creates optimized build in dist/ folder)
+
+Linting:
+  npm run lint
+  (Checks code quality with ESLint)
+
+Preview Production Build:
+  npm run preview
+  (Serves production build locally)
+
+Environment Setup:
+  ├─ Node.js 18+ required
+  ├─ npm or yarn package manager
+  └─ Backend API running on http://localhost:8000
+
+================================================================================
+FEATURES READY FOR IMPLEMENTATION
+================================================================================
+
+1. Login Authentication
+   ├─ Complete LoginPage.jsx with form validation
+   ├─ Implement useAuth hook logic
+   ├─ Setup AuthContext for state management
+   └─ Add route guards for protected pages
+
+2. User Management Page
+   ├─ List users with pagination
+   ├─ Create new users with roles
+   ├─ Edit user permissions
+   └─ Delete users with confirmation
+
+3. Blog Management
+   ├─ Blog listing with search/filter
+   ├─ Rich text editor integration
+   ├─ Author and category management
+   ├─ Published/Draft status toggle
+   └─ Delete with confirmation
+
+4. Projects Management
+   ├─ Complete ProjectsList.jsx
+   ├─ Project form with validation
+   ├─ Image upload functionality
+   ├─ Category/Tag management
+   └─ Status tracking
+
+5. Advanced Features (Future)
+   ├─ Email notification settings
+   ├─ User activity logs
+   ├─ Advanced analytics dashboard
+   ├─ Backup/Restore functionality
+   ├─ UI theme customization
+   └─ Bulk operations support
+
+================================================================================
+KNOWN LIMITATIONS & TODOs
+================================================================================
+
+Current State:
+  ├─ Mock data for Dashboard and Services
+  ├─ Some pages not yet implemented (Blog, Projects, Users)
+  ├─ Authentication system structure ready but not functional
+  ├─ No image upload/preview functionality
+  ├─ No validation for email/URL fields
+  └─ Delete confirmation modal is placeholder
+
+Areas for Enhancement:
+  ├─ Add form validation library (e.g., Formik or React Hook Form)
+  ├─ Implement image upload with preview
+  ├─ Add rich text editor for content
+  ├─ Implement advanced filtering/sorting
+  ├─ Add pagination for large datasets
+  ├─ Implement proper error boundaries
+  ├─ Add loading states throughout
+  └─ Setup proper error logging
+
+Performance Optimizations:
+  ├─ Memoize components with React.memo
+  ├─ Lazy load routes with React.lazy
+  ├─ Optimize API calls with request caching
+  ├─ Implement infinite scroll for lists
+  └─ Code splitting for faster load times
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Common Issues:
+
+1. Vite Dev Server Not Starting
+   Solution: Kill process on port 5173 or change port in vite.config.js
+
+2. API Connection Errors
+   Ensure Django backend is running on http://localhost:8000
+
+3. CSS Not Loading Properly
+   Clear node_modules and reinstall: rm -rf node_modules && npm install
+
+4. Hot Module Replacement (HMR) Not Working
+   Check firewall settings or restart dev server
+
+5. Token Expiration Issues
+   Clear localStorage and login again: localStorage.clear()
+
+================================================================================
+CONTACT & SUPPORT
+================================================================================
+
+Project: DSTP Technology Private Limited - Website Admin Panel
+Frontend Framework: React 19 with Vite
+Backend: Django REST Framework
+Styling: Tailwind CSS
+
+For questions about specific components, refer to inline comments in source files.
+
+================================================================================
+DOCUMENT VERSION: 1.0
+LAST UPDATED: March 13, 2026
+================================================================================

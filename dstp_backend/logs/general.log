@@ -119,3 +119,469 @@
 [2026-03-12 13:02:41] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
 [2026-03-12 13:02:41] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
 [2026-03-12 13:02:41] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 15:54:11] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-12 15:54:19] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.04s)
+[2026-03-12 15:54:19] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 15:54:19] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 15:54:19] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:07:06] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:07:06] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:07:06] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:07:06] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:07:33] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.05s)
+[2026-03-12 16:07:33] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4694
+[2026-03-12 16:07:33] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.14s)
+[2026-03-12 16:07:33] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 135448
+[2026-03-12 16:08:09] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/1/ - 200 (0.01s)
+[2026-03-12 16:08:09] INFO django.server log:249 — "GET /api/v1/homepage/homepage/1/ HTTP/1.1" 200 362
+[2026-03-12 16:09:15] INFO django.server log:249 — "OPTIONS /api/v1/homepage/homepage/ HTTP/1.1" 200 0
+[2026-03-12 16:09:15] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-12 16:09:15] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-12 16:09:15] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 65
+[2026-03-12 16:10:49] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-12 16:10:49] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-12 16:10:49] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 65
+[2026-03-12 16:17:06] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-12 16:17:06] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:17:06] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-12 16:17:06] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:20:53] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-12 16:20:53] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-12 16:20:53] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 65
+[2026-03-12 16:21:54] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-12 16:21:54] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-12 16:21:54] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 65
+[2026-03-12 16:23:02] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-12 16:23:02] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-12 16:23:02] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 65
+[2026-03-12 16:23:16] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-12 16:23:16] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-12 16:23:16] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 65
+[2026-03-12 16:23:22] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-12 16:23:22] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-12 16:23:22] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 65
+[2026-03-12 16:27:22] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:27:22] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:28:36] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:28:36] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:28:36] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:28:36] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:28:58] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:28:58] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:28:58] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:28:58] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:29:03] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:29:03] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:29:03] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:29:03] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:42:32] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:42:32] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:42:32] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:42:32] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:54:32] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:54:32] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 16:54:32] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 16:54:32] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 17:07:18] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 17:07:18] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 17:07:18] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-12 17:07:18] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 17:15:05] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 17:15:05] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 17:15:05] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 17:15:05] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 17:15:35] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-12 17:15:35] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 414
+[2026-03-12 17:15:41] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.02s)
+[2026-03-12 17:15:41] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 196
+[2026-03-12 17:15:45] INFO django.server log:249 — "OPTIONS /api/v1/homepage/homepage/2/ HTTP/1.1" 200 0
+[2026-03-12 17:15:45] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/2/ - 200 (0.02s)
+[2026-03-12 17:15:45] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/2/ HTTP/1.1" 200 196
+[2026-03-12 17:15:52] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 17:15:52] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 611
+[2026-03-12 17:15:52] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 17:15:52] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 611
+[2026-03-12 17:16:21] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-12 17:16:21] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-12 17:16:21] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 65
+[2026-03-12 17:16:25] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.02s)
+[2026-03-12 17:16:25] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 198
+[2026-03-12 17:16:46] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-12 17:16:46] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 810
+[2026-03-12 17:16:46] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-12 17:16:46] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 810
+[2026-03-12 17:16:59] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.01s)
+[2026-03-12 17:16:59] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 191
+[2026-03-12 17:21:26] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 17:21:26] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-12 17:21:26] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-12 17:21:26] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-12 17:33:47] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 17:33:47] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-12 17:33:47] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-12 17:33:47] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:12:27] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-13 11:13:52] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.09s)
+[2026-03-13 11:13:52] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:13:52] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 11:13:52] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:13:54] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 11:13:54] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:14:00] INFO django.server log:249 — "OPTIONS /api/v1/homepage/homepage/ HTTP/1.1" 200 0
+[2026-03-13 11:14:00] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 11:14:00] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 11:14:00] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 11:14:07] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 11:14:07] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 11:14:07] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 11:14:12] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 11:14:12] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 11:14:12] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 11:19:25] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 11:19:25] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 11:19:25] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 11:19:54] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 11:19:54] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:19:54] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 11:19:54] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:20:16] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 11:20:16] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:20:16] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 11:20:16] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:20:37] INFO middleware.logging_middleware logging_middleware:20 — GET /api/docs/ - 200 (0.14s)
+[2026-03-13 11:20:37] INFO django.server log:249 — "GET /api/docs/ HTTP/1.1" 200 4694
+[2026-03-13 11:20:38] INFO middleware.logging_middleware logging_middleware:20 — GET /api/schema/ - 200 (0.33s)
+[2026-03-13 11:20:38] INFO django.server log:249 — "GET /api/schema/ HTTP/1.1" 200 135448
+[2026-03-13 11:30:01] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 11:30:01] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:30:01] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 11:30:01] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:30:07] INFO django.server log:249 — "OPTIONS /api/v1/homepage/homepage/ HTTP/1.1" 200 0
+[2026-03-13 11:30:07] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 11:30:07] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 11:30:07] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 245
+[2026-03-13 11:30:20] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.01s)
+[2026-03-13 11:30:20] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 11:30:20] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 11:30:56] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 11:30:56] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:31:00] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 11:31:00] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 11:31:00] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 245
+[2026-03-13 11:36:06] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 11:36:06] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:36:06] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 11:36:06] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:36:27] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 11:36:27] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 11:36:27] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 245
+[2026-03-13 11:36:52] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.01s)
+[2026-03-13 11:36:52] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 11:36:52] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 11:37:07] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 11:37:07] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 11:37:07] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 11:45:53] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.07s)
+[2026-03-13 11:45:53] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 11:45:53] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 11:45:53] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:00:51] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:00:51] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:00:51] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:00:51] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:03:15] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:03:15] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:03:34] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:03:34] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:03:34] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 245
+[2026-03-13 12:03:42] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:03:42] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:03:42] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 12:16:55] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:16:55] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:16:55] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-13 12:16:55] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:17:19] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:17:19] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:17:19] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 245
+[2026-03-13 12:17:29] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:17:29] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:17:29] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 12:17:38] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:17:38] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:17:38] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 12:17:43] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:17:43] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:17:43] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:17:43] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:24:32] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:24:32] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:24:32] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 12:25:01] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:25:01] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:25:01] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 12:35:15] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:35:15] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:35:15] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 245
+[2026-03-13 12:35:37] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:35:37] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:35:37] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:35:37] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:35:42] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:35:42] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:35:42] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 245
+[2026-03-13 12:37:35] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:37:35] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:37:35] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:37:35] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:37:41] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:37:41] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:37:41] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 245
+[2026-03-13 12:37:50] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:37:50] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:37:50] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 245
+[2026-03-13 12:48:46] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:48:46] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:48:46] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:48:46] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:48:49] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:48:49] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:48:49] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 245
+[2026-03-13 12:58:37] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:58:37] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:58:37] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 12:58:37] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1002
+[2026-03-13 12:58:44] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:58:44] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:58:44] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 245
+[2026-03-13 12:59:30] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 12:59:30] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 12:59:30] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 245
+[2026-03-13 13:03:41] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 13:03:41] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 13:03:41] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 65
+[2026-03-13 13:03:43] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 13:03:43] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 13:03:43] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 65
+[2026-03-13 13:03:46] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 13:03:46] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 13:03:46] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 65
+[2026-03-13 13:03:47] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 13:03:47] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 13:03:47] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 65
+[2026-03-13 13:06:18] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.03s)
+[2026-03-13 13:06:18] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 233
+[2026-03-13 13:06:30] INFO django.server log:249 — "OPTIONS /api/v1/homepage/homepage/5/ HTTP/1.1" 200 0
+[2026-03-13 13:06:30] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/5/ - 200 (0.02s)
+[2026-03-13 13:06:30] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/5/ HTTP/1.1" 200 233
+[2026-03-13 13:06:30] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/5/ - 200 (0.01s)
+[2026-03-13 13:06:30] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/5/ HTTP/1.1" 200 233
+[2026-03-13 13:07:16] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/5/ - 200 (0.02s)
+[2026-03-13 13:07:16] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/5/ HTTP/1.1" 200 241
+[2026-03-13 13:17:12] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/5/ - 200 (0.02s)
+[2026-03-13 13:17:12] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/5/ HTTP/1.1" 200 241
+[2026-03-13 14:04:48] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:04:48] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1244
+[2026-03-13 14:04:48] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-13 14:04:48] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1244
+[2026-03-13 14:06:34] INFO django.server log:249 — "OPTIONS /api/v1/homepage/homepage/ HTTP/1.1" 200 0
+[2026-03-13 14:06:35] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 14:06:35] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 14:06:35] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 14:07:10] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 14:07:10] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 14:07:10] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 14:08:09] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:08:09] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1244
+[2026-03-13 14:08:09] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:08:09] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1244
+[2026-03-13 14:08:25] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.02s)
+[2026-03-13 14:08:25] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 235
+[2026-03-13 14:08:42] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:08:42] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1480
+[2026-03-13 14:08:42] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:08:42] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1480
+[2026-03-13 14:08:43] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:08:43] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1480
+[2026-03-13 14:08:43] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:08:43] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1480
+[2026-03-13 14:09:25] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.02s)
+[2026-03-13 14:09:25] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 235
+[2026-03-13 14:11:48] INFO django.server log:249 — "OPTIONS /api/v1/homepage/homepage/7/ HTTP/1.1" 200 0
+[2026-03-13 14:11:48] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/7/ - 200 (0.02s)
+[2026-03-13 14:11:48] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/7/ HTTP/1.1" 200 231
+[2026-03-13 14:12:00] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/7/ - 200 (0.02s)
+[2026-03-13 14:12:00] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/7/ HTTP/1.1" 200 259
+[2026-03-13 14:12:11] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:12:11] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1740
+[2026-03-13 14:12:11] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:12:11] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 1740
+[2026-03-13 14:12:18] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.01s)
+[2026-03-13 14:12:18] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 260
+[2026-03-13 14:12:30] INFO django.server log:249 — "OPTIONS /api/v1/homepage/homepage/8/ HTTP/1.1" 200 0
+[2026-03-13 14:12:30] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/8/ - 200 (0.02s)
+[2026-03-13 14:12:30] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/8/ HTTP/1.1" 200 265
+[2026-03-13 14:12:44] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/8/ - 200 (0.01s)
+[2026-03-13 14:12:44] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/8/ HTTP/1.1" 200 265
+[2026-03-13 14:13:12] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/8/ - 200 (0.02s)
+[2026-03-13 14:13:12] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/8/ HTTP/1.1" 200 265
+[2026-03-13 14:15:12] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/8/ - 200 (0.02s)
+[2026-03-13 14:15:12] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/8/ HTTP/1.1" 200 265
+[2026-03-13 14:16:42] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/8/ - 200 (0.02s)
+[2026-03-13 14:16:42] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/8/ HTTP/1.1" 200 265
+[2026-03-13 14:16:47] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:16:47] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2006
+[2026-03-13 14:16:47] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:16:47] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2006
+[2026-03-13 14:17:13] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:17:13] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2006
+[2026-03-13 14:17:13] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:17:13] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2006
+[2026-03-13 14:23:05] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.02s)
+[2026-03-13 14:23:05] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 232
+[2026-03-13 14:27:43] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:27:43] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2239
+[2026-03-13 14:27:43] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:27:43] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2239
+[2026-03-13 14:29:17] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 14:29:17] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 14:29:17] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 14:29:19] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 14:29:19] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 14:29:19] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-13 14:29:27] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.02s)
+[2026-03-13 14:29:27] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 208
+[2026-03-13 14:29:31] INFO django.server log:249 — "OPTIONS /api/v1/homepage/homepage/10/ HTTP/1.1" 200 0
+[2026-03-13 14:29:31] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/10/ - 200 (0.02s)
+[2026-03-13 14:29:31] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/10/ HTTP/1.1" 200 208
+[2026-03-13 14:29:35] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:29:35] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2449
+[2026-03-13 14:29:35] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:29:35] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2449
+[2026-03-13 14:34:58] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-13 14:34:58] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-13 14:34:58] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 108
+[2026-03-13 14:35:27] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.02s)
+[2026-03-13 14:35:27] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 206
+[2026-03-13 14:46:23] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:46:23] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 14:46:23] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 14:46:23] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:08:39] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 15:08:39] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:08:39] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 15:08:39] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:08:41] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 15:08:41] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:08:41] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 15:08:41] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:09:47] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 15:09:47] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:09:48] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 15:09:48] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:22:49] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 15:22:49] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:22:49] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 15:22:49] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:23:53] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 15:23:53] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:23:53] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 15:23:53] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:25:23] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 15:25:23] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:25:23] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 15:25:23] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:28:41] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 15:28:41] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:28:41] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 15:28:41] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:57:01] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 15:57:01] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:57:01] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 15:57:01] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 15:58:24] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.01s)
+[2026-03-13 15:58:24] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 276
+[2026-03-13 16:32:22] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 16:32:22] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 16:32:22] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-13 16:32:22] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 17:15:43] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 17:15:43] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 17:15:43] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 17:15:43] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 17:18:05] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 17:18:05] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 17:18:05] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-13 17:18:05] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 17:25:40] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-13 17:25:40] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 17:25:40] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 17:25:40] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 17:40:42] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 17:40:42] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-13 17:40:42] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-13 17:40:42] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 11:27:38] INFO django.utils.autoreload autoreload:681 — Watching for file changes with StatReloader
+[2026-03-14 11:27:46] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.04s)
+[2026-03-14 11:27:46] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 11:27:46] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 11:27:46] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 11:27:49] INFO django.server log:249 — "OPTIONS /api/v1/homepage/homepage/ HTTP/1.1" 200 0
+[2026-03-14 11:27:49] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-14 11:27:49] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-14 11:27:49] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-14 11:27:54] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-14 11:27:54] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-14 11:27:54] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-14 11:28:06] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-14 11:28:06] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-14 11:28:06] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-14 11:28:15] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-14 11:28:15] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-14 11:28:15] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-14 11:34:11] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 11:34:11] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 11:34:11] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-14 11:34:11] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 11:34:15] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 400 (0.00s)
+[2026-03-14 11:34:15] WARNING django.request log:249 — Bad Request: /api/v1/homepage/homepage/
+[2026-03-14 11:34:15] WARNING django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 400 199
+[2026-03-14 11:36:38] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 11:36:38] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 11:36:38] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 11:36:38] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 11:36:40] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.02s)
+[2026-03-14 11:36:40] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 261
+[2026-03-14 11:52:55] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 11:52:55] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 11:52:55] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 11:52:55] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 11:52:57] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.02s)
+[2026-03-14 11:52:57] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 261
+[2026-03-14 11:53:09] INFO django.server log:249 — "OPTIONS /api/v1/homepage/homepage/14/ HTTP/1.1" 200 0
+[2026-03-14 11:53:09] INFO middleware.logging_middleware logging_middleware:20 — PUT /api/v1/homepage/homepage/14/ - 200 (0.02s)
+[2026-03-14 11:53:09] INFO django.server log:249 — "PUT /api/v1/homepage/homepage/14/ HTTP/1.1" 200 261
+[2026-03-14 11:53:12] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 11:53:12] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 11:53:12] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 11:53:12] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 12:13:30] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 12:13:30] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 12:13:30] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 12:13:30] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 12:13:56] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.02s)
+[2026-03-14 12:13:56] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 254
+[2026-03-14 12:14:38] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 12:14:38] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 12:14:38] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 12:14:38] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 12:14:42] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 12:14:42] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 12:14:42] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.01s)
+[2026-03-14 12:14:42] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 12:15:24] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.02s)
+[2026-03-14 12:15:24] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 12:15:24] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/homepage/homepage/ - 200 (0.00s)
+[2026-03-14 12:15:24] INFO django.server log:249 — "GET /api/v1/homepage/homepage/ HTTP/1.1" 200 2501
+[2026-03-14 12:18:07] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/homepage/homepage/ - 201 (0.01s)
+[2026-03-14 12:18:07] INFO django.server log:249 — "POST /api/v1/homepage/homepage/ HTTP/1.1" 201 261
