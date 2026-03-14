@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from drf_spectacular.utils import extend_schema_view, extend_schema
 
 from .serializers import (
     RegisterSerializer,
@@ -32,6 +33,7 @@ from utils.exceptions import (
 )
 
 
+@extend_schema_view(post=extend_schema(auth=[], request=RegisterSerializer, description="Create a new user account. Returns user info and JWT tokens."))
 class RegisterView(APIView):
     """Create new user account.
     
@@ -88,6 +90,7 @@ class RegisterView(APIView):
         }, status=status.HTTP_201_CREATED)
 
 
+@extend_schema_view(post=extend_schema(auth=[], request=LoginSerializer, description="Authenticate user with email and password. Returns access and refresh tokens."))
 class LoginView(APIView):
     """Authenticate user with email and password.
     
@@ -170,7 +173,7 @@ class LogoutView(APIView):
             'message': 'Logged out successfully'
         }, status=status.HTTP_200_OK)
 
-
+@extend_schema_view(post=extend_schema(auth=[], description="Get new access token using a refresh token. Requires refresh token in request body."))
 class RefreshView(APIView):
     """Get new access token using refresh token.
     
@@ -271,7 +274,7 @@ class UpdateProfileView(APIView):
             'data': UserSerializer(user).data
         }, status=status.HTTP_200_OK)
 
-
+@extend_schema_view(post=extend_schema(auth=[], request=PasswordResetRequestSerializer, description="Request a password reset token. Email address is required."))
 class PasswordResetRequestView(APIView):
     """Request password reset token via email.
     
@@ -313,6 +316,7 @@ class PasswordResetRequestView(APIView):
         }, status=status.HTTP_200_OK)
 
 
+@extend_schema_view(post=extend_schema(auth=[], request=PasswordResetConfirmSerializer, description="Confirm password reset with token and new password."))
 class PasswordResetConfirmView(APIView):
     """Reset password using token and new password.
     
