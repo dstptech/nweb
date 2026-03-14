@@ -46,3 +46,13 @@ dist-ssr
 # Test files (local use only)
 test_auth_endpoints.py
 AUTHENTICATION_TEST_REPORT.md
+
+# Temporary documentation files (local audit/review only)
+BACKEND_FIXES_CHECKLIST.md
+BACKEND_FEATURES_SUMMARY.txt
+BACKEND_IMPROVEMENTS_SUMMARY.md
+BEFORE_AFTER_COMPARISON.md
+FINAL_VALIDATION_REPORT.md
+FIXES_APPLIED.md
+MIDDLEWARE_VALIDATION_REPORT.txt
+QUICK_START_GUIDE.md

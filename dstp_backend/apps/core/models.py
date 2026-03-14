@@ -1,14 +1,21 @@
  # These models store everything about a visitor — even before they register.
+
+
+
 # Two tables:
 #   1. VisitorSession  -> who is visiting (one record per unique visitor)
 #   2. PageVisit       -> what pages they visited 
 
 from django.db import models
 from django.utils import timezone
-from django.conf import settings
+from django.conf import settings  # to link to CustomUser when they register
 class VisitorSession(models.Model):
-    #One Record per unique visitor
-    #I Created the moment someone lands on the site for the first time
+
+   # Created THe Moment someone lands on the site for the first time
+
+# Unique id is stored in the Browser Cookie
+# This is How our Recognize the same visitor next time
+
     session_key = models.CharField(max_length=64 , unique=True , db_index=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -33,7 +40,7 @@ class VisitorSession(models.Model):
 
     #Visit Counts
     total_visits = models.IntegerField(default=1) # How many times they come back
-    total_page_field = models.IntegerField(default=0) # Total Pages They Looked at
+    total_pages_viewed = models.IntegerField(default=0) # Total Pages They Looked at
     
     #timestamps
     first_seen = models.DateTimeField(default=timezone.now) # very first visit
