@@ -1,0 +1,785 @@
+================================================================================
+                        ADMIN PANEL DOCUMENTATION
+                      Frontend & Backend Structure
+================================================================================
+Date: March 14, 2026
+Project: DSTP Solutions Website
+
+================================================================================
+                           TABLE OF CONTENTS
+================================================================================
+1. ADMIN FRONTEND STRUCTURE
+2. ADMIN BACKEND STRUCTURE
+3. CONNECTION FLOW
+4. CURRENT ADMIN PAGES
+5. REQUIRED ADMIN FEATURES
+6. PRIORITY IMPLEMENTATION ROADMAP
+
+================================================================================
+1. ADMIN FRONTEND STRUCTURE
+================================================================================
+
+Location: dstp_frontend/admin/
+
+Technology Stack:
+- React (Frontend framework)
+- React Router (Navigation)
+- Tailwind CSS (Styling)
+- Recharts (Data visualization)
+- Lucide React (Icons)
+- Axios (HTTP requests)
+- React Hot Toast (Notifications)
+
+Main Architecture:
+┌─────────────────────────────────────────────────────────┐
+│                      AdminLayout                         │
+│         (Main Container - Full Screen Layout)            │
+├─────────────────────────────────────────────────────────┤
+│  ┌──────────────┐  ┌──────────────────────────────────┐ │
+│  │              │  │          TopBar                  │ │
+│  │  Sidebar     │  │     (User Menu, Logout, etc)     │ │
+│  │              │  ├──────────────────────────────────┤ │
+│  │  Navigation  │  │                                  │ │
+│  │  - Dashboard │  │        Page Content              │ │
+│  │  - Services  │  │                                  │ │
+│  │  - Homepage  │  │  (Dashboard / Services / etc)    │ │
+│  │  - (More)    │  │                                  │ │
+│  └──────────────┘  └──────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────┘
+
+Key Frontend Files:
+├── src/
+│   ├── App.jsx                    - Main routing setup
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── AdminLayout.jsx    - Main container
+│   │   │   ├── Sidebar.jsx        - Navigation sidebar
+│   │   │   └── TopBar.jsx         - Top navigation bar
+│   │   ├── ui/
+│   │   │   └── ...UI components
+│   │   └── StatsCard.jsx          - Dashboard stats card
+│   │
+│   ├── pages/
+│   │   ├── Dashboard/
+│   │   │   └── DashboardPage.jsx  - Admin dashboard
+│   │   ├── Services/
+│   │   │   └── ServicesList.jsx   - Services management
+│   │   ├── Homepage/
+│   │   │   ├── HomepageEditor.jsx - Homepage editor
+│   │   │   └── sections/
+│   │   │       ├── HeroEditor.jsx
+│   │   │       ├── ServicesEditor.jsx
+│   │   │       ├── ProjectsEditor.jsx
+│   │   │       ├── TestimonialsEditor.jsx
+│   │   │       ├── AboutEditor.jsx
+│   │   │       └── ContactEditor.jsx
+│   │   └── Auth/
+│   │       └── LoginPage.jsx      - Admin login (to be implemented)
+│   │
+│   ├── api/
+│   │   ├── axiosInstance.js       - HTTP client with JWT token
+│   │   ├── homepageApi.js         - Homepage API calls
+│   │   └── ...other API files
+│   │
+│   └── hooks/
+│       └── useAuth.js             - Authentication hook (to be implemented)
+
+
+Frontend Feature Breakdown:
+
+1. ADMIN LAYOUT COMPONENT
+   - Responsive sidebar (collapsible)
+   - Top navigation bar
+   - Smooth transitions and animations
+   - Persistent layout across pages
+
+2. SIDBAR NAVIGATION
+   Includes links to:
+   - Dashboard
+   - Services List
+   - Homepage Editor
+   - (More pages can be added)
+   - Logout button
+
+3. TOP BAR
+   - User profile display
+   - Logout option
+   - Notifications (ready for implementation)
+   - Dark/Light mode toggle (optional)
+
+4. DASHBOARD PAGE
+   Stats Cards:
+   - Total Projects: 1
+   - Total Clients: 0
+   - Revenue: INR -
+   - Team Members: 4
+
+   Analytics Charts:
+   - Line Chart: Monthly visits & inquiries
+   - Bar Chart: Projects by category (AI & ML, Cloud, Data Eng, IoT, Consulting)
+
+   Recent Activity Section:
+   - Activity feed with timestamps
+   - Status indicators (New, Success, Pending, Updated)
+   - User who performed action
+
+5. HOMEPAGE EDITOR
+   Tabbed interface for editing:
+   - Hero Section (badge, title, subtitle, buttons, colors)
+   - Services Section (list of services)
+   - Projects Section (project gallery)
+   - Testimonials Section (client testimonials)
+   - About/Team Section (company info, team members, stats)
+   - Contact/CTA Section (contact form, email, phone, address)
+
+   Features:
+   - Real-time preview (optional)
+   - Save functionality
+   - Reset to defaults
+   - Discard changes
+   - Error handling with toast notifications
+
+6. API INTEGRATION
+   Axios Instance Configuration:
+   - Base URL: http://localhost:8000
+   - Automatic JWT token injection in headers
+   - Request interceptor: Adds Authorization header
+   - Response interceptor: Handles 401 (token expired) errors
+   - CORS enabled with credentials
+
+================================================================================
+2. ADMIN BACKEND STRUCTURE
+================================================================================
+
+Location: dstp_backend/
+
+Technology Stack:
+- Python 3.14
+- Django 6.0.3 (Web framework)
+- Django REST Framework (API framework)
+- Simple JWT (Token authentication)
+- Drf-spectacular (OpenAPI/Swagger docs)
+- MySQL/SQLite (Database)
+
+Backend App Structure:
+dstp_backend/
+├── apps/
+│   ├── authentication/
+│   │   ├── models.py          - User, UserProfile, PasswordResetToken
+│   │   ├── views.py           - Auth endpoints (login, register, logout)
+│   │   ├── serializers.py     - Data validation
+│   │   ├── services.py        - Business logic
+│   │   ├── permissions.py     - IsAdmin, IsEditor, IsViewer
+│   │   ├── urls.py            - Auth routes
+│   │   └── admin.py           - Django admin registration
+│   │
+│   ├── core/
+│   │   ├── models.py          - Base classes
+│   │   ├── permissions.py     - Custom permission classes
+│   │   ├── exceptions.py      - Custom exceptions
+│   │   └── admin.py           - Admin configuration
+│   │
+│   ├── blog/
+│   │   ├── models.py          - Blog model
+│   │   ├── admin.py           - Blog admin interface
+│   │   ├── serializers.py     - Blog serialization
+│   │   ├── views.py           - Blog API
+│   │   └── urls.py            - Blog routes
+│   │
+│   ├── homepage/
+│   │   ├── models.py          - Homepage content model
+│   │   ├── views.py           - Homepage API
+│   │   ├── serializers.py     - Homepage serialization
+│   │   └── urls.py            - Homepage routes
+│   │
+│   ├── services/
+│   ├── projects/
+│   ├── testimonials/
+│   ├── contact/
+│   ├── careers/
+│   └── industries/
+│
+├── config/
+│   ├── settings/
+│   │   ├── base.py            - Base settings
+│   │   ├── dev.py             - Development settings
+│   │   └── prod.py            - Production settings
+│   ├── urls.py                - Main URL router
+│   ├── wsgi.py                - WSGI entry point
+│   └── asgi.py                - ASGI entry point
+│
+├── middleware/
+│   ├── jwt_middleware.py      - JWT token validation
+│   ├── cors_middleware.py     - CORS handling
+│   └── visitor_tracking_middleware.py
+│
+├── utils/
+│   ├── exceptions.py          - Custom exceptions
+│   └── ...utility functions
+│
+├── tests/
+├── logs/
+├── manage.py
+└── db.sqlite3
+
+
+Admin Backend Models:
+
+1. AUTHENTICATION APP
+   
+   CustomUser Model:
+   - email (unique)
+   - password (hashed)
+   - first_name
+   - last_name
+   - role (admin, editor, viewer)
+   - is_active
+   - is_staff
+   - date_joined
+   - last_login
+
+   UserProfile Model:
+   - user (ForeignKey to CustomUser)
+   - phone
+   - avatar/profile_picture
+   - bio
+   - company
+
+   PasswordResetToken Model:
+   - user (ForeignKey)
+   - token (unique)
+   - expires_at
+   - used (boolean)
+
+
+Backend API Endpoints for Admin:
+
+Authentication Endpoints:
+POST   /api/v1/auth/register/              - Create new admin account
+POST   /api/v1/auth/login/                 - Admin login (public)
+POST   /api/v1/auth/logout/                - Admin logout
+POST   /api/v1/auth/refresh/               - Refresh access token
+GET    /api/v1/auth/me/                    - Get current admin profile
+PATCH  /api/v1/auth/me/update/             - Update admin profile
+POST   /api/v1/auth/password-reset/        - Request password reset
+POST   /api/v1/auth/password-reset/confirm/- Confirm password reset
+
+Permission Classes (Backend):
+- IsAdmin: Only admin role users
+- IsEditor: Admin and editor roles
+- IsViewer: Any authenticated user
+- AllowAny: Public endpoints (login, register)
+
+Admin Features in Backend:
+
+1. ROLE-BASED ACCESS CONTROL
+   - Admin: Full access to all features
+   - Editor: Can edit content (homepage, blog, services)
+   - Viewer: Read-only access
+   - Permissions enforced at view level with @permission_classes decorator
+
+2. AUTHENTICATION
+   - JWT token-based authentication
+   - Token stored in database
+   - Automatic token refresh before expiration
+   - Password reset workflow with email verification
+   - Secure password hashing with Argon2
+
+3. DJANGO ADMIN INTERFACE
+   Registered Models:
+   - CustomUser (Create, edit, delete admins)
+   - UserProfile (View profile details)
+   - PasswordResetToken (Monitor reset requests)
+   - Blog (Manage blog posts)
+
+4. API DOCUMENTATION
+   - Auto-generated with drf-spectacular
+   - Swagger UI at /api/docs/ or /api/schema/swagger-ui/
+   - OpenAPI schema generation
+   - Interactive API testing in Swagger UI
+
+5. LOGGING & MONITORING
+   - Request/response logging
+   - Error logging to files
+   - Audit trail for admin activities
+   - Debug mode in development
+
+================================================================================
+3. CONNECTION FLOW (Frontend ↔ Backend)
+================================================================================
+
+ADMIN LOGIN FLOW:
+═════════════════
+
+1. User visits admin panel (http://localhost:3000/admin)
+   ↓
+2. Frontend displays LoginPage component
+   ↓
+3. User enters email and password
+   ↓
+4. Frontend sends POST request to /api/v1/auth/login/
+   ↓
+5. Backend validates credentials:
+   - Checks if user exists
+   - Verifies password hash
+   - Checks if user has admin role
+   ↓
+6. Backend returns JSON:
+   {
+     "success": true,
+     "data": {
+       "user": {
+         "id": 1,
+         "email": "admin@example.com",
+         "first_name": "Admin",
+         "role": "admin"
+       },
+       "tokens": {
+         "access": "eyJhbGc...",  ← JWT access token
+         "refresh": "eyJhbGc..."   ← JWT refresh token
+       }
+     }
+   }
+   ↓
+7. Frontend stores tokens:
+   localStorage.setItem("access_token", response.data.tokens.access)
+   localStorage.setItem("refresh_token", response.data.tokens.refresh)
+   ↓
+8. Frontend redirects to /admin/dashboard
+
+
+AUTHENTICATED API REQUEST FLOW:
+═══════════════════════════════
+
+1. User clicks "Save" on homepage editor
+   ↓
+2. Frontend calls axiosInstance.post("/api/v1/homepage/", data)
+   ↓
+3. Axios request interceptor runs:
+   - Gets access_token from localStorage
+   - Adds header: { Authorization: "Bearer {access_token}" }
+   ↓
+4. Request sent to Backend:
+   Headers:
+   {
+     "Authorization": "Bearer eyJhbGc...",
+     "Content-Type": "application/json"
+   }
+   ↓
+5. Backend JWT middleware validates token:
+   - Decodes JWT
+   - Verifies signature
+   - Checks expiration
+   ↓
+6. Backend checks permissions:
+   - If permission_classes = [IsAdmin]:
+     → Verifies user.role == "admin"
+   - If permission_classes = [IsAuthenticated]:
+     → Just checks if user is logged in
+   ↓
+7. If authorized, views.py processes request:
+   - Validates data with serializer
+   - Updates database
+   - Returns response
+   ↓
+8. If unauthorized (401):
+   - Response interceptor catches error
+   - Frontend tries to refresh token using refresh token
+   - If refresh fails, redirect to login
+
+
+TOKEN REFRESH FLOW:
+═══════════════════
+
+1. Access token expires (default: 15 minutes)
+   ↓
+2. User makes API request
+   ↓
+3. Backend returns 401 Unauthorized
+   ↓
+4. Response interceptor catches error
+   ↓
+5. Frontend calls POST /api/v1/auth/refresh/
+   with: { "refresh": "eyJhbGc..." }
+   ↓
+6. Backend validates refresh token
+   ↓
+7. Backend returns new access token
+   ↓
+8. Frontend stores new token
+   ↓
+9. Frontend retries original API request with new token
+
+
+================================================================================
+4. CURRENT ADMIN PAGES
+================================================================================
+
+Route: /
+Page: DashboardPage
+┌─────────────────────────────────────────────────┐
+│  DASHBOARD                                      │
+├─────────────────────────────────────────────────┤
+│                                                 │
+│  Stats Cards:                                   │
+│  ┌──────────┬──────────┬──────────┬──────────┐ │
+│  │ Projects │ Clients  │ Revenue  │ Team     │ │
+│  │    1     │    0     │ INR -    │    4     │ │
+│  └──────────┴──────────┴──────────┴──────────┘ │
+│                                                 │
+│  Analytics Charts:                              │
+│  │  Line Chart (Visits & Inquiries)            │
+│  │  Bar Chart (Projects by Category)           │
+│                                                 │
+│  Recent Activity:                               │
+│  - New project added by Aayushi (2 min ago)    │
+│  - Client onboarded by Ankit (1 hr ago)        │
+│  - Invoice generated by Taaransh (3 hrs ago)   │
+│                                                 │
+└─────────────────────────────────────────────────┘
+
+
+Route: /services
+Page: ServicesList
+┌─────────────────────────────────────────────────┐
+│  SERVICES MANAGEMENT                            │
+├─────────────────────────────────────────────────┤
+│  [+ Add Service]                                │
+│                                                 │
+│  Services List:                                 │
+│  ┌─────────────────────────────────────────┐   │
+│  │ Service Name | Category | Edit | Delete │   │
+│  ├─────────────────────────────────────────┤   │
+│  │ AI Solutions | AI & ML  │ ✏️   │ 🗑️    │   │
+│  │ Cloud Setup  | Cloud    │ ✏️   │ 🗑️    │   │
+│  └─────────────────────────────────────────┘   │
+│                                                 │
+└─────────────────────────────────────────────────┘
+
+
+Route: /homepage
+Page: HomepageEditor
+┌─────────────────────────────────────────────────┐
+│  HOMEPAGE EDITOR                                │
+├─────────────────────────────────────────────────┤
+│                                                 │
+│  Tabs:                                          │
+│  [🦸 Hero] [🛠️ Services] [🗂️ Projects]        │
+│  [💬 Testimonials] [👥 About] [📞 Contact]     │
+│                                                 │
+│  Hero Section:                                  │
+│  ┌──────────────────────────────────┐           │
+│  │ Badge:      [IT Solutions]       │           │
+│  │ Title:      [Your Title Here]    │           │
+│  │ Subtitle:   [Description...]     │           │
+│  │ Button 1:   [Get Started]        │           │
+│  │ Button 2:   [Learn More]         │           │
+│  │ BG Color:   [Color Picker]       │           │
+│  │ Text Color: [Color Picker]       │           │
+│  └──────────────────────────────────┘           │
+│                                                 │
+│  [Save Changes] [Reset] [Preview] [↑ Publish]  │
+│                                                 │
+└─────────────────────────────────────────────────┘
+
+
+================================================================================
+5. REQUIRED ADMIN FEATURES (Not Yet Implemented)
+================================================================================
+
+PHASE 1 - CORE FEATURES (Should Be Built First)
+════════════════════════════════════════════════
+
+1. SERVICES MANAGEMENT
+   Backend Required:
+   - GET    /api/v1/services/           - List services
+   - POST   /api/v1/services/           - Create service
+   - GET    /api/v1/services/{id}/      - Get single service
+   - PATCH  /api/v1/services/{id}/      - Update service
+   - DELETE /api/v1/services/{id}/      - Delete service
+
+   Frontend Required:
+   - Services list table with search/filter
+   - Create service modal/form
+   - Edit service form
+   - Delete confirmation dialog
+   - Upload service image/icon
+
+   Database Model:
+   - name (string)
+   - description (text)
+   - icon/image (file)
+   - category (choice: AI & ML, Cloud, Data Eng, IoT, Consulting)
+   - price (decimal, optional)
+   - featured (boolean)
+   - display_order (integer)
+   - created_at, updated_at (timestamps)
+
+
+2. PROJECTS/PORTFOLIO MANAGEMENT
+   Backend Required:
+   - GET    /api/v1/projects/           - List projects
+   - POST   /api/v1/projects/           - Create project
+   - GET    /api/v1/projects/{id}/      - Get single project
+   - PATCH  /api/v1/projects/{id}/      - Update project
+   - DELETE /api/v1/projects/{id}/      - Delete project
+   - POST   /api/v1/projects/{id}/images/ - Upload project images
+
+   Frontend Required:
+   - Projects list with thumbnail preview
+   - Create project form with gallery upload
+   - Edit project form
+   - Image gallery management
+   - Featured projects toggle
+   - Category assignment
+
+   Database Model:
+   - title (string)
+   - description (text)
+   - category (choice: Industries list)
+   - images (multiple file uploads)
+   - thumbnail (file)
+   - client_name (string)
+   - technologies (many-to-many)
+   - featured (boolean)
+   - display_order (integer)
+   - created_at, updated_at (timestamps)
+
+
+3. BLOG MANAGEMENT
+   Backend Required:
+   - GET    /api/v1/blog/               - List blog posts
+   - POST   /api/v1/blog/               - Create blog post
+   - GET    /api/v1/blog/{id}/          - Get single post
+   - PATCH  /api/v1/blog/{id}/          - Update blog post
+   - DELETE /api/v1/blog/{id}/          - Delete blog post
+
+   Frontend Required:
+   - Blog posts list (title, author, date, status)
+   - Create/edit post with rich text editor
+   - Featured image upload
+   - SEO metadata editor (title, description, keywords)
+   - Publish/draft toggle
+   - Category/tag management
+
+   Database Model (already has basic Blog model):
+   - title (string)
+   - content (rich text)
+   - author (ForeignKey to User)
+   - featured_image (file)
+   - excerpt (text, for previews)
+   - category (choice or ForeignKey)
+   - tags (many-to-many)
+   - seo_title (string, optional)
+   - seo_description (string, optional)
+   - seo_keywords (string, optional)
+   - is_published (boolean, default=False)
+   - published_date (datetime)
+   - created_at, updated_at (timestamps)
+
+
+PHASE 2 - USER MANAGEMENT
+═════════════════════════
+
+4. TEAM MEMBERS MANAGEMENT
+   Backend Required:
+   - GET    /api/v1/team-members/      - List team members
+   - POST   /api/v1/team-members/      - Add team member
+   - PATCH  /api/v1/team-members/{id}/ - Update member
+   - DELETE /api/v1/team-members/{id}/ - Remove member
+
+   Frontend Required:
+   - Team members list with profile details
+   - Add new team member form
+   - Edit member details
+   - Upload profile photo
+   - Delete member confirmation
+
+   Database Model:
+   - name (string)
+   - position/title (string)
+   - bio (text)
+   - profile_photo (file)
+   - email (string)
+   - phone (string)
+   - social_links (JSON: linkedin, twitter, github)
+   - display_order (integer)
+
+
+5. TESTIMONIALS MANAGEMENT
+   Backend Required:
+   - GET    /api/v1/testimonials/      - List testimonials
+   - POST   /api/v1/testimonials/      - Create testimonial
+   - PATCH  /api/v1/testimonials/{id}/ - Update testimonial
+   - DELETE /api/v1/testimonials/{id}/ - Delete testimonial
+
+   Frontend Required:
+   - Testimonials list with preview
+   - Create/edit testimonial form
+   - Approve/feature toggle
+   - Upload client logo
+
+   Database Model (probably exists):
+   - client_name (string)
+   - client_company (string)
+   - client_position (string)
+   - testimonial_text (text)
+   - rating (integer 1-5)
+   - client_logo (file)
+   - featured (boolean)
+   - display_order (integer)
+
+
+6. CONTACT INQUIRIES MANAGEMENT
+   Backend Required:
+   - GET    /api/v1/contact-inquiries/ - List inquiries
+   - PATCH  /api/v1/contact-inquiries/{id}/ - Mark status
+   - DELETE /api/v1/contact-inquiries/{id}/ - Delete inquiry
+
+   Frontend Required:
+   - Inquiries list with search and filters
+   - Mark as read/resolved
+   - Reply form with email template
+   - Export to CSV
+
+   Database Model:
+   - name (string)
+   - email (string)
+   - phone (string)
+   - subject (string)
+   - message (text)
+   - status (choice: new, read, responded, resolved)
+   - created_at (timestamp)
+
+
+7. CAREERS/JOB APPLICATIONS MANAGEMENT
+   Backend Required:
+   - GET    /api/v1/applications/      - List applications
+   - GET    /api/v1/applications/{id}/  - Get application with resume
+   - PATCH  /api/v1/applications/{id}/ - Update status
+
+   Frontend Required:
+   - Applications list with status badges
+   - View application details
+   - Download resume
+   - Change status (pending → reviewing → accepted/rejected)
+   - Send email notification
+
+   Database Model:
+   - job_title (string)
+   - applicant_name (string)
+   - email (string)
+   - phone (string)
+   - resume (file)
+   - cover_letter (text)
+   - status (choice: pending, reviewing, accepted, rejected)
+   - applied_date (timestamp)
+
+
+PHASE 3 - ANALYTICS & SETTINGS
+══════════════════════════════
+
+8. ANALYTICS DASHBOARD
+   - Visitor statistics (daily/weekly/monthly)
+   - Page views and session duration
+   - Traffic sources
+   - User behavior tracking
+   - Conversion tracking
+
+
+9. WEBSITE SETTINGS
+   - Company information
+   - Social media links
+   - Theme colors
+   - Logo and favicon upload
+   - Global settings
+
+
+10. SECURITY & BACKUP
+    - Database backups
+    - User activity logs
+    - Access logs
+    - Security settings
+    - API key management
+
+
+================================================================================
+6. PRIORITY IMPLEMENTATION ROADMAP
+================================================================================
+
+PRIORITY RECOMMENDATIONS (Based on Business Impact):
+═════════════════════════════════════════════════════
+
+MUST HAVE (Build First):
+1. Services Management (PHASE 1)
+   - Clients need to see what you offer
+   - High business impact
+   - Moderate complexity
+   - Estimated effort: 4-6 hours
+
+2. Projects/Portfolio (PHASE 1)
+   - Portfolio is your portfolio (literally!)
+   - Showcases past work
+   - High business impact
+   - Estimated effort: 6-8 hours
+
+3. Contact Inquiries Management (PHASE 2)
+   - Track potential clients
+   - Important for business operations
+   - Low-medium complexity
+   - Estimated effort: 3-4 hours
+
+SHOULD HAVE (Build Second):
+4. Blog Management (PHASE 1)
+   - SEO benefits
+   - Content marketing
+   - Estimated effort: 5-7 hours
+
+5. Team Members (PHASE 2)
+   - Builds trust and credibility
+   - Medium complexity
+   - Estimated effort: 3-4 hours
+
+6. Testimonials Management (PHASE 2)
+   - Social proof
+   - Medium complexity
+   - Estimated effort: 2-3 hours
+
+NICE TO HAVE (Build Later):
+7. Analytics Dashboard (PHASE 3)
+8. Careers Management (PHASE 2)
+9. Advanced Settings (PHASE 3)
+
+
+RECOMMENDED IMPLEMENTATION ORDER:
+══════════════════════════════════
+
+WEEK 1:
+├─ Services Management (Complete)
+└─ Projects Management (Complete)
+
+WEEK 2:
+├─ Blog Management (Complete)
+└─ Contact Inquiries View (Complete)
+
+WEEK 3:
+├─ Team Members Management (Complete)
+├─ Testimonials Management (Complete)
+└─ Homepage Editor Completion (Polish existing)
+
+WEEK 4:
+├─ Careers Applications (Complete)
+├─ Dashboard Real Data Connection (Integrate APIs)
+└─ Testing & Bug Fixes
+
+
+================================================================================
+                             END OF DOCUMENTATION
+================================================================================
+
+This document provides comprehensive information about the Admin Panel
+backend and frontend architecture. For implementation details, refer to
+the code files mentioned in each section.
+
+Last Updated: March 14, 2026
+Next Review: After Phase 1 implementation
