@@ -1,28 +1,43 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-env/
+.venv/
 venv/
+env/
 ENV/
+*.egg-info/
+.eggs/
+*.egg
+*.pyc
+
+# Build / Packaging
 build/
 develop-eggs/
 dist/
 downloads/
 eggs/
-.eggs/
 lib/
 lib64/
 parts/
 sdist/
 var/
 wheels/
-*.egg-info/
 .installed.cfg
-*.egg
 MANIFEST
+
+# Python tooling
 pip-log.txt
 pip-delete-this-directory.txt
 .tox/
@@ -36,33 +51,37 @@ coverage.xml
 .pytest_cache/
 
 # Django
+*.sqlite3
+db.sqlite3
 *.log
 local_settings.py
-db.sqlite3
-/media/
-/staticfiles/
-.venv
+staticfiles/
+media/
 
 # Frontend
 node_modules/
 dist/
+dist-ssr
 build/
+.vite/
+
+# Environment files
+.env
 .env.local
 .env.*.local
-npm-debug.log
-yarn-error.log
-.DS_Store
+*.local
 
-# Vite
-.vite/
-*.swp
-*.swo
-
-# IDE
-.vscode/
+# IDE / Editors
+.vscode/*
+!.vscode/extensions.json
 .idea/
 *.sublime-project
 *.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 *.swp
 *.swo
 *~
@@ -76,18 +95,25 @@ yarn-error.log
 ehthumbs.db
 Thumbs.db
 
-# Project Documentation (Local/Development Only)
-ADMIN_PANEL_STATUS.md
-ADMIN_PANEL_STATUS.txt
-ADMIN_PANEL_INTEGRATION_GUIDE.txt
-FRONTEND_ADMIN_DOCUMENTATION.txt
-
-# Environment files
-.env
-.env.local
-.env.*.local
-
 # Temporary files
 *.tmp
 *.temp
 *.bak
+
+# Local test files
+test_auth_endpoints.py
+AUTHENTICATION_TEST_REPORT.md
+
+# Local documentation
+ADMIN_PANEL_STATUS.md
+ADMIN_PANEL_STATUS.txt
+ADMIN_PANEL_INTEGRATION_GUIDE.txt
+FRONTEND_ADMIN_DOCUMENTATION.txt
+BACKEND_FIXES_CHECKLIST.md
+BACKEND_FEATURES_SUMMARY.txt
+BACKEND_IMPROVEMENTS_SUMMARY.md
+BEFORE_AFTER_COMPARISON.md
+FINAL_VALIDATION_REPORT.md
+FIXES_APPLIED.md
+MIDDLEWARE_VALIDATION_REPORT.txt
+QUICK_START_GUIDE.md
