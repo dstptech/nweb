@@ -109,7 +109,7 @@ export default function ServiceDetail({ service }) {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
-                  onClick={() => scrollTo("#contact-cta")}
+                  onClick={() => window.open('https://cal.com/ankitrewar11', '_blank')}
                   className="group flex items-center justify-center gap-2 px-8 py-4 rounded-full text-white font-bold text-sm transition-all duration-300 hover:-translate-y-1"
                   style={{
                     background: `linear-gradient(135deg, ${service.color}, ${service.color}CC)`,
@@ -469,104 +469,7 @@ export default function ServiceDetail({ service }) {
             })}
           </div>
         </div>
-
-        {/* Bottom stats */}
-        {/* <div className="max-w-7xl mx-auto px-6 lg:px-10 mt-14">
-          <div className="flex flex-wrap justify-center gap-10">
-            {[
-              { label: "Technologies Mastered", value: "50+" },
-              { label: "Avg. Team Experience", value: "7+ yrs" },
-              { label: "Production Deployments", value: "200+" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div
-                  className="text-3xl font-extrabold font-jakarta"
-                  style={{ color: service.color }}
-                >
-                  {stat.value}
-                </div>
-                <div className="text-xs text-enterprise-grey font-medium mt-1">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div> */}
       </section>
-      {/* ══════════════════════════════════════
-            CASE STUDIES
-         ══════════════════════════════════════ */}
-      {/* <section id="case-studies" className="py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <div
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-5"
-              style={{ background: `${service.color}12`, color: service.color }}
-            >
-              <Icon name="FolderOpenIcon" size={14} /> Case Studies
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-extrabold font-jakarta text-enterprise-mid leading-tight tracking-tight">
-              Real Results, Real Clients
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            {service.caseStudies.map((cs, i) => (
-              <div
-                key={cs.title}
-                className="group rounded-3xl overflow-hidden border border-gray-100 hover:shadow-enterprise transition-all duration-500"
-              >
-                <div className="relative h-56 overflow-hidden">
-                  <AppImage
-                    src={cs.image}
-                    alt={cs.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background: `linear-gradient(to top, ${service.color}95, transparent 50%)`,
-                    }}
-                  />
-                  <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-                    <span className="text-xs font-bold text-white/80">
-                      {cs.client}
-                    </span>
-                    <span
-                      className="text-xs font-bold text-white px-3 py-1 rounded-full"
-                      style={{ background: service.color }}
-                    >
-                      {cs.result}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-7">
-                  <h3 className="text-lg font-bold font-jakarta text-enterprise-mid mb-2">
-                    {cs.title}
-                  </h3>
-                  <p className="text-sm text-enterprise-grey leading-relaxed mb-4">
-                    {cs.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {cs.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs font-semibold px-2.5 py-1 rounded-lg"
-                        style={{
-                          background: `${service.color}10`,
-                          color: service.color,
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
 
       {/* ══════════════════════════════════════
             PRICING
@@ -681,52 +584,6 @@ export default function ServiceDetail({ service }) {
       </section>
 
       {/* ══════════════════════════════════════
-            TEAM
-         ══════════════════════════════════════ */}
-      {/* <section id="team" className="py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <div
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-5"
-              style={{ background: `${service.color}12`, color: service.color }}
-            >
-              <Icon name="UserGroupIcon" size={14} /> Our Team
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-extrabold font-jakarta text-enterprise-mid leading-tight tracking-tight">
-              The Experts Behind Your Project
-            </h2>
-          </div>
-          <div className="flex flex-wrap justify-center gap-6">
-            {service.team.map((member, i) => (
-              <div
-                key={member.name}
-                className="group text-center p-8 rounded-3xl border border-gray-100 hover:shadow-enterprise hover:-translate-y-1 transition-all duration-300 min-w-[220px]"
-              >
-                <div
-                  className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-5 text-4xl group-hover:scale-110 transition-transform duration-300"
-                  style={{ background: `${service.color}12` }}
-                >
-                  {member.icon}
-                </div>
-                <div className="font-bold text-enterprise-mid text-base font-jakarta mb-1">
-                  {member.name}
-                </div>
-                <div
-                  className="text-sm font-semibold mb-2"
-                  style={{ color: service.color }}
-                >
-                  {member.role}
-                </div>
-                <div className="text-xs text-enterprise-grey bg-gray-50 px-3 py-1 rounded-full inline-block">
-                  {member.exp} experience
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      {/* ══════════════════════════════════════
             CONTACT CTA
          ══════════════════════════════════════ */}
       <section
@@ -764,7 +621,9 @@ export default function ServiceDetail({ service }) {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="/#contact"
+              href="https://cal.com/ankitrewar11"
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex items-center justify-center gap-2 px-10 py-5 rounded-full font-bold text-base text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               style={{
                 background: `linear-gradient(135deg, ${service.color}, ${service.color}CC)`,

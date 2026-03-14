@@ -67,7 +67,7 @@ export default function HomeTestimonials({ scrollTo }) {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-14">
             <button
-              onClick={() => scrollTo("#contact")}
+              onClick={() => window.open('https://cal.com/ankitrewar11', '_blank')}
               className="group flex items-center gap-2 px-10 py-5 rounded-full font-bold text-base text-enterprise-mid bg-white transition-all duration-300 hover:shadow-coral-lg hover:-translate-y-1 hover:bg-gray-50"
             >
               Start a Project{" "}
