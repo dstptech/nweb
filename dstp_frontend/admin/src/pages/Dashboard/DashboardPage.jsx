@@ -1,58 +1,33 @@
-import { useState, useEffect } from "react"         // ← added useState, useEffect
+import { useState, useEffect } from "react"
 import { StatsCard } from "../../components"
+import { FolderOpen, Users, DollarSign, UserCheck } from "lucide-react"
 import {
-  FolderOpen,
-  Users,
-  DollarSign,
-  UserCheck,
-} from "lucide-react"
-import {
-  LineChart,
-  Line,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend
+  LineChart, Line, BarChart, Bar,
+  XAxis, YAxis, CartesianGrid, Tooltip,
+  ResponsiveContainer, Legend,
 } from "recharts"
 
-// ── MOCK DATA ──────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────
+// MOCK DATA — Replace with real API calls when backend is ready
+//
+// [BACKEND] Create these endpoints to replace mock data:
+//   GET /api/v1/dashboard/stats/
+//     Returns: { total_projects, total_clients, revenue, team_members }
+//
+//   GET /api/v1/dashboard/analytics/
+//     Returns: { monthly_visits: [...], inquiries: [...] }
+//
+//   GET /api/v1/dashboard/projects-by-category/
+//     Returns: [{ category: string, projects: number }]
+//
+//   GET /api/v1/dashboard/recent-activity/
+//     Returns: [{ id, action, user, time, status }]
+// ─────────────────────────────────────────────────────────────────
 const statsData = [
-  {
-    title: "Total Projects",
-    value: "1",
-    change: "0%",
-    trending: "up",
-    icon: FolderOpen,
-    color: "bg-gradient-to-br from-yellow-300 to-yellow-600",
-  },
-  {
-    title: "Total Clients",
-    value: "0",
-    change: "0%",
-    trending: "Down",
-    icon: Users,
-    color: "bg-gradient-to-br from-purple-300 to-purple-600",
-  },
-  {
-    title: "Revenue",
-    value: "INR -",
-    change: "0%",
-    trending: "up",
-    icon: DollarSign,
-    color: "bg-gradient-to-br from-green-300 to-green-600",
-  },
-  {
-    title: "Team Members",
-    value: "4",
-    change: "0%",
-    trending: "up",
-    icon: UserCheck,
-    color: "bg-gradient-to-br from-blue-300 to-blue-600",
-  },
+  { title: "Total Projects", value: "1",     change: "0%", trending: "up",   icon: FolderOpen, color: "bg-gradient-to-br from-yellow-300 to-yellow-600" },
+  { title: "Total Clients",  value: "0",     change: "0%", trending: "down", icon: Users,      color: "bg-gradient-to-br from-purple-300 to-purple-600" },
+  { title: "Revenue",        value: "INR —", change: "0%", trending: "up",   icon: DollarSign, color: "bg-gradient-to-br from-green-300  to-green-600"  },
+  { title: "Team Members",   value: "4",     change: "0%", trending: "up",   icon: UserCheck,  color: "bg-gradient-to-br from-blue-300   to-blue-600"   },
 ]
 
 const lineData = [
@@ -60,8 +35,8 @@ const lineData = [
   { month: "Oct", visits: null, inquiries: null },
   { month: "Nov", visits: null, inquiries: null },
   { month: "Dec", visits: null, inquiries: null },
-  { month: "Jan", visits: 10,  inquiries: 0    },
-  { month: "Feb", visits: 50,  inquiries: 1    },
+  { month: "Jan", visits: 10,   inquiries: 0    },
+  { month: "Feb", visits: 50,   inquiries: 1    },
 ]
 
 const barData = [
@@ -81,53 +56,46 @@ const recentActivity = [
 ]
 
 const statusColors = {
-  New:     "bg-blue-100 text-blue-600",
-  Success: "bg-green-100 text-green-600",
+  New:     "bg-blue-100   text-blue-600",
+  Success: "bg-green-100  text-green-600",
   Pending: "bg-yellow-100 text-yellow-600",
   Updated: "bg-purple-100 text-purple-600",
 }
 
-// ── DYNAMIC GREETING ───────────────────────────────────
+// ─────────────────────────────────────────────────────────────────
+// BUG FIX: Original getGreeting() returned undefined between 21:00–04:59
+// (no else clause for late night). Added "Good Night" fallback.
+// ─────────────────────────────────────────────────────────────────
 const getGreeting = () => {
-  const hour = new Date().getHours()  // 0–23
-
-  if (hour >= 5 && hour < 12) {
-    return { text: "Good Morning" }
-  } else if (hour >= 12 && hour < 17) {
-    return { text: "Good Afternoon"}
-  } else if (hour >= 17 && hour < 21) {
-    return { text: "Good Evening"}
-  }
+  const hour = new Date().getHours()
+  if (hour >= 5  && hour < 12) return "Good Morning"
+  if (hour >= 12 && hour < 17) return "Good Afternoon"
+  if (hour >= 17 && hour < 21) return "Good Evening"
+  return "Good Night"
 }
 
-// ── COMPONENT ──────────────────────────────────────────
 function DashboardPage() {
-
-  // Live clock — updates every second
   const [time, setTime] = useState(new Date())
 
+  // Live clock — updates every second
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000)
-    return () => clearInterval(timer)   // cleanup when page unmounts
+    return () => clearInterval(timer)
   }, [])
-
-  const greeting = getGreeting()
 
   return (
     <div className="space-y-6">
 
-      {/* ── GREETING HEADER ── */}
-      <div className="flex items-center justify-between">
+      {/* ── GREETING HEADER ────────────────────────────────────── */}
+      <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
+          {/* BUG FIX: greeting.emoji was undefined — getGreeting now returns a string */}
           <h1 className="text-2xl font-bold text-gray-800">
-            {greeting.emoji} {greeting.text}, Aayushi!
+            {getGreeting()}, Aayushi!
           </h1>
-          <p className="text-gray-500 text-sm mt-1">
-            Here's what's happening today.
-          </p>
+          <p className="text-gray-500 text-sm mt-1">Here's what's happening today.</p>
         </div>
 
-        {/* Live date + clock — hidden on mobile */}
         <div className="text-right hidden md:block">
           <p className="text-sm font-semibold text-gray-700">
             {time.toLocaleDateString("en-IN", {
@@ -137,25 +105,28 @@ function DashboardPage() {
               day:     "numeric",
             })}
           </p>
-         
+          <p className="text-xs text-gray-400 mt-0.5">
+            {time.toLocaleTimeString("en-IN")}
+          </p>
         </div>
       </div>
 
-      {/* ── STATS CARDS ── */}
+      {/* ── STATS CARDS ────────────────────────────────────────── */}
+      {/* [BACKEND] Replace statsData with real API call */}
+      {/* GET /api/v1/dashboard/stats/ */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {statsData.map((stat) => (
+        {statsData.map(stat => (
           <StatsCard key={stat.title} {...stat} />
         ))}
       </div>
 
-      {/* ── CHARTS ROW ── */}
+      {/* ── CHARTS ROW ─────────────────────────────────────────── */}
+      {/* [BACKEND] Replace lineData/barData with real API data */}
+      {/* GET /api/v1/dashboard/analytics/ */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
-        {/* LINE CHART */}
         <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <h2 className="text-base font-semibold text-gray-700 mb-4">
-            Platform Analytics
-          </h2>
+          <h2 className="text-base font-semibold text-gray-700 mb-4">Platform Analytics</h2>
           <ResponsiveContainer width="100%" height={240}>
             <LineChart data={lineData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -169,11 +140,8 @@ function DashboardPage() {
           </ResponsiveContainer>
         </div>
 
-        {/* BAR CHART */}
         <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <h2 className="text-base font-semibold text-gray-700 mb-4">
-            Projects by Category
-          </h2>
+          <h2 className="text-base font-semibold text-gray-700 mb-4">Projects by Category</h2>
           <ResponsiveContainer width="100%" height={240}>
             <BarChart data={barData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -187,35 +155,39 @@ function DashboardPage() {
 
       </div>
 
-      {/* ── RECENT ACTIVITY TABLE ── */}
+      {/* ── RECENT ACTIVITY TABLE ───────────────────────────────── */}
+      {/* [BACKEND] Replace recentActivity with real API data */}
+      {/* GET /api/v1/dashboard/recent-activity/ */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-100">
           <h2 className="text-base font-semibold text-gray-700">Recent Activity</h2>
         </div>
-        <table className="w-full">
-          <thead>
-            <tr className="bg-gray-50 text-left">
-              <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Action</th>
-              <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">User</th>
-              <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Time</th>
-              <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-50">
-            {recentActivity.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50 transition-colors">
-                <td className="px-6 py-4 text-sm font-medium text-gray-700">{item.action}</td>
-                <td className="px-6 py-4 text-sm text-gray-500">{item.user}</td>
-                <td className="px-6 py-4 text-sm text-gray-400">{item.time}</td>
-                <td className="px-6 py-4">
-                  <span className={`text-xs font-semibold px-3 py-1 rounded-full ${statusColors[item.status]}`}>
-                    {item.status}
-                  </span>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="bg-gray-50 text-left">
+                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Action</th>
+                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">User</th>
+                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Time</th>
+                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-gray-50">
+              {recentActivity.map(item => (
+                <tr key={item.id} className="hover:bg-gray-50 transition-colors">
+                  <td className="px-6 py-4 text-sm font-medium text-gray-700">{item.action}</td>
+                  <td className="px-6 py-4 text-sm text-gray-500">{item.user}</td>
+                  <td className="px-6 py-4 text-sm text-gray-400">{item.time}</td>
+                  <td className="px-6 py-4">
+                    <span className={`text-xs font-semibold px-3 py-1 rounded-full ${statusColors[item.status]}`}>
+                      {item.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
     </div>
