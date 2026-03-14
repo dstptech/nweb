@@ -34,6 +34,8 @@ urlpatterns = [
     path("api/v1/contact/", include("apps.contact.urls")),
     path("api/v1/industries/", include("apps.industries.urls")),
     path("api/v1/homepage/", include("apps.homepage.urls")),
+    path('api/v1/auth/', include('apps.authentication.urls')),
+
 
 
     # API schema + docs
