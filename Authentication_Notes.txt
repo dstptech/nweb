@@ -1,0 +1,517 @@
+================================================================================
+                    DSTP BACKEND — AUTHENTICATION FLOW
+                           JWT Token Lifecycle
+                            Updated: 2026-03-15
+================================================================================
+
+OVERVIEW
+--------
+The DSTP backend uses JWT (JSON Web Tokens) for stateless authentication.
+Users never send passwords after login — only tokens are exchanged.
+
+
+JWT TOKEN TYPES
+===============
+
+1. ACCESS TOKEN
+   - Short-lived (15 minutes)
+   - Sent with every API request in the Authorization header
+   - Format: "Authorization: Bearer <access_token>"
+   - Contains: user_id, email, roles, issued_at, expires_at
+   - Used to: Authenticate and authorize API calls
+
+2. REFRESH TOKEN
+   - Long-lived (7 days)
+   - Stored securely on the client (httpOnly cookie or secure storage)
+   - Used to: Obtain new access tokens without re-authenticating
+   - Can only be used at /api/v1/auth/refresh/
+   - Automatically blacklisted when refreshed (old token cannot be reused)
+
+
+COMPLETE LOGIN & TOKEN LIFECYCLE
+=================================
+
+Step 1: USER REGISTRATION
+─────────────────────────
+POST /api/v1/auth/register/
+
+Input:
+{
+    "email": "john@example.com",
+    "password": "SecurePass123!",
+    "first_name": "John",
+    "last_name": "Doe"
+}
+
+Response (201 Created):
+{
+    "success": true,
+    "message": "Account created successfully.",
+    "data": {
+        "user": {
+            "id": 42,
+            "email": "john@example.com",
+            "first_name": "John",
+            "last_name": "Doe",
+            "is_active": true
+        },
+        "tokens": {
+            "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+            "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+        }
+    }
+}
+
+⚠️  Note: Registration returns tokens immediately (user is logged in).
+
+
+Step 2: USER LOGIN
+──────────────────
+POST /api/v1/auth/login/
+
+Input:
+{
+    "email": "john@example.com",
+    "password": "SecurePass123!"
+}
+
+Response (200 OK):
+{
+    "success": true,
+    "message": "Login successful.",
+    "data": {
+        "user": {...},
+        "tokens": {
+            "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+            "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+        }
+    }
+}
+
+✅  Client now has BOTH tokens.
+
+
+Step 3: USING THE ACCESS TOKEN (15 minutes)
+────────────────────────────────────────────
+Every API call includes the access token:
+
+GET /api/v1/blog/blogs/
+
+Header:
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+
+Server verifies:
+✓ Token signature is valid
+✓ Token is not expired
+✓ Token is not blacklisted
+✓ User exists and is active
+
+Response: 200 OK with data
+
+
+Step 4: ACCESS TOKEN EXPIRES (After 15 minutes)
+───────────────────────────────────────────────
+When client makes an API call with an expired access token:
+
+GET /api/v1/blog/blogs/
+Authorization: Bearer <expired_token>
+
+Server responds:
+{
+    "detail": "Token is invalid or expired",
+    "code": "token_not_valid"
+}
+
+Status: 401 Unauthorized
+
+
+Step 5: REFRESH THE ACCESS TOKEN
+────────────────────────────────
+Client sends the REFRESH token to get a NEW access token:
+
+POST /api/v1/auth/refresh/
+
+Input:
+{
+    "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}
+
+Response (200 OK):
+{
+    "success": true,
+    "data": {
+        "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."    ← NEW ACCESS TOKEN
+    }
+}
+
+⚠️  CRITICAL: The backend automatically:
+    - Generates NEW access token (valid for 15 more minutes)
+    - Generates NEW refresh token (valid for 7 more days)
+    - BLACKLISTS the old refresh token (cannot be reused)
+    - This prevents token replay attacks
+
+
+Step 6: CONTINUE USING NEW ACCESS TOKEN (15 minutes)
+──────────────────────────────────────────────────────
+Client uses the fresh access token for all API calls.
+
+GET /api/v1/blog/blogs/
+Authorization: Bearer <new_access_token>
+
+Response: 200 OK with data
+
+
+Step 7: ACCESS TOKEN EXPIRES AGAIN (After 15 minutes)
+──────────────────────────────────────────────────────
+Repeat Step 4-6: Client refreshes again using the NEW refresh token.
+
+✅  User remains logged in for up to 7 days without entering password!
+
+
+Step 8: LOGOUT (Revoke Tokens)
+───────────────────────────────
+POST /api/v1/auth/logout/
+
+Input:
+{
+    "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}
+
+Response (200 OK):
+{
+    "success": true,
+    "message": "Logged out successfully"
+}
+
+⚠️  WHAT HAPPENS:
+    - Refresh token is BLACKLISTED (cannot refresh access tokens anymore)
+    - Existing access tokens remain valid until they expire
+    - User can no longer get new access tokens
+
+
+REFRESH TOKEN EXPIRY (After 7 days)
+───────────────────────────────────
+If user does NOT refresh for 7 days:
+
+POST /api/v1/auth/refresh/
+{
+    "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}
+
+Response (401 Unauthorized):
+{
+    "detail": "Token is invalid or expired",
+    "code": "token_not_valid"
+}
+
+⚠️  User MUST log in again.
+
+
+TOKEN LIFECYCLE DIAGRAM
+=======================
+
+┌─────────────┐
+│   REGISTER  │  ─ access_token (15 min)
+│   OR LOGIN  │  ─ refresh_token (7 days)
+└──────┬──────┘
+       │
+       ▼
+┌──────────────────────────────────────────────┐
+│  USE ACCESS_TOKEN with every API call       │  ✅ 15 minutes valid
+│  GET /api/v1/blog/blogs/                    │
+│  Authorization: Bearer <access_token>        │
+└──────────────┬───────────────────────────────┘
+               │
+        (after 15 min)
+               │
+               ▼
+       ┌──────────────┐
+       │   EXPIRED    │
+       └──────┬───────┘
+              │
+              ▼
+    ┌─────────────────────────────┐
+    │ POST /api/v1/auth/refresh/  │
+    │ {"refresh": "..."}          │ ─ OLD refresh_token BLACKLISTED
+    └─────────────┬───────────────┘  ─ NEW access_token (15 min)
+                  │                  ─ NEW refresh_token (7 days)
+                  ▼
+       ┌──────────────────┐
+       │ NEW ACCESS TOKEN │ ✅ Valid for 15 more minutes
+       └────────┬─────────┘
+                │ (repeat cycle)
+                ▼
+        ┌─────────────────┐
+        │ API CALLS WORK  │ ✅ For next 15 minutes
+        │ User Logged In  │
+        └─────────────────┘
+
+
+SECURITY FEATURES
+=================
+
+1. BLACKLIST SYSTEM
+   ✓ Old refresh tokens blacklisted immediately after refresh
+   ✓ Prevents replay attacks if token is intercepted
+   ✓ Each refresh generates completely new token pair
+
+2. SHORT ACCESS TOKEN LIFETIME
+   ✓ Access tokens expire after 15 minutes
+   ✓ Limits damage if access token is compromised
+   ✓ Forces periodic token rotation
+
+3. STATELESS VERIFICATION
+   ✓ Server doesn't store sessions
+   ✓ Only validates token signature and expiry
+   ✓ Scales horizontally across multiple servers
+
+4. SECURE TOKEN STORAGE (Client-side best practice)
+   ✓ Access token: Can be in memory or localStorage
+   ✓ Refresh token: Must be in httpOnly cookie (not accessible to JavaScript)
+   ✓ Prevents XSS attacks from stealing tokens
+
+5. PASSWORD EXPIRY CHECK (during login)
+   ✓ If password_last_changed > 90 days → blocks login
+   ✓ Forces user to reset password via /api/v1/auth/password-reset/
+
+
+ERROR RESPONSES
+===============
+
+401 Unauthorized - Invalid/Expired Token
+─────────────────────────────────────────
+{
+    "detail": "Token is invalid or expired",
+    "code": "token_not_valid"
+}
+
+Cause: Access token expired or BlacklistedToken entry exists
+Fix: POST to /api/v1/auth/refresh/ with refresh token
+
+
+400 Bad Request - Refresh Token Missing
+────────────────────────────────────────
+{
+    "success": false,
+    "message": "Refresh token required"
+}
+
+Cause: POST /api/v1/auth/refresh/ without refresh token in body
+Fix: Include {"refresh": "<token>"} in request body
+
+
+403 Forbidden - Password Expired
+─────────────────────────────────
+{
+    "success": false,
+    "message": "Your password has expired. Please reset it.",
+    "code": "PASSWORD_EXPIRED",
+    "redirect": "/reset-password"
+}
+
+Cause: password_last_changed is older than 90 days
+Fix: User must reset password at /api/v1/auth/password-reset/
+
+
+PASSWORD RESET WORKFLOW
+=======================
+
+Step 1: Request Reset Token
+────────────────────────────
+POST /api/v1/auth/password-reset/
+
+Input:
+{
+    "email": "john@example.com"
+}
+
+Response (200 OK):
+{
+    "success": true,
+    "message": "If this email is registered, a reset token has been sent."
+}
+
+⚠️  Note: Always returns success (doesn't reveal if email exists)
+✉️   Email contains a link with reset token
+
+
+Step 2: Confirm Reset with Token
+──────────────────────────────────
+POST /api/v1/auth/password-reset/confirm/
+
+Input:
+{
+    "token": "abc123xyz...",
+    "new_password": "NewSecurePass456!"
+}
+
+Response (200 OK):
+{
+    "success": true,
+    "message": "Password reset successfully. Please login with your new password."
+}
+
+Effects:
+✓ password_last_changed is set to NOW
+✓ All old tokens are invalidated
+✓ User must log in again
+
+
+AUTHENTICATION ENDPOINTS SUMMARY
+================================
+
+╔════════════════════════════════════════╦══════════╦══════════════════╗
+║ Endpoint                               ║ Method   ║ Auth Required    ║
+╠════════════════════════════════════════╬══════════╬══════════════════╣
+║ /api/v1/auth/register/                 ║ POST     ║ ❌ No (Public)   ║
+║ /api/v1/auth/login/                    ║ POST     ║ ❌ No (Public)   ║
+║ /api/v1/auth/refresh/                  ║ POST     ║ ❌ No (Refresh)  ║
+║ /api/v1/auth/logout/                   ║ POST     ║ ✅ Yes (Access)  ║
+║ /api/v1/auth/me/                       ║ GET      ║ ✅ Yes (Access)  ║
+║ /api/v1/auth/me/update/                ║ PATCH    ║ ✅ Yes (Access)  ║
+║ /api/v1/auth/password-reset/           ║ POST     ║ ❌ No (Public)   ║
+║ /api/v1/auth/password-reset/confirm/   ║ POST     ║ ❌ No (Public)   ║
+╚════════════════════════════════════════╩══════════╩══════════════════╝
+
+
+FRONTEND IMPLEMENTATION EXAMPLE
+================================
+
+// 1. LOGIN
+const response = await fetch('/api/v1/auth/login/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        email: 'john@example.com',
+        password: 'SecurePass123!'
+    })
+});
+
+const data = await response.json();
+const { access, refresh } = data.data.tokens;
+
+// Store tokens securely
+localStorage.setItem('accessToken', access);           // ⚠️  Not ideal but ok for access
+document.cookie = `refreshToken=${refresh}; httpOnly`; // ✅ Best: httpOnly cookie
+
+
+// 2. API CALL WITH ACCESS TOKEN
+const blogResponse = await fetch('/api/v1/blog/blogs/', {
+    headers: {
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    }
+});
+
+if (blogResponse.status === 401) {
+    // Access token expired, refresh it
+    const refreshResponse = await fetch('/api/v1/auth/refresh/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            refresh: localStorage.getItem('refreshToken')
+        })
+    });
+
+    const refreshData = await refreshResponse.json();
+    const newAccessToken = refreshData.data.access;
+
+    // Store new token and retry original request
+    localStorage.setItem('accessToken', newAccessToken);
+
+    // Retry the original API call with new token
+    return fetch('/api/v1/blog/blogs/', {
+        headers: {
+            'Authorization': `Bearer ${newAccessToken}`
+        }
+    });
+}
+
+
+// 3. LOGOUT
+await fetch('/api/v1/auth/logout/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    },
+    body: JSON.stringify({
+        refresh: localStorage.getItem('refreshToken')
+    })
+});
+
+// Clear tokens from storage
+localStorage.removeItem('accessToken');
+document.cookie = 'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+
+
+IMPORTANT NOTES
+===============
+
+1. NEVER send passwords after login
+   ✓ Only tokens are exchanged
+   ✓ Passwords only sent during registration, login, and password reset
+
+2. ALWAYS use HTTPS in production
+   ✓ Tokens are sensitive
+   ✓ Never transmit over unencrypted connections
+
+3. httpOnly cookies for refresh tokens
+   ✓ Protects against XSS attacks
+   ✓ JavaScript cannot access the token
+   ✓ Automatically sent with requests if configured
+
+4. Short-lived access tokens
+   ✓ 15 minutes is industry standard
+   ✓ Limits exposure if token is compromised
+
+5. Long-lived refresh tokens
+   ✓ 7 days allows offline scenarios
+   ✓ But still requires periodic refresh for security
+
+6. Token blacklisting
+   ✓ Old tokens cannot be reused after refresh
+   ✓ Logout immediately invalidates tokens
+   ✓ Prevents account takeover scenarios
+
+
+CONFIGURATION (in Django settings)
+===================================
+
+# settings/base.py
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),      # Access token: 15 min
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),         # Refresh token: 7 days
+    'ROTATE_REFRESH_TOKENS': True,                       # Issue new refresh on refresh
+    'BLACKLIST_AFTER_ROTATION': True,                    # Blacklist old tokens
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+
+TIMELINE VISUALIZATION
+======================
+
+                        User's Session Timeline (7 days max)
+    ┌──────────────────────────────────────────────────────────────────┐
+    │                                                                  │
+    │  LOGIN/REGISTER                                            LOGOUT
+    │  │                                                            │
+    │  ├─ Access Token (15 min) ─┐   Refresh   ┌─ New Access (15min)
+    │  │                          ├─────────────┤
+    │  └─ Refresh Token (7 days) ─┘             └─ New Refresh (7 days)
+    │                              │ Repeat ↑
+    │                              └─ Refresh every 14-15 min
+    │
+    │  Max Session Duration: 7 days (if refresh token never expires)
+    │  Auto-Logout: 7 days of inactivity
+    │  Forced Logout: Password expired (>90 days)
+    │
+    └──────────────────────────────────────────────────────────────────┘
+
+
+Last Updated: 2026-03-15
+Next Review: When adding MFA support
+================================================================================

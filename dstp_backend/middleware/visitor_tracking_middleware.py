@@ -4,6 +4,7 @@
 import uuid
 import logging
 from django.utils import timezone
+from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
@@ -56,9 +57,9 @@ class VisitorTrackingMiddleware:
                 key      = VISITOR_COOKIE_NAME,
                 value    = visitor.session_key,
                 max_age  = VISITOR_COOKIE_AGE,
-                httponly = True,   # JavaScript cannot read this (security)
-                samesite = 'Lax',  # protects against CSRF attacks
-                # secure = True    # uncomment in production (HTTPS only)
+                httponly = True,      # JavaScript cannot read this (security)
+                samesite = 'Lax',     # protects against CSRF attacks
+                secure   = not settings.DEBUG,  # True in prod (HTTPS), False in dev (HTTP)
             )
             
         return response

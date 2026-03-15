@@ -1,0 +1,329 @@
+DSTP WEBSITE FLOW + SECURITY + API GAP AUDIT
+Date: 2026-03-15
+Project: DSTP-Website
+Scope: Full codebase review (backend + admin frontend + client frontend)
+Mode: Read-only audit (no existing source files modified)
+
+================================================================================
+1) CURRENT WEBSITE FLOW (ACTUAL FROM CODE)
+================================================================================
+
+1.1 Public Client Flow (dstp_frontend/client)
+- Entry route: /
+- Router file: dstp_frontend/client/src/App.jsx
+- Active routes currently wired:
+  - /
+  - /services/ai-ml
+  - /services/data-engineering
+  - /services/cloud-devops
+  - /services/web-mobile
+  - /services/iot
+  - /services/enterprise
+  - /careers
+- Home page sections are rendered from static constants in:
+  - dstp_frontend/client/src/utils/homeData.js
+- Contact form on home page currently uses alert() only (no backend API submit).
+- Careers page "Notify Me" currently stores local state only (no backend API submit).
+- Client API layer files are present but empty:
+  - src/api/axiosInstance.js, home.js, services.js, projects.js, blog.js, careers.js, contact.js
+
+1.2 Admin Flow (dstp_frontend/admin)
+- Admin router file: dstp_frontend/admin/src/App.jsx
+- Active routes currently wired:
+  - /              -> DashboardPage
+  - /services      -> ServicesList
+  - /homepage      -> HomepageEditor
+  - /teams         -> TeamsList
+- Login route is commented out.
+- ProtectedRoute is not implemented.
+- Auth context/hook/login files exist but are empty:
+  - src/pages/Auth/LoginPage.jsx
+  - src/hooks/useAuth.js
+  - src/context/role/AuthContext.jsx
+- Dashboard, Services, Teams pages use mock data (not backend-connected).
+- HomepageEditor is partially connected to backend endpoint /api/v1/homepage/homepage/.
+
+1.3 Backend API Flow (dstp_backend)
+- Main URL config: dstp_backend/config/urls.py
+- Auth endpoints implemented under /api/v1/auth/:
+  - register, login, logout, refresh, me, me/update, password-reset, password-reset/confirm
+- Content endpoints available via DRF routers (actual paths are doubled nouns):
+  - /api/v1/services/categories/
+  - /api/v1/services/services/
+  - /api/v1/services/features/
+  - /api/v1/projects/projects/
+  - /api/v1/blog/blogs/
+  - /api/v1/careers/careers/
+  - /api/v1/testimonials/testimonials/
+  - /api/v1/contact/contacts/
+  - /api/v1/industries/industries/
+  - /api/v1/homepage/homepage/
+
+IMPORTANT ROUTING ISSUE:
+- Many routes are duplicated in config/urls.py (included once in api_v1_patterns and again directly).
+- This increases maintenance risk and route ambiguity.
+
+IMPORTANT MOUNTING ISSUE:
+- core tracking URLs exist (time-spent, link-session, my-stats) in apps/core/urls.py
+- But core URLs are not mounted in config/urls.py, so these APIs are unreachable.
+
+================================================================================
+2) ANSWER TO MANAGER QUESTION: PASSWORD VISIBLE IN URL?
+================================================================================
+
+Question: "When entering username/password, URL shows password. Is this true?"
+
+Findings from current code:
+- In this repository, implemented login UI is currently missing/empty.
+- I found no active frontend code sending credentials via query string.
+- Backend login endpoint expects POST body (request.data), not query params.
+
+So in current committed code:
+- I cannot confirm an active password-in-URL bug because login page is not implemented.
+
+When this issue happens generally:
+- It happens if frontend submits login with GET (query params), or via axios/fetch params instead of request body.
+
+Required fix (must do when implementing login page):
+1. Submit login via POST only.
+2. Send credentials in JSON body:
+   { "email": "...", "password": "..." }
+3. Never send credentials in URL/query string.
+4. Use HTTPS in all non-local environments.
+5. Do not log full query strings containing secrets.
+
+================================================================================
+3) CRITICAL ERRORS + SECURITY ISSUES TO FIX
+================================================================================
+
+3.1 CRITICAL: Blog API crashes due missing model field
+- File: dstp_backend/apps/blog/views.py line 54
+- Code filters on is_published, but Blog model has no is_published field.
+- Result: list/retrieve behavior can fail with FieldError.
+- Fix:
+  - Option A: add is_published BooleanField + migration.
+  - Option B: remove filter and use another publish strategy.
+
+3.2 HIGH: Service search fields reference non-existent columns
+- File: dstp_backend/apps/services/views.py lines 117, 176
+- Service model uses title/feature but view searches name/description for models that do not have name.
+- Result: search queries can crash.
+- Fix:
+  - ServiceViewSet search_fields -> ["title", "description"]
+  - ServiceFeatureViewSet search_fields -> ["feature"]
+  - Ordering fields should also match real columns.
+
+3.3 HIGH: Refresh token flow bypasses configured token rotation policy
+- Config says rotation+blacklist enabled:
+  - dstp_backend/config/settings/base.py lines 237-238
+- But custom refresh code just creates access token directly from refresh token:
+  - dstp_backend/apps/authentication/services.py lines 167-189
+- Result: refresh rotation policy is effectively bypassed.
+- Fix:
+  - Use standard SimpleJWT TokenRefreshView/serializer flow (rotated refresh handling).
+
+3.4 HIGH: Pending migration for password_last_changed
+- Field exists in model:
+  - dstp_backend/apps/authentication/models.py line 60
+- makemigrations --check shows new migration required.
+- Risk: schema drift between code and DB.
+- Fix:
+  - Create/apply migration for authentication customuser field.
+
+3.5 HIGH: Auth/login brute-force protection not properly scoped
+- base.py defines throttle rate for "auth" but DEFAULT_THROTTLE_CLASSES only has AnonRateThrottle/UserRateThrottle.
+- Scoped "auth" limit is not actually applied.
+- Fix:
+  - Add ScopedRateThrottle + throttle_scope="auth" on login/register/password reset views.
+
+3.6 HIGH: Visitor cookie not Secure in middleware
+- File: dstp_backend/middleware/visitor_tracking_middleware.py line 61
+- secure flag is commented out.
+- Risk: cookie can travel over HTTP if deployed incorrectly.
+- Fix:
+  - Set secure=True in production path; use env-driven flag.
+
+3.7 MEDIUM: Visitor stats endpoint exposes IP/device info to AllowAny
+- File: dstp_backend/apps/core/views.py lines 137 and 171
+- Any requester with cookie can fetch sensitive visitor metadata.
+- Fix:
+  - Restrict access, minimize returned PII, or remove IP from response.
+
+3.8 MEDIUM: Duplicate URL includes in config
+- File: dstp_backend/config/urls.py lines 29-37
+- Duplicated include patterns for auth/blog/projects/careers/etc.
+- Risk: confusion, duplicate schema paths, maintenance mistakes.
+- Fix:
+  - Keep only one include path strategy.
+
+3.9 MEDIUM: Environment loading inconsistency for DB credentials
+- base.py reads SECRET_KEY via decouple config(), but DB vars via os.environ.get(...).
+- If env vars are not exported, DB config resolves incorrectly.
+- Fix:
+  - Use config(...) consistently for DB values OR ensure env export strategy is enforced.
+
+3.10 MEDIUM: LocalStorage token storage in admin frontend
+- File: dstp_frontend/admin/src/api/axiosInstance.js lines 15-17
+- Risk: token theft on XSS.
+- Fix options:
+  - Prefer HttpOnly secure cookie strategy for refresh tokens.
+  - Harden CSP and XSS defenses if localStorage retained.
+
+3.11 MEDIUM: Admin logout not fully implemented
+- TopBar uses alert("Logged out!") only.
+- Sidebar removes local storage but does not call backend logout blacklisting.
+- Fix:
+  - Always call POST /api/v1/auth/logout/ with refresh token and then clear client state.
+
+3.12 QUALITY RISK: Test suite mostly empty
+- Multiple backend auth/integration test files are empty.
+- Risk: regressions/security breaks go undetected.
+- Fix:
+  - Add auth, permissions, and endpoint contract tests first.
+
+================================================================================
+4) SCHEMA MISMATCHES (FRONTEND EXPECTS vs BACKEND PROVIDES)
+================================================================================
+
+4.1 Homepage Editor mismatch (major)
+Frontend expects structured sections:
+- about, services, tech_stack, projects, testimonials, contact
+Backend Homepage model currently has only:
+- hero_title, hero_subtitle, hero_image, banner_text, banner_image, stats_title, stats_value
+
+Impact:
+- Homepage editor UI cannot persist most tabs.
+- Current code already comments out non-hero payload fields.
+
+Fix choices:
+A) Extend Homepage schema with JSONField columns for these sections.
+B) Normalize into dedicated tables (recommended for scale and queryability).
+
+4.2 Services admin table mismatch
+Admin Services UI fields:
+- name, category, status, created
+Backend Service model fields:
+- category(FK), title, description, is_featured
+
+Impact:
+- UI cannot map directly without adapter/field updates.
+
+Fix:
+- Align frontend form/table to backend shape OR evolve backend schema to include needed fields.
+
+4.3 Team management mismatch
+Admin Teams UI expects:
+- role, department, status, joined, CRUD endpoint
+Backend currently only has CustomUser basic fields + role/date_joined.
+No dedicated Team member API exists.
+
+Fix:
+- Decide if team page manages CustomUser or separate TeamProfile model.
+- Build REST endpoints accordingly.
+
+4.4 Blog publish status mismatch
+Frontend/admin flows usually need draft/published control.
+Backend Blog model has no publish status field, but view assumes one.
+
+Fix:
+- Add status/is_published + optional published_at.
+
+================================================================================
+5) FEATURES NOT IMPLEMENTED (BASED ON FRONTEND)
+================================================================================
+
+5.1 Admin frontend features not implemented
+- Login flow UI + protected routing + auth context
+- Projects page (files empty)
+- Blog page (file empty)
+- Clients, Invoices, Settings pages/routes
+- Real API wiring for Dashboard/Services/Teams
+- Proper logout integration
+
+5.2 Backend APIs missing for admin UI expectations
+- Dashboard aggregate APIs:
+  - /api/v1/dashboard/stats/
+  - /api/v1/dashboard/analytics/
+  - /api/v1/dashboard/projects-by-category/
+  - /api/v1/dashboard/recent-activity/
+- Team management APIs
+- Client management APIs
+- Invoice APIs
+- Settings/profile/security aggregate APIs
+- Homepage media upload endpoint (if keeping ImageField workflow)
+
+5.3 Client frontend features not implemented
+- No backend integration for contact submission
+- No backend integration for careers interest form
+- Blog/Projects/About/Industries/Contact dedicated pages exist but mostly empty
+- API and hooks layers are mostly empty, so dynamic content is not live
+- Testimonials section currently commented out in home page composition
+
+================================================================================
+6) STEP-BY-STEP REMEDIATION PLAN (BACKEND-FIRST)
+================================================================================
+
+PHASE 0 (Immediate, same day)
+1. Fix crashing bugs:
+   - BlogViewSet is_published mismatch.
+   - Service/ServiceFeature invalid search fields.
+2. Remove duplicate includes from config/urls.py.
+3. Mount core tracking URLs if needed, or delete dead tracking docs/routes.
+4. Generate/apply pending authentication migration for password_last_changed.
+
+PHASE 1 (Security hardening, priority)
+1. Replace custom refresh flow with proper SimpleJWT rotation flow.
+2. Add scoped throttling to auth endpoints (login/register/reset).
+3. Enforce secure cookie behavior for visitor/session cookies in production.
+4. Restrict PII returned by visitor stats endpoint.
+5. Finalize environment config strategy (decouple vs os.environ consistency).
+6. Enforce HTTPS-only in deployment and verify SECURE_* settings in production env.
+
+PHASE 2 (Schema alignment for admin)
+1. Finalize data contract for Homepage editor (JSON sections or normalized tables).
+2. Align Service schema/serializer with admin table fields.
+3. Decide Team model strategy (CustomUser-backed or TeamProfile model).
+4. Add blog publish state field and migration.
+
+PHASE 3 (Admin API completion)
+1. Build dashboard aggregation endpoints.
+2. Build Team management endpoints.
+3. Build missing Clients/Invoices/Settings endpoints (if required scope).
+4. Add upload endpoint(s) for homepage/blog/project media where needed.
+
+PHASE 4 (Frontend integration)
+1. Implement admin login page + protected routes + auth context.
+2. Connect Dashboard/Services/Teams pages to backend APIs.
+3. Implement Projects and Blog admin pages.
+4. Replace TopBar/Sidebar logout with backend-backed logout flow.
+
+PHASE 5 (Client integration)
+1. Implement client API layer files.
+2. Wire homepage and service content to backend APIs.
+3. Wire contact and careers forms to backend.
+4. Implement missing pages currently empty.
+
+PHASE 6 (Testing + release readiness)
+1. Add unit/integration tests for auth, permissions, and all CRUD APIs.
+2. Add negative tests (unauthorized, invalid token, throttling).
+3. Add API contract tests for frontend-required payload shape.
+4. Add security checks to CI (lint + django check --deploy + test suite).
+
+================================================================================
+7) COMMAND-BASED VERIFICATION NOTES FROM THIS AUDIT
+================================================================================
+
+Executed checks:
+- python manage.py check -> no system check errors
+- python manage.py check --deploy -> multiple warnings, including:
+  - blog queryset field mismatch warning (is_published)
+  - security warnings for dev-mode settings/secret quality
+- python manage.py makemigrations --check --dry-run -> pending migration detected for authentication customuser
+
+Limitations during audit:
+- Could not fully validate runtime DB migration state because DB credentials were not available in this shell session.
+- No end-to-end browser run performed; findings are from code and Django management checks.
+
+================================================================================
+END OF AUDIT
+================================================================================

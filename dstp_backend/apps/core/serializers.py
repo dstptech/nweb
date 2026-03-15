@@ -61,13 +61,16 @@ class PageVisitSerializer(serializers.ModelSerializer):
 
 
 class VisitorAnalyticsSerializer(serializers.Serializer):
-    """Serializer for visitor analytics data (read-only output).
+    """
     
+    Serializer for visitor analytics data (read-only output).
     Returns comprehensive visitor statistics including:
     - Visit history
     - Device/browser info
     - Traffic sources (UTM parameters)
-    - Time spent analytics
+    - Time spent analytics'
+
+
     """
     total_visits = serializers.IntegerField()
     total_pages_viewed = serializers.IntegerField()

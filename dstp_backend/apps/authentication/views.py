@@ -58,6 +58,7 @@ class RegisterView(APIView):
         }
     """
     permission_classes = [AllowAny]
+    throttle_scope = "register"
 
     def post(self, request):
         """Register a new user account."""
@@ -92,54 +93,64 @@ class RegisterView(APIView):
 
 @extend_schema_view(post=extend_schema(auth=[], request=LoginSerializer, description="Authenticate user with email and password. Returns access and refresh tokens."))
 class LoginView(APIView):
-    """Authenticate user with email and password.
-    
+    """
     POST /api/v1/auth/login/
-    
-    Input:
-        {
-            "email": "user@example.com",
-            "password": "SecurePass123!"
-        }
-        
-    Returns:
-        {
-            "success": true,
-            "message": "Login successful.",
-            "data": {
-                "user": {...},
-                "tokens": {"access": "...", "refresh": "..."}
-            }
-        }
+    Authenticates user with email + password.
+    Checks password expiry before issuing tokens.
     """
     permission_classes = [AllowAny]
+    throttle_scope = "login"
 
     def post(self, request):
-        """Authenticate and return JWT tokens."""
-        serializer = LoginSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response({
-                'success': False,
-                'errors': serializer.errors
-            }, status=status.HTTP_400_BAD_REQUEST)
+        """Authenticate user and return JWT tokens."""
+        email    = request.data.get('email', '').strip().lower()
+        password = request.data.get('password', '')
 
-        try:
-            user, tokens = AuthService.login_user(
-                email=serializer.validated_data['email'],
-                password=serializer.validated_data['password'],
+        # Both fields required
+        if not email or not password:
+            return Response(
+                {'success': False, 'message': 'Email and password are required.'},
+                status=status.HTTP_400_BAD_REQUEST
             )
-        except AuthenticationFailedError as e:
-            return Response({
-                'success': False,
-                'message': str(e.detail)
-            }, status=status.HTTP_401_UNAUTHORIZED)
 
+        # Step 1 — Authenticate (check email + password)
+        try:
+            user, tokens = AuthService.login_user(email, password)
+        except AuthenticationFailedError as e:
+            return Response(
+                {'success': False, 'message': str(e.detail)},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+        # Step 2 — Block login if password has expired
+        if user.is_password_expired:
+            return Response({
+                'success':  False,
+                'message':  'Your password has expired. Please reset it.',
+                'code':     'PASSWORD_EXPIRED',
+                'redirect': '/reset-password',
+            }, status=status.HTTP_403_FORBIDDEN)
+
+        # Step 3 — Warn if password expires within 14 days (still allow login)
+        days_left = user.get_days_until_expiry()
+        password_warning = None
+        if 0 < days_left <= 14:
+            password_warning = (
+                f'Your password expires in {days_left} day(s). '
+                f'Please change it soon to avoid being locked out.'
+            )
+
+        # Step 4 — Return tokens + optional warning
         return Response({
             'success': True,
             'message': 'Login successful.',
             'data': {
-                'user': UserSerializer(user).data,
+                'user':   UserSerializer(user).data,
                 'tokens': tokens,
+                'password_expiry': {
+                    'days_remaining': days_left,
+                    'warning':        password_warning,
+                }
             }
         }, status=status.HTTP_200_OK)
 
@@ -187,13 +198,16 @@ class RefreshView(APIView):
     Returns:
         {
             "success": true,
-            "data": {"access": "eyJ0eXAiOiJKV1QiLCJhbGc..."}
+            "data": {
+                "access": "eyJ0eXAiOiJKV1QiLCJhbGc...",
+                "refresh": "eyJ0eXAiOiJKV1QiLCJhbGc..."
+            }
         }
     """
     permission_classes = [AllowAny]
 
     def post(self, request):
-        """Generate new access token."""
+        """Generate new access token and refresh token."""
         refresh_token = request.data.get('refresh')
 
         if not refresh_token:
@@ -203,7 +217,8 @@ class RefreshView(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            new_access_token = AuthService.refresh_access_token(refresh_token)
+            # refresh_access_token now returns dict: {'access': '...', 'refresh': '...'}
+            token_data = AuthService.refresh_access_token(refresh_token)
         except AuthenticationFailedError as e:
             return Response({
                 'success': False,
@@ -212,7 +227,11 @@ class RefreshView(APIView):
 
         return Response({
             'success': True,
-            'data': {'access': new_access_token}
+            'data': {
+                'access': token_data['access'],
+                # Send new refresh token back so client replaces the old one
+                'refresh': token_data.get('refresh', refresh_token),
+            }
         }, status=status.HTTP_200_OK)
 
 
@@ -290,6 +309,7 @@ class PasswordResetRequestView(APIView):
     Note: Always returns success (doesn't leak if email exists in system)
     """
     permission_classes = [AllowAny]
+    throttle_scope = "password_reset"
 
     def post(self, request):
         """Request password reset token."""
@@ -331,6 +351,7 @@ class PasswordResetConfirmView(APIView):
         }
     """
     permission_classes = [AllowAny]
+    throttle_scope = "password_reset"
 
     def post(self, request):
         """Confirm password reset with token."""

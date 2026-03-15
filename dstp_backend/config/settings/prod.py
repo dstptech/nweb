@@ -105,10 +105,16 @@ REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = [  # noqa: F405
     "rest_framework.renderers.JSONRenderer",
 ]
 
-REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {  # noqa: F405
-    "anon": "100/hour",
-    "user": "1000/hour",
-    "auth": "10/minute",   # Very strict on auth endpoints
+REST_FRAMEWORK = {
+    "DEFAULT_THROTTLE_RATES": {
+        # Global limits
+        "anon": "200/hour",
+        "user": "2000/hour",
+        # Endpoint-specific limits (must match base.py scopes exactly)
+        "login":          "5/minute",
+        "register":       "10/hour",
+        "password_reset": "3/hour",
+    }
 }
 
 

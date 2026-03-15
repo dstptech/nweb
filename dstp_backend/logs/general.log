@@ -1045,3 +1045,374 @@ ImportError: Could not import 'drf_spectacular.hooks.postprocess_flatten_paramet
 [2026-03-13 22:44:28] INFO django.utils.autoreload autoreload:681 ï¿½ Watching for file changes with StatReloader
 [2026-03-13 22:44:30] INFO django.utils.autoreload autoreload:265 ï¿½ C:\Users\Lenovo\Documents\VS code\DSTP_WEBSITE\dstp_backend\config\settings\base.py changed, reloading.
 [2026-03-13 22:44:32] INFO django.utils.autoreload autoreload:681 ï¿½ Watching for file changes with StatReloader
+[2026-03-15 15:33:05] ERROR django.request log:249 — Internal Server Error: /api/v1/dashboard/stats/
+Traceback (most recent call last):
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\mysql\base.py", line 78, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\connections.py", line 286, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'job_listings.is_open' in 'where clause'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Projects\DSTP\DSTP-Website\dstp_backend\apps\dashboard\views.py", line 48, in get
+    "open_careers":      Career.objects.filter(is_open=True).count(),
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\query.py", line 610, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\query.py", line 656, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\query.py", line 638, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\mysql\base.py", line 78, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\connections.py", line 286, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.OperationalError: (1054, "Unknown column 'job_listings.is_open' in 'where clause'")
+[2026-03-15 15:33:05] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/stats/ - 500 (0.31s)
+[2026-03-15 15:33:15] ERROR django.request log:249 — Internal Server Error: /api/v1/dashboard/stats/
+Traceback (most recent call last):
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\mysql\base.py", line 78, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\connections.py", line 286, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'job_listings.is_open' in 'where clause'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Projects\DSTP\DSTP-Website\dstp_backend\apps\dashboard\views.py", line 48, in get
+    "open_careers":      Career.objects.filter(is_open=True).count(),
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\query.py", line 610, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\query.py", line 656, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\query.py", line 638, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\mysql\base.py", line 78, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\connections.py", line 286, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.OperationalError: (1054, "Unknown column 'job_listings.is_open' in 'where clause'")
+[2026-03-15 15:33:15] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/stats/ - 500 (0.11s)
+[2026-03-15 15:34:08] ERROR django.request log:249 — Internal Server Error: /api/v1/dashboard/stats/
+Traceback (most recent call last):
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\mysql\base.py", line 78, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\connections.py", line 286, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'job_listings.is_open' in 'where clause'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Projects\DSTP\DSTP-Website\dstp_backend\apps\dashboard\views.py", line 48, in get
+    "open_careers":      Career.objects.filter(is_open=True).count(),
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\query.py", line 610, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\query.py", line 656, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\query.py", line 638, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\mysql\base.py", line 78, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\connections.py", line 286, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.OperationalError: (1054, "Unknown column 'job_listings.is_open' in 'where clause'")
+[2026-03-15 15:34:08] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/stats/ - 500 (0.10s)
+[2026-03-15 15:34:31] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/stats/ - 200 (0.09s)
+[2026-03-15 15:34:40] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/stats/ - 200 (0.06s)
+[2026-03-15 15:34:56] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/stats/ - 200 (0.08s)
+[2026-03-15 15:34:56] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/analytics/ - 200 (0.02s)
+[2026-03-15 15:34:56] ERROR django.request log:249 — Internal Server Error: /api/v1/dashboard/projects-by-category/
+Traceback (most recent call last):
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\mysql\base.py", line 78, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\connections.py", line 286, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'projects.category' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Projects\DSTP\DSTP-Website\dstp_backend\apps\dashboard\views.py", line 139, in get
+    by_category = list(
+        Project.objects
+    ...<2 lines>...
+        .order_by('-count')
+    )
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\query.py", line 390, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\query.py", line 222, in __iter__
+    for row in compiler.results_iter(
+               ~~~~~~~~~~~~~~~~~~~~~^
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\compiler.py", line 1573, in results_iter
+    results = self.execute_sql(
+        MULTI, chunked_fetch=chunked_fetch, chunk_size=chunk_size
+    )
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\django\db\backends\mysql\base.py", line 78, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "C:\Users\taara\AppData\Roaming\Python\Python314\site-packages\MySQLdb\connections.py", line 286, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.OperationalError: (1054, "Unknown column 'projects.category' in 'field list'")
+[2026-03-15 15:34:56] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/projects-by-category/ - 500 (0.03s)
+[2026-03-15 15:35:14] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/stats/ - 200 (0.08s)
+[2026-03-15 15:35:14] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/analytics/ - 200 (0.01s)
+[2026-03-15 15:35:14] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/projects-by-category/ - 200 (0.00s)
+[2026-03-15 15:35:14] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/recent-activity/ - 200 (0.00s)
+[2026-03-15 15:35:24] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/stats/ - 200 (0.07s)
+[2026-03-15 15:35:24] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/analytics/ - 200 (0.01s)
+[2026-03-15 15:35:24] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/projects-by-category/ - 200 (0.00s)
+[2026-03-15 15:35:24] INFO middleware.logging_middleware logging_middleware:20 — GET /api/v1/dashboard/recent-activity/ - 200 (0.00s)
+[2026-03-15 15:48:32] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/media/upload/ - 400 (0.05s)
+[2026-03-15 15:48:32] WARNING django.request log:249 — Bad Request: /api/v1/media/upload/
+[2026-03-15 15:48:52] INFO middleware.logging_middleware logging_middleware:20 — POST /api/v1/media/upload/ - 201 (0.07s)

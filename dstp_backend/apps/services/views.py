@@ -114,9 +114,9 @@ class ServiceViewSet(viewsets.ModelViewSet):
     # ✅ FIXED — filter_backends was missing entirely
     filter_backends  = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ["category"]
-    search_fields    = ["name", "description"]
-    ordering_fields  = ["name"]
-    ordering         = ["name"]
+    search_fields    = ["title", "description"]
+    ordering_fields  = ["title"]
+    ordering         = ["title"]
  
     def get_permissions(self):
         if self.action in ["list", "retrieve"]:
@@ -169,13 +169,12 @@ class ServiceViewSet(viewsets.ModelViewSet):
 class ServiceFeatureViewSet(viewsets.ModelViewSet):
     serializer_class = ServiceFeatureSerializer
     queryset         = ServiceFeature.objects.all()
- 
-    # ✅ FIXED — filter_backends was missing entirely
+
     filter_backends  = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ["service"]
-    search_fields    = ["name", "description"]
-    ordering_fields  = ["name"]
-    ordering         = ["name"]
+    filterset_fields = ["service"]       # ✅ unchanged — correct
+    search_fields    = ["feature"]       # ✅ FIXED — only real field
+    ordering_fields  = ["feature"]       # ✅ FIXED — only real field
+    ordering         = ["feature"]       # ✅ FIXED — only real field
  
     def get_permissions(self):
         if self.action in ["list", "retrieve"]:

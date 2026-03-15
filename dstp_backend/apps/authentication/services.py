@@ -14,6 +14,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from django.contrib.auth import authenticate as django_authenticate
 from django.conf import settings
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 
 from .repositories import UserRepository, PasswordResetRepository
 from utils.exceptions import (
@@ -164,31 +168,39 @@ class AuthService:
         return True
     
     @staticmethod
-    def refresh_access_token(refresh_token_string: str) -> str:
-        """Generate a new access token using a valid refresh token.
+    def refresh_access_token(refresh_token_string: str) -> dict:
+        """
+        Generate new access + refresh tokens using a valid refresh token.
         
-        Used when an access token expires and the client needs a new one
-        without requiring the user to login again. Called when frontend
-        receives a 401 Unauthorized response.
+        Uses SimpleJWT's built-in TokenRefreshSerializer which correctly:
+        1. Validates the refresh token
+        2. Blacklists the OLD refresh token (rotation)
+        3. Issues a NEW refresh token
+        4. Issues a new access token
         
-        Args:
-            refresh_token_string (str): Valid JWT refresh token.
-            
-        Returns:
-            str: New JWT access token (valid for 15 minutes).
-            
-        Raises:
-            AuthenticationFailedError: If refresh token is invalid or expired.
-            
-        Example:
-            >>> new_access = AuthService.refresh_access_token(refresh_token)
-            >>> # Use new_access for subsequent API calls
+        Returns dict with 'access' and 'refresh' keys (not just access string).
         """
         try:
-            refresh = RefreshToken(refresh_token_string)
-            return str(refresh.access_token)
+            from rest_framework_simplejwt.serializers import TokenRefreshSerializer
+            from rest_framework.exceptions import ValidationError as DRFValidationError
+
+            serializer = TokenRefreshSerializer(
+                data={'refresh': refresh_token_string}
+            )
+            serializer.is_valid(raise_exception=True)
+
+            # Returns {'access': '...', 'refresh': '...'} — both rotated
+            return serializer.validated_data
+
         except TokenError as e:
-            raise AuthenticationFailedError(f"Invalid or expired refresh token: {str(e)}")
+            raise AuthenticationFailedError(
+                f"Invalid or expired refresh token: {str(e)}"
+            )
+        except Exception as e:
+            raise AuthenticationFailedError(
+                f"Token refresh failed: {str(e)}"
+            )
+
 
     @staticmethod
     def request_password_reset(email: str) -> bool:
@@ -360,6 +372,52 @@ class AuthService:
             'refresh': str(refresh),
         }
     
+
+
+    @staticmethod
+    def change_password(user , old_password , new_password):
+        # Changes a users password after verifying the old password
+        '''        Args:
+            user:         The CustomUser instance whose password will change.
+            old_password: The current password (plain text from request).
+            new_password: The new password (plain text from request).
+ 
+        Returns:
+            Tuple: (success: bool, message: str)
+            Example success: (True, 'Password changed successfully.')
+            Example failure: (False, 'Old password is incorrect.')
+            '''
+        # Step1 :Check That The Old Password User Typed is Correct or not
+        if not user.check_password(old_password):
+            return False, "Old Password is Incorrect" 
+        
+        # Step2: Making sure the old Password is not the same As The Old One
+        if old_password == new_password:
+            return False , "New Password must be different from the current one"
+        
+        # Step3: Validate New Password Strength
+
+        try:
+            validate_password(new_password , user)
+        except ValidationError as e:
+            return False , ' '.join(e.messages)
+        
+        # Step 4: Set the new password
+        user.set_password(new_password)
+
+        # Reset the 90 Days Expiry Timer
+
+        user.reset_password_expiry()
+
+        # Save Both Changes To Database In One Query
+
+        user.save(update_fields=['password' , 'password_last_changed'])
+        return True , 'Password changed Successfully'
+    
+    
+
+
+           
     
 
 

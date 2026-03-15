@@ -98,6 +98,26 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Debug & Test Documentation
+debug_tests/*.md
+debug_tests/*.txt
+*.debug.md
+*.debug.txt
+*_debug.md
+*_debug.txt
+*.test.md
+*.test.txt
+*_test.md
+*_test.txt
+
+# Word & Document Files
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.xls
+*.xlsx
 *.bak
 
 # Local test files

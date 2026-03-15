@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.utils import timezone
+import hashlib
 
 from apps.core.models import VisitorSession, PageVisit
 from utils.exceptions import ValidationError
@@ -130,54 +131,70 @@ class GetVisitorStatsView(APIView):
     """Get visitor analytics and statistics.
     
     Returns visitor session data including device, browser, visit count,
-    and recent pages viewed.
+    and recent pages viewed. Only returns stats for authenticated user.
     
     GET /api/v1/track/my-stats/
     """
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     
     def get(self, request):
-        """Retrieve visitor statistics."""
-        session_key = request.COOKIES.get('dstp_visitor_id')
+        """Retrieve visitor statistics for current authenticated user."""
+        # Get all visitor sessions linked to this user
+        visitor_sessions = VisitorSession.objects.filter(user=request.user)
         
-        if not session_key:
+        if not visitor_sessions.exists():
             return Response(
-                {'success': False, 'message': 'No visitor session found'},
-                status=status.HTTP_400_BAD_REQUEST
+                {'success': False, 'message': 'No visitor sessions found for this user'},
+                status=status.HTTP_404_NOT_FOUND
             )
         
         try:
-            visitor = VisitorSession.objects.get(session_key=session_key)
+            # Aggregate stats across all user's sessions
+            total_visits = sum(v.total_visits for v in visitor_sessions)
+            total_pages_viewed = sum(v.total_pages_viewed for v in visitor_sessions)
+            first_seen = min(v.first_seen for v in visitor_sessions)
+            last_seen = max(v.last_seen for v in visitor_sessions)
             
-            # Get last 10 pages viewed
+            # Get last 10 pages viewed across all user sessions
             recent_pages = PageVisit.objects.filter(
-                visitor=visitor
+                visitor__in=visitor_sessions
             ).order_by('-visited_at')[:10].values(
                 'page_url', 'page_title', 'visited_at', 'time_spent_seconds'
             )
+            
+            # Build sessions list with hashed IPs (not raw IPs)
+            sessions_data = []
+            for visitor in visitor_sessions:
+                # Hash IP for privacy — reveals no actual IP address
+                ip_hash = hashlib.sha256(visitor.ip_address.encode()).hexdigest()[:8] if visitor.ip_address else 'unknown'
+                sessions_data.append({
+                    'device_type': visitor.device_type,
+                    'browser': visitor.browser,
+                    'os': visitor.os,
+                    'ip_hash': ip_hash,  # hashed IP only, not raw IP
+                    'total_visits': visitor.total_visits,
+                    'first_seen': visitor.first_seen.isoformat(),
+                    'last_seen': visitor.last_seen.isoformat(),
+                })
             
             return Response(
                 {
                     'success': True,
                     'data': {
-                        'session_key': visitor.session_key[:8] + '...',
-                        'total_visits': visitor.total_visits,
-                        'total_pages_viewed': visitor.total_pages_viewed,
-                        'first_seen': visitor.first_seen.isoformat(),
-                        'last_seen': visitor.last_seen.isoformat(),
-                        'device_type': visitor.device_type,
-                        'browser': visitor.browser,
-                        'os': visitor.os,
-                        'ip_address': visitor.ip_address,
-                        'is_registered': visitor.is_registered,
+                        'user_email': request.user.email,  # confirm this is the user's data
+                        'total_visits': total_visits,
+                        'total_pages_viewed': total_pages_viewed,
+                        'first_seen': first_seen.isoformat(),
+                        'last_seen': last_seen.isoformat(),
+                        'sessions': sessions_data,
                         'recent_pages': list(recent_pages),
                     }
                 },
                 status=status.HTTP_200_OK
             )
             
-        except VisitorSession.DoesNotExist:
+        except Exception as e:
             return Response(
-                {'success': False, 'message': 'Session not found'},
-                status=status.HTTP_404_NOT_FOUND
+                {'success': False, 'message': f'Error retrieving stats: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

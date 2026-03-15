@@ -2,7 +2,12 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from pathlib import Path
 
+# Load environment variables from .env file BEFORE importing Django
+from dotenv import load_dotenv
+env_file = Path(__file__).parent / '.env'
+load_dotenv(env_file)
 
 def main():
     """Run administrative tasks."""

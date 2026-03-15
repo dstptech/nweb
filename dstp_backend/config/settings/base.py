@@ -55,6 +55,9 @@ LOCAL_APPS = [
     "apps.contact",
     "apps.industries",
     "apps.homepage",
+    "apps.teams",
+    "apps.dashboard",
+    "apps.media",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -107,11 +110,11 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('MYSQL_DATABASE'),
-        'USER': os.environ.get('MYSQL_USER'),
-        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-        'HOST': os.environ.get('MYSQL_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('MYSQL_PORT', '3306'),
+        'NAME': config('MYSQL_DATABASE'),
+        'USER': config('MYSQL_USER'),
+        'PASSWORD': config('MYSQL_PASSWORD'),
+        'HOST': config('MYSQL_HOST', default='127.0.0.1'),
+        'PORT': config('MYSQL_PORT', default='3306'),
         'OPTIONS': {
             'charset': 'utf8mb4',
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
@@ -192,11 +195,14 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_CLASSES": [
         "rest_framework.throttling.AnonRateThrottle",
         "rest_framework.throttling.UserRateThrottle",
+        "rest_framework.throttling.ScopedRateThrottle",
     ],
     "DEFAULT_THROTTLE_RATES": {
         "anon": "100/hour",
         "user": "1000/hour",
-        "auth": "10/minute",   # Stricter limit on login/register
+        "login": "5/minute",           # max 5 login attempts per minute
+        "register": "10/hour",         # max 10 registrations per hour
+        "password_reset": "3/hour",    # max 3 reset emails per hour
     },
 
     # Renderer: JSON only (no browsable API in production)

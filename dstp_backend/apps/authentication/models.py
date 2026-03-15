@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser , BaseUserManager , PermissionsMixin
 from django.utils import timezone
-
+from datetime import timedelta
 
 ''' Here i Created A CustomUser using AbstractBaseUser
  Because we need extra fields like role and phone number and we need full control over what the user looks like
@@ -57,7 +57,40 @@ class CustomUser(AbstractBaseUser , PermissionsMixin):
       USERNAME_FIELD = 'email'
       REQUIRED_FIELDS = ['first_name' , 'last_name']
 
+      password_last_changed = models.DateTimeField(
+            default=timezone.now,
+            help_text="Timestamp when the password was last set or changed"
+      )
+      PASSWORD_EXPIRY_DAYS = 90
+
+      @property
+      def is_password_expired(self):
+        """
+        Returns True if the password is older than 90 days.
+        Used in LoginView to block login with expired passwords.
+        """
+        expiry_date = self.password_last_changed + timedelta(days=self.PASSWORD_EXPIRY_DAYS)
+        return timezone.now() > expiry_date
+      
+      def get_days_until_expiry(self):
+        """
+        Returns how many days are left before the password expires.
+        Returns a negative number if already expired.
+        Example: 14 means expires in 14 days, -2 means expired 2 days ago.
+        """
+        expiry_date = self.password_last_changed + timedelta(days=self.PASSWORD_EXPIRY_DAYS)
+        delta = expiry_date - timezone.now()
+        # delta.days is an integer — negative if expiry_date is in the past
+        return delta.days
       objects = CustomUserManager()
+
+
+      def reset_password_expiry(self):
+        """
+        Call this after a successful password change to restart the 90-day timer.
+        Does NOT save to database — caller must call user.save() after.
+        """
+        self.password_last_changed = timezone.now()
 
       class Meta:
             db_table = 'users'
